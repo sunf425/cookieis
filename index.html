@@ -66,39 +66,46 @@ extraStyle.textContent+=`.review-remove{display:block!important;visibility:visib
 const focusEnd=el=>{if(!el)return;el.focus();let range=document.createRange(),selection=window.getSelection();range.selectNodeContents(el);range.collapse(false);selection.removeAllRanges();selection.addRange(range)};
 window.addEventListener('keydown',e=>{let task=e.target.closest?.('.tasktext');if(task&&e.key==='Backspace'&&!task.textContent){e.preventDefault();e.stopImmediatePropagation();let card=task.closest('.card'),m=memos.find(x=>x.id===card.dataset.id),taskId=task.closest('.task').dataset.task,visible=tasks(m),position=visible.findIndex(x=>x.id===taskId),prior=visible[position-1],current=m.tasks.find(x=>x.id===taskId);current.deletedAt=now();current.updatedAt=now();m.updatedAt=now();save();setTimeout(()=>focusEnd(prior?document.querySelector(`[data-task="${prior.id}"] .tasktext`):document.querySelector(`[data-id="${m.id}"] .memo`)),0)}},true);
 window.addEventListener('keydown',e=>{let review=e.target.closest?.('.reviewtext');if(review&&e.key==='Backspace'&&!review.textContent.trim()){e.preventDefault();e.stopImmediatePropagation();removeReview(memos.find(m=>m.id===review.closest('.card').dataset.id))}},true);
-window.addEventListener('click', async e => {
+// 1. 좀비 부활을 막는 Tombstone(사망 선고) 삭제 로직으로 교체
+window.addEventListener('click', e => {
     let button = e.target.closest?.('.delete');
-    if(!button) return;
-    let card = button.closest('.card'), m = memos.find(x => x.id === card.dataset.id);
-    e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-    if(!confirm('이 항목을 영구 삭제하시겠습니까?')) return;
-
-    // 1. 서버에 삭제 마커(Tombstone) 갱신 (모바일 부활 방지)
-    if (sb && user) {
-        await sb.from('blocks').update({ content_md: '[[TRASH_TOMBSTONE]]', deleted_at: now() }).eq('user_id', user.id).eq('id', m.id);
-    }
+    if (!button) return;
     
-    // 2. 현재 조작 중인 기기의 로컬에서는 즉시 파기
-    memos.splice(memos.indexOf(m), 1);
-    save();
+    // 기존의 오작동하는 이벤트 전파 완벽 차단
+    e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+    
+    let card = button.closest('.card');
+    let m = memos.find(x => x.id === card.dataset.id);
+    if(!m) return;
+    
+    if (!confirm('이 항목을 영구 삭제하시겠습니까?')) return;
+    
+    // 데이터를 날리는 것이 아니라 삭제 마커로 덮어쓰고 최신 시간으로 갱신
+    m.content = '[[TRASH_TOMBSTONE]]';
+    m.status = 'archive'; // DB의 deleted_at을 활성화하기 위함
+    m.updatedAt = now();
+    
+    save(); // 로컬 저장 및 서버로 Tombstone 전파
 }, true);
+
+// 2. 화면 렌더링을 가로채서 Tombstone 마커가 있는 메모는 강제 숨김 처리
+const _baseRenderForTrash = render;
+render = () => {
+    _baseRenderForTrash(); // 원래 방식대로 일단 다 그림
+    // 그려진 요소 중 무덤 마커를 가진 카드는 화면에서 완전히 제거
+    document.querySelectorAll('.card').forEach(card => {
+        let m = memos.find(x => x.id === card.dataset.id);
+        if(m && m.content === '[[TRASH_TOMBSTONE]]') {
+            card.style.display = 'none';
+        }
+    });
+};
 /* 태그는 목록 대신 선택 팝업으로 제공합니다. */
 document.querySelector('.views').insertAdjacentHTML('afterend','<button id="tagPicker" class="button tag-picker">태그</button>');document.body.insertAdjacentHTML('beforeend','<div id="tagModal" class="modal tag-modal hidden"><div class="dialog"><h2>태그 선택</h2><p>여러 태그를 함께 선택할 수 있습니다.</p><div id="tagOptions" class="tag-options"></div><div class="row"><button id="clearTags" class="button">전체 태그 해제</button><button id="applyTags" class="button primary">선택</button></div></div></div>');
 const drawTagOptions=()=>{let names=[...new Set(memos.flatMap(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))))].sort();$('#tagOptions').innerHTML=names.length?names.map(name=>`<button class="tag-option ${selectedTags.includes(name)?'selected':''}" data-popup-tag="${esc(name)}">#${esc(name)}</button>`).join(''):'<span style="color:var(--muted);font-size:13px">아직 태그가 없습니다.</span>'};$('#tagPicker').onclick=()=>{drawTagOptions();$('#tagModal').classList.remove('hidden')};$('#tagOptions').onclick=e=>{let b=e.target.closest('[data-popup-tag]');if(!b)return;let name=b.dataset.popupTag;selectedTags=selectedTags.includes(name)?selectedTags.filter(x=>x!==name):[...selectedTags,name];drawTagOptions()};$('#applyTags').onclick=()=>{$('#tagModal').classList.add('hidden');render()};$('#clearTags').onclick=()=>{selectedTags=[];$('#tagModal').classList.add('hidden');render()};
 $('#tempTasks').addEventListener('click',e=>{let x=e.target.closest('.task-remove');if(!x)return;let row=x.closest('[data-temp]'),index=temp.findIndex(t=>t.id===row.dataset.temp);if(index>=0){temp.splice(index,1);renderTemp(Math.max(0,index-1))}});
 const tagPickerRender=render;render=()=>{tagPickerRender();let b=$('#tagPicker');if(b)b.textContent=selectedTags.length?`태그 ${selectedTags.length}`:'태그'};render();
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
-// 동기화 시 다른 기기에서 수신한 삭제 마커(Tombstone)를 로컬에서 즉시 파기하는 인터셉터
-const _baseSyncNow = syncNow;
-syncNow = async (force) => {
-    await _baseSyncNow(force);
-    let hasTrash = false;
-    for(let i = memos.length - 1; i >= 0; i--){
-        if(memos[i].content === '[[TRASH_TOMBSTONE]]'){
-            memos.splice(i, 1);
-            hasTrash = true;
-        }
-    }
-    if(hasTrash) save();
-};
+
+
 </script></body></html>
