@@ -1,6 +1,6 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="apple-mobile-web-app-title" content="Review & Todo"><link rel="icon" type="image/png" href="app-icon.png"><link rel="apple-touch-icon" href="./app-icon.png"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. 20260820_r07</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. 20260820_r08</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -23,7 +23,7 @@ render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.
 document.addEventListener('click',e=>{let b=e.target.closest('[data-lite]');if(b){e.preventDefault();e.stopImmediatePropagation();if(b.dataset.lite==='date')groupByDate=!groupByDate;if(b.dataset.lite==='tasks')tasksOnly=!tasksOnly;if(b.dataset.lite==='flag')flagOnly=!flagOnly;if(b.dataset.lite==='work')workMode=(workMode+1)%3;render();return}let card=e.target.closest('.card');if(!card)return;let m=memos.find(x=>x.id===card.dataset.id);if(e.target.closest('.work-chip')){m.work=!m.work;m.updatedAt=now();save()}},true);
 document.addEventListener('keydown',e=>{let target=e.target,card=target.closest?.('.card'),editing=target.matches?.('[contenteditable]');if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();syncNow();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();localStorage.setItem(DATA,JSON.stringify(memos));status('로컬 저장 완료');return}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){if(editing){e.preventDefault();target.blur();return}if(!target.matches?.('textarea')){e.preventDefault();$('#newMemo').focus();return}}if(card&&target.classList?.contains('tasktext')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),row=target.closest('.task'),index=m.tasks.findIndex(x=>x.id===row.dataset.task),stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null};m.tasks.splice(index+1,0,next);m.updatedAt=stamp;save();setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0)}});
 
-/* Rev. 20260820_r07: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
+/* Rev. 20260820_r08: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
    메모/할 일/후기 편집, focus, blur, render는 important를 수정하지 않습니다. */
 window.addEventListener('click',e=>{
   const button=e.target.closest?.('button.icon.important');
@@ -198,7 +198,7 @@ render=()=>{
   try{tombstoneSafeRender()}finally{memos=all}
 };
 
-/* Rev. 20260820_r07: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
+/* Rev. 20260820_r08: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
 const revStyle=document.createElement('style');revStyle.textContent=`
 .revision{padding:7px 8px 1px;color:#7e9a88;font-size:10px;letter-spacing:.02em}
 .compose>div:last-child{width:176px;min-width:176px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:36px 34px auto;gap:6px}
@@ -243,7 +243,7 @@ const revStyle=document.createElement('style');revStyle.textContent=`
 document.head.append(revStyle);
 
 
-/* Rev. 20260820_r07
+/* Rev. 20260820_r08
    - PC: 태그는 좌측 목록으로 표시
    - Mobile: 검색/태그 팝업, 조작 버튼 확대, 입력 버튼 한 줄, 메모별 Todo추가
    - Trash: 삭제 메모는 Live/Archive에서 완전히 숨기고 휴지통 팝업에서만 표시/복구
@@ -545,6 +545,327 @@ document.head.append(r04Style);
 
 /* 초기 렌더: tombstone은 어떤 view에서도 카드로 그리지 않고 Trash에서만 접근 */
 render();
+
+
+/* Rev. 20260820_r08
+   1) 메모 본문의 http(s), www, 일반 도메인(cad.ednc.com 포함)을 링크로 렌더링
+   2) 메모별 마감일/시간 + 알림 설정
+   3) 마감 메타데이터는 기존 blocks 테이블의 child comment에 예약 prefix로 저장
+      (DB 스키마 변경 없음 / index.html 단일 파일 유지)
+*/
+const DUE_META_PREFIX='[[review-todo:due:v1]]';
+const DUE_NOTIFIED_KEY='review_todo_due_notified_v1';
+const dueNotified=JSON.parse(localStorage.getItem(DUE_NOTIFIED_KEY)||'{}');
+const isDueMeta=v=>typeof v==='string'&&v.startsWith(DUE_META_PREFIX);
+const encodeDueMeta=m=>DUE_META_PREFIX+JSON.stringify({
+  dueDate:m.dueDate||'',
+  dueTime:m.dueTime||'',
+  notify:!!m.dueNotify
+});
+const decodeDueMeta=v=>{
+  try{
+    if(!isDueMeta(v))return null;
+    let o=JSON.parse(v.slice(DUE_META_PREFIX.length)||'{}');
+    return{
+      dueDate:typeof o.dueDate==='string'?o.dueDate:'',
+      dueTime:typeof o.dueTime==='string'?o.dueTime:'',
+      dueNotify:!!o.notify
+    }
+  }catch{return{dueDate:'',dueTime:'',dueNotify:false}}
+};
+const dueTimestamp=m=>{
+  if(!m?.dueDate)return null;
+  let time=m.dueTime||'23:59';
+  let d=new Date(`${m.dueDate}T${time}:00`);
+  return Number.isNaN(d.valueOf())?null:d;
+};
+const dueLabel=m=>{
+  let d=dueTimestamp(m);if(!d)return '';
+  let base=m.dueDate.replaceAll('-','.');
+  if(m.dueTime)base+=' '+m.dueTime;
+  return base
+};
+const dueState=m=>{
+  let d=dueTimestamp(m);if(!d)return '';
+  let diff=d.getTime()-Date.now();
+  if(diff<0)return'overdue';
+  if(diff<=24*60*60*1000)return'soon';
+  return'future'
+};
+
+/* 태그와 URL을 동시에 안전하게 렌더링합니다.
+   일반 도메인은 https:// 를 붙여 새 창으로 엽니다. */
+const LINK_TOKEN_RE=/(https?:\/\/[^\s<]+|www\.[^\s<]+|(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}(?:\/[^\s<]*)?|#([가-힣\w-]+))/gi;
+const trimUrlPunctuation=value=>{
+  let tail='',url=value;
+  while(url&&/[.,!?;:)\]}]$/.test(url)){tail=url.slice(-1)+tail;url=url.slice(0,-1)}
+  return{url,tail}
+};
+mark=s=>{
+  let out='',last=0,text=String(s??'');
+  text.replace(LINK_TOKEN_RE,(match,_whole,tagName,offset)=>{
+    out+=esc(text.slice(last,offset));
+    if(match.startsWith('#')){
+      let name=tagName||match.slice(1);
+      out+=`<span class="hashtag" data-tag="${esc(name)}" contenteditable="false">#${esc(name)}</span>`
+    }else{
+      let{url,tail}=trimUrlPunctuation(match);
+      let href=/^https?:\/\//i.test(url)?url:'https://'+url;
+      out+=`<a class="memo-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer" contenteditable="false">${esc(url)}</a>${esc(tail)}`
+    }
+    last=offset+match.length;
+    return match
+  });
+  out+=esc(text.slice(last));
+  return out
+};
+
+/* contenteditable 안의 링크 클릭은 편집 클릭과 분리합니다. */
+window.addEventListener('click',e=>{
+  let a=e.target.closest?.('a.memo-link');
+  if(!a)return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  window.open(a.href,'_blank','noopener,noreferrer')
+},true);
+
+/* 마감 설정 모달 */
+document.body.insertAdjacentHTML('beforeend',`
+<div id="dueModal" class="modal hidden">
+  <div class="dialog due-dialog">
+    <button id="dueClose" class="plain" style="float:right;width:auto">닫기</button>
+    <h2>마감기한</h2>
+    <p>날짜만 지정하면 해당 날짜 23:59를 마감시각으로 사용합니다.</p>
+    <label class="due-field"><span>날짜</span><input id="dueDate" type="date"></label>
+    <label class="due-field"><span>시간</span><input id="dueTime" type="time"></label>
+    <label class="due-notify"><input id="dueNotify" type="checkbox"> 마감 알림 사용</label>
+    <div id="notificationState" class="notification-state"></div>
+    <div class="row">
+      <button id="duePermission" class="button">알림 권한</button>
+      <button id="dueClear" class="button">마감 해제</button>
+      <button id="dueSave" class="button primary">저장</button>
+    </div>
+  </div>
+</div>`);
+let dueEditingId=null;
+const notificationStateText=()=>{
+  if(!('Notification'in window))return'이 브라우저에서는 시스템 알림을 지원하지 않습니다.';
+  if(Notification.permission==='granted')return'알림 권한: 허용됨';
+  if(Notification.permission==='denied')return'알림 권한: 차단됨';
+  return'알림 권한: 아직 요청하지 않음'
+};
+const refreshNotificationState=()=>{$('#notificationState').textContent=notificationStateText()};
+const openDueModal=m=>{
+  dueEditingId=m.id;
+  $('#dueDate').value=m.dueDate||'';
+  $('#dueTime').value=m.dueTime||'';
+  $('#dueNotify').checked=!!m.dueNotify;
+  refreshNotificationState();
+  $('#dueModal').classList.remove('hidden')
+};
+$('#dueClose').onclick=()=>{$('#dueModal').classList.add('hidden');dueEditingId=null};
+$('#duePermission').onclick=async()=>{
+  if(!('Notification'in window)){refreshNotificationState();return}
+  try{await Notification.requestPermission()}catch(e){console.warn(e)}
+  refreshNotificationState()
+};
+$('#dueSave').onclick=()=>{
+  let m=memos.find(x=>x.id===dueEditingId);if(!m)return;
+  let dateValue=$('#dueDate').value,timeValue=$('#dueTime').value;
+  if(!dateValue){alert('마감 날짜를 선택하세요.');return}
+  let stamp=now();
+  m.dueDate=dateValue;
+  m.dueTime=timeValue;
+  m.dueNotify=$('#dueNotify').checked;
+  m.dueUpdatedAt=stamp;
+  m.updatedAt=stamp;
+  if(!m.dueId)m.dueId=id();
+  delete dueNotified[m.id];
+  localStorage.setItem(DUE_NOTIFIED_KEY,JSON.stringify(dueNotified));
+  save();
+  $('#dueModal').classList.add('hidden');dueEditingId=null;
+  syncNow(true);
+  checkDueNotifications()
+};
+$('#dueClear').onclick=()=>{
+  let m=memos.find(x=>x.id===dueEditingId);if(!m)return;
+  let stamp=now();
+  m.dueDate='';
+  m.dueTime='';
+  m.dueNotify=false;
+  m.dueUpdatedAt=stamp;
+  m.updatedAt=stamp;
+  if(!m.dueId)m.dueId=id();
+  delete dueNotified[m.id];
+  localStorage.setItem(DUE_NOTIFIED_KEY,JSON.stringify(dueNotified));
+  save();
+  $('#dueModal').classList.add('hidden');dueEditingId=null;
+  syncNow(true)
+};
+
+/* 기존 최종 render를 감싸 UI만 추가합니다. */
+const r08RenderBase=render;
+render=()=>{
+  r08RenderBase();
+  document.querySelectorAll('.card').forEach(card=>{
+    let m=memos.find(x=>x.id===card.dataset.id);if(!m)return;
+    let tools=card.querySelector('.card-tools');
+    if(tools&&!tools.querySelector('.due-open')){
+      tools.insertAdjacentHTML('afterbegin','<button class="icon due-open" title="마감기한">📅</button>')
+    }
+    let left=card.querySelector('.left');
+    if(left&&m.dueDate&&!left.querySelector('.due-badge')){
+      let state=dueState(m);
+      left.insertAdjacentHTML('beforeend',`<button class="due-badge ${state}" title="마감기한 변경">${esc(dueLabel(m))}${m.dueNotify?' · 알림':''}</button>`)
+    }
+  })
+};
+window.addEventListener('click',e=>{
+  let b=e.target.closest?.('.due-open,.due-badge');if(!b)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  let card=b.closest('.card'),m=memos.find(x=>x.id===card?.dataset.id);
+  if(m)openDueModal(m)
+},true);
+
+/* 기존 blocks 스키마를 그대로 사용:
+   due metadata도 child comment로 저장하되 예약 prefix로 review와 구분합니다. */
+pull=async()=>{
+  let[b,t]=await Promise.all([
+    sb.from('blocks').select('id,parent_id,type,content_md,created_at,updated_at,deleted_at,sort_order,revision').eq('user_id',user.id),
+    sb.from('block_tasks').select('id,block_id,content_md,task_state,created_at,updated_at,completed_at,deleted_at').eq('user_id',user.id)
+  ]);
+  if(b.error)throw b.error;if(t.error)throw t.error;
+  let childRows=b.data.filter(x=>x.parent_id);
+  let reviews=new Map();
+  let dues=new Map();
+  childRows.forEach(x=>{
+    if(isDueMeta(x.content_md)){
+      let old=dues.get(x.parent_id);
+      if(!old||Date.parse(x.updated_at)>=Date.parse(old.updated_at))dues.set(x.parent_id,x)
+    }else{
+      let old=reviews.get(x.parent_id);
+      if(!old||Date.parse(x.updated_at)>=Date.parse(old.updated_at))reviews.set(x.parent_id,x)
+    }
+  });
+  return b.data.filter(x=>!x.parent_id).map(x=>{
+    let deleted=!!x.deleted_at&&isTrashPayload(x.content_md),
+        archive=!!x.deleted_at&&!deleted,
+        content=deleted?decodeTrashPayload(x.content_md):x.content_md,
+        code=x.sort_order<0?-x.sort_order-1:0,
+        c=reviews.get(x.id),
+        drow=dues.get(x.id),
+        dmeta=drow?decodeDueMeta(drow.content_md):null,
+        rowTasks=t.data.filter(y=>y.block_id===x.id).map(y=>{
+          let deletedWithParent=deleted&&y.deleted_at&&x.deleted_at&&Date.parse(y.deleted_at)===Date.parse(x.deleted_at);
+          return{
+            id:y.id,text:y.content_md,done:y.task_state==='done',
+            createdAt:y.created_at,updatedAt:y.updated_at,completedAt:y.completed_at,
+            deletedAt:deletedWithParent?null:y.deleted_at
+          }
+        });
+    return normalizeTrashMemo({
+      id:x.id,content,tasks:rowTasks,
+      status:deleted?'deleted':(archive?'archive':'live'),
+      deletedAt:deleted?x.deleted_at:null,
+      trashContent:deleted?content:undefined,
+      syncRevision:Math.max(1,Number(x.revision)||1),
+      important:Boolean(code&2),work:Boolean(code&1),
+      review:c?.content_md,reviewId:c?.id,reviewUpdatedAt:c?.updated_at,
+      dueDate:dmeta?.dueDate||'',
+      dueTime:dmeta?.dueTime||'',
+      dueNotify:!!dmeta?.dueNotify,
+      dueId:drow?.id,
+      dueUpdatedAt:drow?.updated_at,
+      createdAt:x.created_at,updatedAt:x.updated_at
+    })
+  })
+};
+
+push=async()=>{
+  let roots=memos.map((m,i)=>{
+    normalizeTrashMemo(m);
+    let deleted=m.status==='deleted',deletedAt=memoDeletedAt(m);
+    return{
+      id:m.id,user_id:user.id,parent_id:null,type:'note',
+      content_md:deleted?encodeTrashPayload(m):m.content,
+      created_at:m.createdAt,
+      updated_at:deleted?(deletedAt||m.updatedAt):m.updatedAt,
+      sort_order:-(i*4+(m.important?2:0)+(m.work?1:0)+1),
+      revision:Math.max(1,Number(m.syncRevision)||1),
+      deleted_at:deleted?(deletedAt||m.updatedAt):(m.status==='archive'?m.updatedAt:null)
+    }
+  });
+  let reviews=memos.filter(m=>m.review!==undefined).map(m=>({
+    id:m.reviewId||(m.reviewId=id()),user_id:user.id,parent_id:m.id,type:'comment',
+    content_md:m.review||'',created_at:m.createdAt,
+    updated_at:m.reviewUpdatedAt||m.updatedAt,sort_order:0,
+    revision:Math.max(1,Number(m.syncRevision)||1),
+    deleted_at:m.status==='archive'?m.updatedAt:null
+  }));
+  let dues=memos.filter(m=>m.dueId||m.dueDate).map(m=>({
+    id:m.dueId||(m.dueId=id()),user_id:user.id,parent_id:m.id,type:'comment',
+    content_md:encodeDueMeta(m),created_at:m.createdAt,
+    updated_at:m.dueUpdatedAt||m.updatedAt,sort_order:0,
+    revision:Math.max(1,Number(m.syncRevision)||1),
+    deleted_at:null
+  }));
+  let ts=memos.flatMap(m=>(m.tasks||[]).map((x,i)=>({
+    id:x.id,block_id:m.id,user_id:user.id,content_md:x.text,
+    task_state:x.done?'done':'open',focused:false,archived:false,
+    created_at:x.createdAt,updated_at:x.updatedAt,completed_at:x.completedAt,
+    sort_order:i,revision:1,deleted_at:x.deletedAt||null
+  })));
+  let blocks=[...roots,...reviews,...dues];
+  if(blocks.length){let{error}=await sb.from('blocks').upsert(blocks,{onConflict:'id'});if(error)throw error}
+  if(ts.length){let{error}=await sb.from('block_tasks').upsert(ts,{onConflict:'id'});if(error)throw error}
+};
+
+/* 알림: 단일 HTML 제한상 페이지가 실행 중일 때 검사합니다.
+   앱을 다시 열었을 때도 즉시 검사하여 놓친 마감을 알립니다. */
+const checkDueNotifications=()=>{
+  if(!('Notification'in window)||Notification.permission!=='granted')return;
+  let changed=false;
+  memos.filter(m=>m.status==='live'&&m.dueNotify&&m.dueDate).forEach(m=>{
+    let d=dueTimestamp(m);if(!d||d.getTime()>Date.now())return;
+    let key=`${m.dueDate}|${m.dueTime||''}`;
+    if(dueNotified[m.id]===key)return;
+    let body=(m.content||'').trim().replace(/\s+/g,' ').slice(0,120)||'마감된 메모가 있습니다.';
+    try{
+      new Notification('Review & Todo · 마감 알림',{body})
+      dueNotified[m.id]=key;changed=true
+    }catch(e){console.warn(e)}
+  });
+  if(changed)localStorage.setItem(DUE_NOTIFIED_KEY,JSON.stringify(dueNotified))
+};
+setInterval(checkDueNotifications,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkDueNotifications()});
+window.addEventListener('focus',checkDueNotifications);
+
+/* 스타일 */
+const r08Style=document.createElement('style');
+r08Style.textContent=`
+.memo-link{color:#2f7d5a;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;cursor:pointer;word-break:break-all}
+.memo-link:hover{color:#205f43}
+.due-dialog{width:min(440px,100%)}
+.due-field{display:grid;grid-template-columns:58px 1fr;align-items:center;gap:8px;margin:9px 0}
+.due-field span{font-size:12px;color:var(--muted)}
+.due-field input{margin:0}
+.due-notify{display:flex;align-items:center;gap:7px;margin:10px 0 4px;font-size:13px}
+.due-notify input{width:auto;margin:0}
+.notification-state{min-height:18px;color:var(--muted);font-size:11px;margin:4px 0 8px}
+.due-open{font-size:15px!important}
+.due-badge{display:block;margin-top:6px;border:0;background:transparent;padding:0;color:#64806e;font:inherit;font-size:11px;cursor:pointer;text-align:left}
+.due-badge.soon{color:#a7792f;font-weight:650}
+.due-badge.overdue{color:#c05c5c;font-weight:700}
+@media(max-width:620px){
+  .due-open{font-size:17px!important;min-width:29px}
+  .due-badge{font-size:12px;padding:3px 0}
+  .due-field{grid-template-columns:48px 1fr}
+}`;
+document.head.append(r08Style);
+
+render();
+setTimeout(checkDueNotifications,500);
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 </script></body></html>
