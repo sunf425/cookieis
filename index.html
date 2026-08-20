@@ -1,6 +1,6 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="apple-mobile-web-app-title" content="Review & Todo"><link rel="icon" type="image/png" href="app-icon.png"><link rel="apple-touch-icon" href="./app-icon.png"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r13_260820</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r14_260820</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -18,12 +18,12 @@ push=async()=>{let b=memos.map((m,i)=>({id:m.id,user_id:user.id,type:'note',cont
 /* Gemini의 입력 흐름은 유지하고, 보기를 조합 가능한 필터로 확장합니다. */
 let groupByDate=false,tasksOnly=false,flagOnly=false,workMode=0,deadlineOnly=false;
 const extraStyle=document.createElement('style');extraStyle.textContent=`.block-marker{width:17px;flex:0 0 17px;padding-top:1px;color:#aaa;font-size:16px;line-height:1.65}.block-marker.flag{color:#d65151}.card.important{background:linear-gradient(90deg,#fffafa,transparent 20%)}.filter-on{background:#e8e8e5!important;color:var(--ink)!important}.flag-filter{color:#c65b5b!important}.trash{color:#cf7777!important}.work-chip{margin-left:5px;border:0;background:transparent;cursor:pointer;font-size:14px;padding:0}.card-tools{display:flex;justify-content:flex-end;gap:2px;margin-top:4px}.task-only-note{display:none}.views .tiny{flex:0 0 auto;padding-inline:7px}`;document.head.append(extraStyle);
-document.querySelector('.views').innerHTML='<button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button class="tiny" data-lite="date" title="날짜별 구분">▦</button><button class="tiny" data-lite="tasks" title="할 일만 보기">☑</button><button class="tiny flag-filter" data-lite="flag" title="깃발만 보기">⚑</button><button class="tiny" data-lite="work" title="회사 / 개인 보기">👍</button><button class="tiny deadline-filter" data-lite="deadline" title="마감기한 메모만 보기">⏰</button>';
-render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).forEach(t=>all.add(t.slice(1))));$('#tags').innerHTML=`<button class="tag ${!tag?'active':''}" data-tag="">전체 보기</button>`+[...all].sort().map(t=>`<button class="tag ${tag===t?'active':''}" data-tag="${esc(t)}">#${esc(t)}</button>`).join('');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelector('[data-lite="date"]').classList.toggle('filter-on',groupByDate);document.querySelector('[data-lite="tasks"]').classList.toggle('filter-on',tasksOnly);document.querySelector('[data-lite="flag"]').classList.toggle('filter-on',flagOnly);let wb=document.querySelector('[data-lite="work"]');wb.classList.toggle('filter-on',workMode>0);wb.textContent=workMode===0?'👍':workMode===1?'👍':'🏢';wb.title=workMode===0?'회사/개인 모두 보기':workMode===1?'따봉(회사)만 보기':'따봉 아님(개인)만 보기';let tok=query.toLowerCase().split(/\s+/).filter(Boolean),shown=memos.filter(m=>view==='archive'?m.status==='archive':m.status!=='archive').filter(m=>!tag||m.content.includes('#'+tag)).filter(m=>!flagOnly||m.important).filter(m=>workMode===0?true:workMode===1?!!m.work:!m.work).filter(m=>tok.every(x=>(m.content+' '+tasks(m).map(t=>t.text).join(' ')).toLowerCase().includes(x))),last='';$('#list').innerHTML=shown.map(m=>{let header='';if(groupByDate){let d=date(m.createdAt);if(d!==last){header=`<div class="datehead">${d}</div>`;last=d}}let tt=tasks(m).map(t=>`<div class="task" data-task="${t.id}"><input type="checkbox" ${t.done?'checked':''}><div class="tasktext ${t.done?'done':''}" contenteditable="true">${esc(t.text)}</div><button class="task-remove" title="할 일 제거">×</button></div>`).join(''),d=new Date(m.createdAt);return header+`<article class="card ${m.important?'important':''}" data-id="${m.id}"><span class="block-marker ${m.important?'flag':''}">${m.important?'⚑':'•'}</span><div class="left">${tasksOnly?'<div class="task-only-note"></div>':`<div class="memo" contenteditable="true">${mark(m.content)}</div>`}<div class="tasks">${tt}</div></div><div class="right">${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}<div class="card-tools"><button class="icon important" title="중요 표시">${m.important?'⚑':'⚐'}</button><button class="work-chip" title="회사 / 개인">${m.work?'👍':'👌'}</button><button class="icon archive">${m.status==='archive'?'복원':'보관'}</button><button class="icon trash delete" title="삭제">🗑</button></div></div></article>`}).join('')||'<div class="empty">표시할 기록이 없습니다.</div>'};
+document.querySelector('.views').innerHTML='<button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button class="tiny" data-lite="date" title="날짜별 구분">▦</button><button class="tiny" data-lite="tasks" title="할 일만 보기">☑</button><button class="tiny flag-filter" data-lite="flag" title="깃발만 보기">🚩</button><button class="tiny" data-lite="work" title="회사 / 개인 보기">👍</button><button class="tiny deadline-filter" data-lite="deadline" title="마감기한 메모만 보기">⏰</button>';
+render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).forEach(t=>all.add(t.slice(1))));$('#tags').innerHTML=`<button class="tag ${!tag?'active':''}" data-tag="">전체 보기</button>`+[...all].sort().map(t=>`<button class="tag ${tag===t?'active':''}" data-tag="${esc(t)}">#${esc(t)}</button>`).join('');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelector('[data-lite="date"]').classList.toggle('filter-on',groupByDate);document.querySelector('[data-lite="tasks"]').classList.toggle('filter-on',tasksOnly);document.querySelector('[data-lite="flag"]').classList.toggle('filter-on',flagOnly);let wb=document.querySelector('[data-lite="work"]');wb.classList.toggle('filter-on',workMode>0);wb.textContent=workMode===0?'👍':workMode===1?'👍':'🏢';wb.title=workMode===0?'회사/개인 모두 보기':workMode===1?'따봉(회사)만 보기':'따봉 아님(개인)만 보기';let tok=query.toLowerCase().split(/\s+/).filter(Boolean),shown=memos.filter(m=>view==='archive'?m.status==='archive':m.status!=='archive').filter(m=>!tag||m.content.includes('#'+tag)).filter(m=>!flagOnly||m.important).filter(m=>workMode===0?true:workMode===1?!!m.work:!m.work).filter(m=>tok.every(x=>(m.content+' '+tasks(m).map(t=>t.text).join(' ')).toLowerCase().includes(x))),last='';$('#list').innerHTML=shown.map(m=>{let header='';if(groupByDate){let d=date(m.createdAt);if(d!==last){header=`<div class="datehead">${d}</div>`;last=d}}let tt=tasks(m).map(t=>`<div class="task" data-task="${t.id}"><input type="checkbox" ${t.done?'checked':''}><div class="tasktext ${t.done?'done':''}" contenteditable="true">${esc(t.text)}</div><button class="task-remove" title="할 일 제거">×</button></div>`).join(''),d=new Date(m.createdAt);return header+`<article class="card ${m.important?'important':''}" data-id="${m.id}"><span class="block-marker ${m.important?'flag':''}">${m.important?'🚩':'•'}</span><div class="left">${tasksOnly?'<div class="task-only-note"></div>':`<div class="memo" contenteditable="true">${mark(m.content)}</div>`}<div class="tasks">${tt}</div></div><div class="right">${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}<div class="card-tools"><button class="icon important" title="중요 표시">🚩</button><button class="work-chip" title="회사 / 개인">${m.work?'👍':'👌'}</button><button class="icon archive">${m.status==='archive'?'복원':'보관'}</button><button class="icon trash delete" title="삭제">🗑</button></div></div></article>`}).join('')||'<div class="empty">표시할 기록이 없습니다.</div>'};
 document.addEventListener('click',e=>{let b=e.target.closest('[data-lite]');if(b){e.preventDefault();e.stopImmediatePropagation();if(b.dataset.lite==='date')groupByDate=!groupByDate;if(b.dataset.lite==='tasks')tasksOnly=!tasksOnly;if(b.dataset.lite==='flag')flagOnly=!flagOnly;if(b.dataset.lite==='work')workMode=(workMode+1)%3;if(b.dataset.lite==='deadline'){deadlineOnly=!deadlineOnly;if(deadlineOnly)view='live'}render();return}let card=e.target.closest('.card');if(!card)return;let m=memos.find(x=>x.id===card.dataset.id);if(e.target.closest('.work-chip')){m.work=!m.work;m.updatedAt=now();save()}},true);
 document.addEventListener('keydown',e=>{let target=e.target,card=target.closest?.('.card'),editing=target.matches?.('[contenteditable]');if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();syncNow();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();localStorage.setItem(DATA,JSON.stringify(memos));status('로컬 저장 완료');return}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){if(editing){e.preventDefault();target.blur();return}if(!target.matches?.('textarea')){e.preventDefault();$('#newMemo').focus();return}}if(card&&target.classList?.contains('tasktext')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),row=target.closest('.task'),index=m.tasks.findIndex(x=>x.id===row.dataset.task),stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null};m.tasks.splice(index+1,0,next);m.updatedAt=stamp;save();setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0)}});
 
-/* Rev. r13_260820: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
+/* Rev. r14_260820: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
    메모/할 일/후기 편집, focus, blur, render는 important를 수정하지 않습니다. */
 window.addEventListener('click',e=>{
   const button=e.target.closest?.('button.icon.important');
@@ -51,14 +51,14 @@ window.addEventListener('click',e=>{
 extraStyle.textContent+=`.datehead{color:#458c68}.wrap{max-width:880px}.main{padding-inline:38px}.right{width:170px;white-space:nowrap}.card{gap:18px}.card-tools{gap:7px}.icon{font-size:13px;padding:5px}.work-chip{font-size:17px;padding:2px 4px}.card .task-remove{display:none}.icon.important:hover{color:#d65151!important}.icon.important{color:#aaa}.card.important .icon.important{color:#d65151}.block-marker{font-size:18px}.views .tiny{font-size:15px}`;
 document.querySelector('[data-lite="date"]').textContent='📅';
 let selectedTags=[];
-render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).forEach(t=>all.add(t.slice(1))));$('#tags').innerHTML=`<button class="tag ${selectedTags.length?'':'active'}" data-tag="">전체 보기</button>`+[...all].sort().map(t=>`<button class="tag ${selectedTags.includes(t)?'active':''}" data-tag="${esc(t)}">#${esc(t)}</button>`).join('');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelector('[data-lite="date"]').classList.toggle('filter-on',groupByDate);document.querySelector('[data-lite="tasks"]').classList.toggle('filter-on',tasksOnly);document.querySelector('[data-lite="flag"]').classList.toggle('filter-on',flagOnly);let wb=document.querySelector('[data-lite="work"]');wb.classList.toggle('filter-on',workMode>0);wb.textContent=workMode===0?'👍':workMode===1?'👍':'🏢';let tok=query.toLowerCase().split(/\s+/).filter(Boolean),shown=memos.filter(m=>view==='archive'?m.status==='archive':m.status!=='archive').filter(m=>selectedTags.every(t=>m.content.includes('#'+t))).filter(m=>!flagOnly||m.important).filter(m=>workMode===0?true:workMode===1?!!m.work:!m.work).filter(m=>tok.every(x=>(m.content+' '+tasks(m).map(t=>t.text).join(' ')).toLowerCase().includes(x))),last='';$('#list').innerHTML=shown.map(m=>{let header='';if(groupByDate){let d=date(m.createdAt);if(d!==last){header=`<div class="datehead">${d}</div>`;last=d}}let tt=tasks(m).map(t=>`<div class="task" data-task="${t.id}"><input type="checkbox" ${t.done?'checked':''}><div class="tasktext ${t.done?'done':''}" contenteditable="true">${esc(t.text)}</div><button class="task-remove">×</button></div>`).join(''),d=new Date(m.createdAt);return header+`<article class="card ${m.important?'important':''}" data-id="${m.id}"><span class="block-marker ${m.important?'flag':''}">${m.important?'⚑':'•'}</span><div class="left">${tasksOnly?'':`<div class="memo" contenteditable="true">${mark(m.content)}</div>`}<div class="tasks">${tt}</div></div><div class="right">${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}<div class="card-tools"><button class="icon important" title="중요 표시">${m.important?'⚑':'⚐'}</button><button class="work-chip" title="회사 / 개인">${m.work?'👍':'👌'}</button><button class="icon archive">${m.status==='archive'?'복원':'보관'}</button><button class="icon trash delete" title="삭제">🗑</button></div></div></article>`}).join('')||'<div class="empty">표시할 기록이 없습니다.</div>'};
+render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).forEach(t=>all.add(t.slice(1))));$('#tags').innerHTML=`<button class="tag ${selectedTags.length?'':'active'}" data-tag="">전체 보기</button>`+[...all].sort().map(t=>`<button class="tag ${selectedTags.includes(t)?'active':''}" data-tag="${esc(t)}">#${esc(t)}</button>`).join('');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.querySelector('[data-lite="date"]').classList.toggle('filter-on',groupByDate);document.querySelector('[data-lite="tasks"]').classList.toggle('filter-on',tasksOnly);document.querySelector('[data-lite="flag"]').classList.toggle('filter-on',flagOnly);let wb=document.querySelector('[data-lite="work"]');wb.classList.toggle('filter-on',workMode>0);wb.textContent=workMode===0?'👍':workMode===1?'👍':'🏢';let tok=query.toLowerCase().split(/\s+/).filter(Boolean),shown=memos.filter(m=>view==='archive'?m.status==='archive':m.status!=='archive').filter(m=>selectedTags.every(t=>m.content.includes('#'+t))).filter(m=>!flagOnly||m.important).filter(m=>workMode===0?true:workMode===1?!!m.work:!m.work).filter(m=>tok.every(x=>(m.content+' '+tasks(m).map(t=>t.text).join(' ')).toLowerCase().includes(x))),last='';$('#list').innerHTML=shown.map(m=>{let header='';if(groupByDate){let d=date(m.createdAt);if(d!==last){header=`<div class="datehead">${d}</div>`;last=d}}let tt=tasks(m).map(t=>`<div class="task" data-task="${t.id}"><input type="checkbox" ${t.done?'checked':''}><div class="tasktext ${t.done?'done':''}" contenteditable="true">${esc(t.text)}</div><button class="task-remove">×</button></div>`).join(''),d=new Date(m.createdAt);return header+`<article class="card ${m.important?'important':''}" data-id="${m.id}"><span class="block-marker ${m.important?'flag':''}">${m.important?'🚩':'•'}</span><div class="left">${tasksOnly?'':`<div class="memo" contenteditable="true">${mark(m.content)}</div>`}<div class="tasks">${tt}</div></div><div class="right">${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}<div class="card-tools"><button class="icon important" title="중요 표시">🚩</button><button class="work-chip" title="회사 / 개인">${m.work?'👍':'👌'}</button><button class="icon archive">${m.status==='archive'?'복원':'보관'}</button><button class="icon trash delete" title="삭제">🗑</button></div></div></article>`}).join('')||'<div class="empty">표시할 기록이 없습니다.</div>'};
 document.addEventListener('click',e=>{let b=e.target.closest('[data-tag]');if(!b)return;e.preventDefault();e.stopImmediatePropagation();let value=b.dataset.tag;if(!value)selectedTags=[];else selectedTags=selectedTags.includes(value)?selectedTags.filter(t=>t!==value):[...selectedTags,value];render()},true);
 document.addEventListener('keydown',e=>{if(e.defaultPrevented)return;let target=e.target,card=target.closest?.('.card');if(card&&e.altKey&&e.key==='Enter'&&target.classList?.contains('memo')){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null};m.tasks.push(next);m.updatedAt=stamp;save();setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0);return}if(card&&target.classList?.contains('tasktext')&&e.key==='Backspace'&&!target.innerText){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),row=target.closest('.task'),index=m.tasks.findIndex(x=>x.id===row.dataset.task),prior=tasks(m)[tasks(m).findIndex(x=>x.id===row.dataset.task)-1];let current=m.tasks[index];current.deletedAt=now();current.updatedAt=now();m.updatedAt=now();save();setTimeout(()=>{let el=prior?document.querySelector(`[data-task="${prior.id}"] .tasktext`):card.querySelector('.memo');el?.focus()},0)}});
 render();
 /* 입력 중인 초안도 즉시 메모리 모델에 반영해 Realtime 렌더링이 글자를 덮지 않게 합니다. */
 document.addEventListener('input',e=>{let card=e.target.closest?.('.card');if(!card)return;let m=memos.find(x=>x.id===card.dataset.id);if(!m)return;if(e.target.classList.contains('tasktext')){let t=m.tasks.find(x=>x.id===e.target.closest('.task').dataset.task);if(t)t.text=e.target.innerText}else if(e.target.classList.contains('memo'))m.content=e.target.innerText;else if(e.target.classList.contains('reviewtext')){m.review=e.target.innerText;m.reviewUpdatedAt=now()}});
 const fontLink=document.createElement('link');fontLink.rel='stylesheet';fontLink.href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css';document.head.append(fontLink);extraStyle.textContent+=`body{font-family:'Pretendard',system-ui,sans-serif}.views{align-items:center;gap:4px}.mode-switch{display:flex;flex:0 0 auto;border:1px solid #69a886;border-radius:8px;padding:2px;background:#f5faf6}.mode-switch button{min-width:30px;padding:4px 6px}.review-box{margin-top:8px;padding:7px 9px;border-left:2px solid #d9e9df;color:#585751;font-size:13px}.review-label{color:#56836b;font-size:11px;font-weight:650}.reviewtext{margin-top:2px;outline:0;min-height:20px;white-space:pre-wrap}.review-add{color:#56836b!important;font-size:14px!important}`;
-document.querySelector('.views').innerHTML='<span class="mode-switch"><button class="active" data-view="live" title="Live">🟢</button><button data-view="archive" title="Archive">📦</button></span><button class="tiny" data-lite="date" title="날짜별 구분">📅</button><button class="tiny" data-lite="tasks" title="할 일만 보기">☑</button><button class="tiny flag-filter" data-lite="flag" title="깃발만 보기">⚑</button><button class="tiny" data-lite="work" title="회사 / 개인 보기">👍</button><button class="tiny deadline-filter" data-lite="deadline" title="마감기한 메모만 보기">⏰</button>';
+document.querySelector('.views').innerHTML='<span class="mode-switch"><button class="active" data-view="live" title="Live">🟢</button><button data-view="archive" title="Archive">📦</button></span><button class="tiny" data-lite="date" title="날짜별 구분">📅</button><button class="tiny" data-lite="tasks" title="할 일만 보기">☑</button><button class="tiny flag-filter" data-lite="flag" title="깃발만 보기">🚩</button><button class="tiny" data-lite="work" title="회사 / 개인 보기">👍</button><button class="tiny deadline-filter" data-lite="deadline" title="마감기한 메모만 보기">⏰</button>';
 const baseRenderWithReview=render;render=()=>{baseRenderWithReview();document.querySelectorAll('.card').forEach(card=>{let m=memos.find(x=>x.id===card.dataset.id),tools=card.querySelector('.card-tools'),left=card.querySelector('.left');tools.insertAdjacentHTML('afterbegin','<button class="icon review-add" title="후기 입력">💬</button>');if(m.review!==undefined)left.insertAdjacentHTML('beforeend',`<div class="review-box"><div class="review-label">후기</div><div class="reviewtext" contenteditable="true">${esc(m.review||'')}</div></div>`)});};
 document.addEventListener('click',e=>{let b=e.target.closest('.review-add');if(!b)return;e.preventDefault();e.stopImmediatePropagation();let m=memos.find(x=>x.id===b.closest('.card').dataset.id);if(m.review===undefined){m.review='';m.reviewId=id();m.reviewUpdatedAt=now();save();setTimeout(()=>document.querySelector(`[data-id="${m.id}"] .reviewtext`)?.focus(),0)}else document.querySelector(`[data-id="${m.id}"] .reviewtext`)?.focus()},true);
 /* 후기는 기존 blocks 테이블의 comment 자식 블록으로 동기화합니다. */
@@ -198,7 +198,7 @@ render=()=>{
   try{tombstoneSafeRender()}finally{memos=all}
 };
 
-/* Rev. r13_260820: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
+/* Rev. r14_260820: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
 const revStyle=document.createElement('style');revStyle.textContent=`
 .revision{padding:7px 8px 1px;color:#7e9a88;font-size:10px;letter-spacing:.02em}
 .compose>div:last-child{width:176px;min-width:176px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:36px 34px auto;gap:6px}
@@ -243,7 +243,7 @@ const revStyle=document.createElement('style');revStyle.textContent=`
 document.head.append(revStyle);
 
 
-/* Rev. r13_260820
+/* Rev. r14_260820
    - PC: 태그는 좌측 목록으로 표시
    - Mobile: 검색/태그 팝업, 조작 버튼 확대, 입력 버튼 한 줄, 메모별 Todo추가
    - Trash: 삭제 메모는 Live/Archive에서 완전히 숨기고 휴지통 팝업에서만 표시/복구
@@ -547,7 +547,7 @@ document.head.append(r04Style);
 render();
 
 
-/* Rev. r13_260820
+/* Rev. r14_260820
    1) 메모 본문의 http(s), www, 일반 도메인(cad.ednc.com 포함)을 링크로 렌더링
    2) 메모별 마감일/시간 + 알림 설정
    3) 마감 메타데이터는 기존 blocks 테이블의 child comment에 예약 prefix로 저장
@@ -915,7 +915,7 @@ r08Style.textContent=`
 }`;
 document.head.append(r08Style);
 
-/* Rev. r13_260820: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
+/* Rev. r14_260820: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
 const r09Style=document.createElement('style');
 r09Style.textContent=`
 /* 중요 표시 블럭: 기존보다 한 단계 더 보이는 옅은 적색 */
@@ -982,7 +982,7 @@ r10Style.textContent=`
 
 document.head.append(r10Style);
 
-/* Rev. r13_260820
+/* Rev. r14_260820
    카드 우측 조작 버튼의 터치 영역을 균등하게 맞추고
    회사/개인 이모지(work-chip)를 각 버튼 영역의 정중앙에 배치합니다.
 */
@@ -1028,7 +1028,7 @@ r11Style.textContent=`
 
 document.head.append(r11Style);
 
-/* Rev. r13_260820
+/* Rev. r14_260820
    - 마감 필터 제목 밑줄 길이 정리
    - 모바일 보기 아이콘 좌우 균등 배치
    - 모바일 검색/태그 버튼 한 줄 2열 배치
@@ -1087,7 +1087,7 @@ r12Style.textContent=`
 
 document.head.append(r12Style);
 
-/* Rev. r13_260820
+/* Rev. r14_260820
    - 모바일 보기 아이콘 완전 균등 정렬
    - 할 일 텍스트 기본 bold
    - 중요 메모 하이라이트를 옅은 주황 계열로 변경
@@ -1171,7 +1171,80 @@ r13Style.textContent=`
     flex:0 0 auto!important;
   }
 }`;
+
 document.head.append(r13Style);
+
+/* Rev. r14_260820
+   - 중요 관련 깃발 아이콘을 🚩로 통일
+   - PC 우측 2줄 버튼을 왼쪽 기준의 동일 열로 정렬
+*/
+const r14Style=document.createElement('style');
+r14Style.textContent=`
+/* 중요 버튼은 항상 🚩, OFF는 흐리게 / ON은 선명하게 */
+.card-tools .important,
+.pc-meta-row .important{
+  filter:grayscale(1);
+  opacity:.38;
+}
+.card.important .card-tools .important,
+.card.important .pc-meta-row .important{
+  filter:none;
+  opacity:1;
+}
+
+/* 중요 블럭 마커의 🚩가 점과 비슷한 기준선에 오도록 */
+.block-marker.flag{
+  color:inherit!important;
+  font-size:16px!important;
+}
+
+/* 좌측 패널 중요 필터도 emoji 기준으로 통일 */
+.flag-filter{
+  color:inherit!important;
+  font-size:15px!important;
+}
+
+@media(min-width:621px){
+  /* 첫 줄: 🚩 / 😎·🏢 / 날짜
+     둘째 줄: ⏰ / 💬 / 보관 / 휴지통
+     두 줄 모두 왼쪽 시작점을 동일하게 맞춤 */
+  .pc-meta-row{
+    justify-content:flex-start!important;
+    gap:4px!important;
+  }
+  .right>.card-tools{
+    justify-content:flex-start!important;
+    gap:4px!important;
+  }
+
+  .pc-meta-row .icon,
+  .pc-meta-row .work-chip,
+  .right>.card-tools .icon{
+    width:28px!important;
+    min-width:28px!important;
+    height:28px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:0!important;
+    margin:0!important;
+    line-height:1!important;
+  }
+
+  .pc-meta-row .pc-date{
+    margin-left:8px!important;
+  }
+
+  /* 보관은 텍스트라 한 칸보다 넓지만 왼쪽 기준은 그대로 유지 */
+  .right>.card-tools .archive{
+    width:auto!important;
+    min-width:42px!important;
+    padding:0 4px!important;
+  }
+}
+`;
+document.head.append(r14Style);
+
 
 /* PC에서만 우측 조작부를 2줄로 재구성합니다.
    모바일에서는 기존 DOM 구조를 그대로 유지합니다. */
@@ -1309,7 +1382,7 @@ render();
 setTimeout(checkDueNotifications,500);
 
 
-/* Rev. r13_260820
+/* Rev. r14_260820
    알람(마감) 필터에서만 마감정보를 카드 최상단의 큰 일정 제목으로 이동합니다.
    일반 보기에서는 기존 하단 due-badge를 그대로 유지합니다.
 */
