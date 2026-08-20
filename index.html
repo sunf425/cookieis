@@ -1,6 +1,6 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="apple-mobile-web-app-title" content="Review & Todo"><link rel="icon" type="image/png" href="app-icon.png"><link rel="apple-touch-icon" href="./app-icon.png"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r09_260820</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r10_260820</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -23,7 +23,7 @@ render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.
 document.addEventListener('click',e=>{let b=e.target.closest('[data-lite]');if(b){e.preventDefault();e.stopImmediatePropagation();if(b.dataset.lite==='date')groupByDate=!groupByDate;if(b.dataset.lite==='tasks')tasksOnly=!tasksOnly;if(b.dataset.lite==='flag')flagOnly=!flagOnly;if(b.dataset.lite==='work')workMode=(workMode+1)%3;if(b.dataset.lite==='deadline'){deadlineOnly=!deadlineOnly;if(deadlineOnly)view='live'}render();return}let card=e.target.closest('.card');if(!card)return;let m=memos.find(x=>x.id===card.dataset.id);if(e.target.closest('.work-chip')){m.work=!m.work;m.updatedAt=now();save()}},true);
 document.addEventListener('keydown',e=>{let target=e.target,card=target.closest?.('.card'),editing=target.matches?.('[contenteditable]');if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();syncNow();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();localStorage.setItem(DATA,JSON.stringify(memos));status('로컬 저장 완료');return}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){if(editing){e.preventDefault();target.blur();return}if(!target.matches?.('textarea')){e.preventDefault();$('#newMemo').focus();return}}if(card&&target.classList?.contains('tasktext')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),row=target.closest('.task'),index=m.tasks.findIndex(x=>x.id===row.dataset.task),stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null};m.tasks.splice(index+1,0,next);m.updatedAt=stamp;save();setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0)}});
 
-/* Rev. r09_260820: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
+/* Rev. r10_260820: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
    메모/할 일/후기 편집, focus, blur, render는 important를 수정하지 않습니다. */
 window.addEventListener('click',e=>{
   const button=e.target.closest?.('button.icon.important');
@@ -198,7 +198,7 @@ render=()=>{
   try{tombstoneSafeRender()}finally{memos=all}
 };
 
-/* Rev. r09_260820: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
+/* Rev. r10_260820: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
 const revStyle=document.createElement('style');revStyle.textContent=`
 .revision{padding:7px 8px 1px;color:#7e9a88;font-size:10px;letter-spacing:.02em}
 .compose>div:last-child{width:176px;min-width:176px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:36px 34px auto;gap:6px}
@@ -243,7 +243,7 @@ const revStyle=document.createElement('style');revStyle.textContent=`
 document.head.append(revStyle);
 
 
-/* Rev. r09_260820
+/* Rev. r10_260820
    - PC: 태그는 좌측 목록으로 표시
    - Mobile: 검색/태그 팝업, 조작 버튼 확대, 입력 버튼 한 줄, 메모별 Todo추가
    - Trash: 삭제 메모는 Live/Archive에서 완전히 숨기고 휴지통 팝업에서만 표시/복구
@@ -547,7 +547,7 @@ document.head.append(r04Style);
 render();
 
 
-/* Rev. r09_260820
+/* Rev. r10_260820
    1) 메모 본문의 http(s), www, 일반 도메인(cad.ednc.com 포함)을 링크로 렌더링
    2) 메모별 마감일/시간 + 알림 설정
    3) 마감 메타데이터는 기존 blocks 테이블의 child comment에 예약 prefix로 저장
@@ -915,7 +915,7 @@ r08Style.textContent=`
 }`;
 document.head.append(r08Style);
 
-/* Rev. r09_260820: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
+/* Rev. r10_260820: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
 const r09Style=document.createElement('style');
 r09Style.textContent=`
 /* 중요 표시 블럭: 기존보다 한 단계 더 보이는 옅은 적색 */
@@ -947,7 +947,40 @@ r09Style.textContent=`
   .views .tiny{padding-left:6px!important;padding-right:6px!important}
   .due-badge{font-size:12px}
 }`;
+
 document.head.append(r09Style);
+
+const r10Style=document.createElement('style');
+r10Style.textContent=`
+.deadline-hidden{display:none!important}
+.deadline-head{
+  display:block;
+  width:100%;
+  margin:0 0 9px;
+  padding:3px 0 8px;
+  border:0;
+  border-bottom:1px solid #dbe8df;
+  background:transparent;
+  color:#3f6f54;
+  text-align:left;
+  font:inherit;
+  font-size:18px;
+  font-weight:800;
+  line-height:1.35;
+  cursor:pointer;
+}
+.deadline-head:hover{color:#2f6045}
+.deadline-head.overdue{color:#a94d4d;border-bottom-color:#ecd1d1}
+.deadline-head.today{color:#b34747;border-bottom-color:#e8c8c8}
+.deadline-head .due-zero,
+.deadline-head .due-exceeded{font-size:1em}
+.deadline-head .due-late{color:#a94d4d}
+.deadline-head .due-future{color:#4d7b5e}
+@media(max-width:620px){
+  .deadline-head{font-size:17px;margin-bottom:8px;padding-bottom:7px}
+}`;
+document.head.append(r10Style);
+
 
 
 const r09RenderBase=render;
@@ -982,6 +1015,43 @@ render=()=>{
 
 render();
 setTimeout(checkDueNotifications,500);
+
+
+/* Rev. r10_260820
+   알람(마감) 필터에서만 마감정보를 카드 최상단의 큰 일정 제목으로 이동합니다.
+   일반 보기에서는 기존 하단 due-badge를 그대로 유지합니다.
+*/
+const r10RenderBase=render;
+render=()=>{
+  r10RenderBase();
+
+  document.querySelectorAll('.card').forEach(card=>{
+    const m=memos.find(x=>x.id===card.dataset.id);
+    if(!m)return;
+
+    const left=card.querySelector('.left');
+    const bottomDue=left?.querySelector('.due-badge');
+
+    /* 기존 삽입물이 있으면 매 렌더마다 정리 */
+    left?.querySelector('.deadline-head')?.remove();
+
+    if(deadlineOnly && m.dueDate && left){
+      /* 알람 필터에서는 하단 마감표시를 숨기고 상단 제목으로 한 번만 표시 */
+      if(bottomDue)bottomDue.classList.add('deadline-hidden');
+
+      const state=dueState(m);
+      const head=document.createElement('button');
+      head.type='button';
+      head.className=`deadline-head ${state}`;
+      head.title='마감기한 변경';
+      head.innerHTML=dueBadgeHtml(m);
+      head.onclick=()=>openDueDialog(m);
+      left.insertAdjacentElement('afterbegin',head);
+    }else if(bottomDue){
+      bottomDue.classList.remove('deadline-hidden');
+    }
+  });
+};
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 </script></body></html>
