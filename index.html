@@ -1,6 +1,6 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="apple-mobile-web-app-title" content="Review & Todo"><link rel="icon" type="image/png" href="app-icon.png"><link rel="apple-touch-icon" href="./app-icon.png"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정 / Supabase</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. 20260820_r04</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -55,7 +55,7 @@ render=()=>{baseRenderWithReview();document.querySelectorAll('.card').forEach(ca
 /* 자동 반영은 5분에 한 번만 하고, 수동 동기화는 즉시 처리합니다. */
 const rawSyncNow=syncNow;let lastBackgroundSync=Date.now();syncNow=force=>{if(!force&&Date.now()-lastBackgroundSync<300000)return;lastBackgroundSync=Date.now();return rawSyncNow()};setInterval(()=>syncNow(),300000);$('#sync').onclick=()=>syncNow(true);
 /* 단축키 대신 상단의 명시적인 날짜·시간 삽입 버튼을 사용합니다. */
-document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();e.stopImmediatePropagation();syncNow(true);return}if((e.ctrlKey||e.metaKey)&&e.shiftKey&&['1','2'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation()}},true);let actionBox=$('#save').parentElement;actionBox.insertAdjacentHTML('beforeend','<div class="date-insert"><button type="button" id="insertDate" class="button">오늘</button><button type="button" id="insertDateTime" class="button">시간</button></div>');const insertIntoNew=withTime=>{let d=new Date(),p=n=>String(n).padStart(2,'0'),text=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`+(withTime?` ${p(d.getHours())}:${p(d.getMinutes())}`:''),el=$('#newMemo'),a=el.selectionStart,b=el.selectionEnd;el.focus();el.setRangeText(text,a,b,'end');el.dispatchEvent(new Event('input',{bubbles:true}))};$('#insertDate').onclick=()=>insertIntoNew(false);$('#insertDateTime').onclick=()=>insertIntoNew(true);
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();e.stopImmediatePropagation();syncNow(true);return}if((e.ctrlKey||e.metaKey)&&e.shiftKey&&['1','2'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation()}},true);let actionBox=$('#save').parentElement;actionBox.insertAdjacentHTML('beforeend','<div class="date-insert"><button type="button" id="insertDate" class="button">Today</button><button type="button" id="insertDateTime" class="button">Time</button></div>');const insertIntoNew=timeOnly=>{let d=new Date(),p=n=>String(n).padStart(2,'0'),text=timeOnly?`${p(d.getHours())}:${p(d.getMinutes())}`:`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`,el=$('#newMemo'),a=el.selectionStart,b=el.selectionEnd,before=a>0?el.value[a-1]:'',prefix=before&&!/\s/.test(before)?' ':'';el.focus();el.setRangeText(prefix+text,a,b,'end');el.dispatchEvent(new Event('input',{bubbles:true}))};$('#insertDate').onclick=()=>insertIntoNew(false);$('#insertDateTime').onclick=()=>insertIntoNew(true);
 actionBox.insertAdjacentHTML('beforeend','<button type="button" id="addTempTask" class="button">+ 할 일</button>');$('#addTempTask').onclick=()=>{temp.push({id:id(),text:''});renderTemp(temp.length-1)};
 extraStyle.textContent+=`.search{background:#edf5ef;color:#397b58}.search::placeholder{color:#7eaa8d}.search:focus{border-color:#5c9c75}.date-insert{display:flex;gap:3px;margin-top:5px}.date-insert .button{font-size:10px;padding:3px 5px}.hashtag{color:#c97832}#tempTasks .task-remove{display:block!important;visibility:visible!important;color:#a9a7a1;font-size:18px;padding:0 4px}@media(max-width:620px){#tempTasks .task-remove{font-size:20px;padding:0 7px}}`;
 const removeReview=m=>{let reviewId=m.reviewId;m.review=undefined;m.reviewId=undefined;m.reviewUpdatedAt=now();save();if(sb&&user&&reviewId)sb.from('blocks').delete().eq('user_id',user.id).eq('id',reviewId).then(({error})=>{if(error)console.error(error)})};
@@ -66,11 +66,11 @@ extraStyle.textContent+=`.review-remove{display:block!important;visibility:visib
 const focusEnd=el=>{if(!el)return;el.focus();let range=document.createRange(),selection=window.getSelection();range.selectNodeContents(el);range.collapse(false);selection.removeAllRanges();selection.addRange(range)};
 window.addEventListener('keydown',e=>{let task=e.target.closest?.('.tasktext');if(task&&e.key==='Backspace'&&!task.textContent){e.preventDefault();e.stopImmediatePropagation();let card=task.closest('.card'),m=memos.find(x=>x.id===card.dataset.id),taskId=task.closest('.task').dataset.task,visible=tasks(m),position=visible.findIndex(x=>x.id===taskId),prior=visible[position-1],current=m.tasks.find(x=>x.id===taskId);current.deletedAt=now();current.updatedAt=now();m.updatedAt=now();save();setTimeout(()=>focusEnd(prior?document.querySelector(`[data-task="${prior.id}"] .tasktext`):document.querySelector(`[data-id="${m.id}"] .memo`)),0)}},true);
 window.addEventListener('keydown',e=>{let review=e.target.closest?.('.reviewtext');if(review&&e.key==='Backspace'&&!review.textContent.trim()){e.preventDefault();e.stopImmediatePropagation();removeReview(memos.find(m=>m.id===review.closest('.card').dataset.id))}},true);
-window.addEventListener('click',e=>{let button=e.target.closest?.('.delete');if(!button)return;let card=button.closest('.card'),m=memos.find(x=>x.id===card.dataset.id);if(!m)return;e.preventDefault();e.stopImmediatePropagation();if(!confirm('이 항목을 영구 삭제하시겠습니까?'))return;let stamp=now();m.status='deleted';m.deletedAt=stamp;m.updatedAt=stamp;(m.tasks||[]).forEach(t=>{if(!t.deletedAt){t.deletedAt=stamp;t.updatedAt=stamp}});if(m.review!==undefined)m.reviewUpdatedAt=stamp;save();syncNow(true)},true);
+window.addEventListener('click',e=>{let button=e.target.closest?.('.delete');if(!button)return;let card=button.closest('.card'),m=memos.find(x=>x.id===card.dataset.id);if(!m)return;e.preventDefault();e.stopImmediatePropagation();if(!confirm('이 항목을 삭제하시겠습니까?\n삭제한 메모는 휴지통에서 복구할 수 있습니다.'))return;let stamp=now();m.trashContent=m.content||m.trashContent||'';m.status='deleted';m.deletedAt=stamp;m.updatedAt=stamp;m.syncRevision=Math.max(1,Number(m.syncRevision)||1)+1;if(m.review!==undefined)m.reviewUpdatedAt=stamp;save();syncNow(true)},true);
 render();
 /* 태그는 목록 대신 선택 팝업으로 제공합니다. */
 document.querySelector('.views').insertAdjacentHTML('afterend','<button id="tagPicker" class="button tag-picker">태그</button>');document.body.insertAdjacentHTML('beforeend','<div id="tagModal" class="modal tag-modal hidden"><div class="dialog"><h2>태그 선택</h2><p>여러 태그를 함께 선택할 수 있습니다.</p><div id="tagOptions" class="tag-options"></div><div class="row"><button id="clearTags" class="button">전체 태그 해제</button><button id="applyTags" class="button primary">선택</button></div></div></div>');
-const drawTagOptions=()=>{let names=[...new Set(memos.flatMap(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))))].sort();$('#tagOptions').innerHTML=names.length?names.map(name=>`<button class="tag-option ${selectedTags.includes(name)?'selected':''}" data-popup-tag="${esc(name)}">#${esc(name)}</button>`).join(''):'<span style="color:var(--muted);font-size:13px">아직 태그가 없습니다.</span>'};$('#tagPicker').onclick=()=>{drawTagOptions();$('#tagModal').classList.remove('hidden')};$('#tagOptions').onclick=e=>{let b=e.target.closest('[data-popup-tag]');if(!b)return;let name=b.dataset.popupTag;selectedTags=selectedTags.includes(name)?selectedTags.filter(x=>x!==name):[...selectedTags,name];drawTagOptions()};$('#applyTags').onclick=()=>{$('#tagModal').classList.add('hidden');render()};$('#clearTags').onclick=()=>{selectedTags=[];$('#tagModal').classList.add('hidden');render()};
+const drawTagOptions=()=>{let names=[...new Set(memos.filter(m=>m.status!=='deleted').flatMap(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))))].sort();$('#tagOptions').innerHTML=names.length?names.map(name=>`<button class="tag-option ${selectedTags.includes(name)?'selected':''}" data-popup-tag="${esc(name)}">#${esc(name)}</button>`).join(''):'<span style="color:var(--muted);font-size:13px">아직 태그가 없습니다.</span>'};$('#tagPicker').onclick=()=>{drawTagOptions();$('#tagModal').classList.remove('hidden')};$('#tagOptions').onclick=e=>{let b=e.target.closest('[data-popup-tag]');if(!b)return;let name=b.dataset.popupTag;selectedTags=selectedTags.includes(name)?selectedTags.filter(x=>x!==name):[...selectedTags,name];drawTagOptions()};$('#applyTags').onclick=()=>{$('#tagModal').classList.add('hidden');render()};$('#clearTags').onclick=()=>{selectedTags=[];$('#tagModal').classList.add('hidden');render()};
 $('#tempTasks').addEventListener('click',e=>{let x=e.target.closest('.task-remove');if(!x)return;let row=x.closest('[data-temp]'),index=temp.findIndex(t=>t.id===row.dataset.temp);if(index>=0){temp.splice(index,1);renderTemp(Math.max(0,index-1))}});
 const tagPickerRender=render;render=()=>{tagPickerRender();let b=$('#tagPicker');if(b)b.textContent=selectedTags.length?`태그 ${selectedTags.length}`:'태그'};render();
 
@@ -172,5 +172,354 @@ render=()=>{
   let all=memos;memos=visible;
   try{tombstoneSafeRender()}finally{memos=all}
 };
+
+/* Rev. 20260820_r04: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
+const revStyle=document.createElement('style');revStyle.textContent=`
+.revision{padding:7px 8px 1px;color:#7e9a88;font-size:10px;letter-spacing:.02em}
+.compose>div:last-child{width:176px;min-width:176px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:36px 34px auto;gap:6px}
+.compose>div:last-child>#save{grid-column:1;grid-row:1}
+.compose>div:last-child>#addTempTask{grid-column:2;grid-row:1}
+.compose>div:last-child>.date-insert{grid-column:1/3;grid-row:2;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0}
+.compose>div:last-child>.hint{grid-column:1/3;grid-row:3;margin:0}
+.compose .button{width:100%;height:34px;border:1px solid #8eb9a0;background:#edf6f0;color:#347653;border-radius:7px;font-size:12px;font-weight:650;padding:0 8px}
+.compose .button:hover{background:#dfeee4;border-color:#70a989}
+.compose #save{background:#5f9d77;border-color:#5f9d77;color:#fff}
+.compose #save:hover{background:#4f8d68;border-color:#4f8d68}
+.compose #addTempTask{white-space:nowrap}
+.card-tools .important,.card-tools .delete{font-size:18px;min-width:30px;line-height:1}
+.block-marker{padding-top:0}
+.block-marker:not(.flag){font-size:16px;line-height:1.65;transform:translateY(1px)}
+@media(min-width:621px){
+  body{font-size:15px}
+  .side{width:268px;padding:15px 13px}
+  .brand{font-size:16px}
+  .brand small{font-size:12px}
+  .search{font-size:14px;padding:8px 10px}
+  .views button,.tag,.plain{font-size:14px;padding:6px 9px}
+  .sync-state{font-size:12px}
+  .main{padding:31px 42px}
+  .wrap{max-width:968px}
+  .compose textarea{font-size:16px}
+  .card{padding-top:10px;padding-bottom:10px}
+  .memo,.tasktext{font-size:15px}
+  .right{font-size:12px}
+  .card-tools .icon{padding:5px}
+  .work-chip{font-size:18px}
+  .review-box{font-size:14px}
+}
+@media(max-width:620px){
+  .revision{flex:0 0 100%;text-align:center;padding-top:3px}
+  .compose>div:last-child{width:100%;min-width:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:38px 36px auto;gap:6px}
+  .compose .button{height:36px;font-size:12px}
+  .compose>div:last-child>.date-insert{display:grid;margin:0}
+  .compose>div:last-child>.hint{display:block}
+  .block-marker:not(.flag){transform:translateY(1px)}
+}`;
+document.head.append(revStyle);
+
+
+/* Rev. 20260820_r04
+   - PC: 태그는 좌측 목록으로 표시
+   - Mobile: 검색/태그 팝업, 조작 버튼 확대, 입력 버튼 한 줄, 메모별 Todo추가
+   - Trash: 삭제 메모는 Live/Archive에서 완전히 숨기고 휴지통 팝업에서만 표시/복구
+   - Sync: 삭제/복구 generation(revision)으로 stale device의 부활을 차단하고 명시적 복구는 허용
+*/
+const TRASH_PREFIX='[[TRASH_TOMBSTONE]]';
+const OLD_TRASH_MARKER='[[review-todo:tombstone:v1]]';
+const isTrashPayload=v=>typeof v==='string'&&(v===OLD_TRASH_MARKER||v===TRASH_PREFIX||v.startsWith(TRASH_PREFIX+'\n'));
+const encodeTrashPayload=m=>TRASH_PREFIX+'\n'+(m.trashContent??m.content??'');
+const decodeTrashPayload=v=>{
+  if(typeof v!=='string')return '';
+  if(v.startsWith(TRASH_PREFIX+'\n'))return v.slice((TRASH_PREFIX+'\n').length);
+  return '';
+};
+const normalizeTrashMemo=m=>{
+  if(!m)return m;
+  if(isTrashPayload(m.content)){
+    let recovered=decodeTrashPayload(m.content);
+    m.status='deleted';
+    m.deletedAt=m.deletedAt||m.updatedAt;
+    m.trashContent=m.trashContent||recovered;
+    m.content=m.trashContent||'';
+    m.syncRevision=Math.max(1,Number(m.syncRevision)||1);
+  }
+  if(m.status==='deleted'){
+    m.trashContent=m.trashContent??m.content??'';
+    m.syncRevision=Math.max(1,Number(m.syncRevision)||1);
+  }
+  return m;
+};
+memos.forEach(normalizeTrashMemo);
+localStorage.setItem(DATA,JSON.stringify(memos));
+
+/* revision-aware remove-wins:
+   - 같은 generation이면 deleted가 우선
+   - 명시적 복구는 generation을 올리므로 오래된 tombstone보다 우선
+*/
+merge=(a,b)=>{
+  let x=new Map(a.map(m=>[m.id,normalizeTrashMemo({...m})]));
+  b.forEach(raw=>{
+    let r=normalizeTrashMemo({...raw}),l=x.get(r.id);
+    if(!l){x.set(r.id,r);return}
+    let lr=Number(l.syncRevision)||1,rr=Number(r.syncRevision)||1;
+    if(lr!==rr){
+      x.set(r.id,rr>lr?r:l);
+      return;
+    }
+    let ld=l.status==='deleted',rd=r.status==='deleted';
+    if(ld!==rd){
+      x.set(r.id,rd?r:l);
+      return;
+    }
+    if(ld&&rd){
+      let winner=Date.parse(r.deletedAt||r.updatedAt)>=Date.parse(l.deletedAt||l.updatedAt)?r:l;
+      let other=winner===r?l:r;
+      if(!winner.trashContent&&other.trashContent)winner.trashContent=other.trashContent;
+      if(!winner.content&&winner.trashContent)winner.content=winner.trashContent;
+      x.set(r.id,winner);
+      return;
+    }
+    if(Date.parse(r.updatedAt)>Date.parse(l.updatedAt))x.set(r.id,r);
+    else{
+      let q=new Map((l.tasks||[]).map(t=>[t.id,t]));
+      (r.tasks||[]).forEach(t=>{
+        let o=q.get(t.id);
+        if(!o||Date.parse(t.updatedAt)>Date.parse(o.updatedAt))q.set(t.id,t)
+      });
+      l.tasks=[...q.values()]
+    }
+  });
+  return[...x.values()].sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt))
+};
+
+/* Pull: legacy/current trash marker를 모두 deleted로 해석하고,
+   새 tombstone은 marker 아래에 원문을 보존합니다. */
+pull=async()=>{
+  let[b,t]=await Promise.all([
+    sb.from('blocks').select('id,parent_id,type,content_md,created_at,updated_at,deleted_at,sort_order,revision').eq('user_id',user.id),
+    sb.from('block_tasks').select('id,block_id,content_md,task_state,created_at,updated_at,completed_at,deleted_at').eq('user_id',user.id)
+  ]);
+  if(b.error)throw b.error;if(t.error)throw t.error;
+  let comments=new Map(b.data.filter(x=>x.parent_id).map(x=>[x.parent_id,x]));
+  return b.data.filter(x=>!x.parent_id).map(x=>{
+    let deleted=!!x.deleted_at&&isTrashPayload(x.content_md),
+        archive=!!x.deleted_at&&!deleted,
+        content=deleted?decodeTrashPayload(x.content_md):x.content_md,
+        code=x.sort_order<0?-x.sort_order-1:0,
+        c=comments.get(x.id),
+        rowTasks=t.data.filter(y=>y.block_id===x.id).map(y=>{
+          let deletedWithParent=deleted&&y.deleted_at&&x.deleted_at&&Date.parse(y.deleted_at)===Date.parse(x.deleted_at);
+          return{
+            id:y.id,text:y.content_md,done:y.task_state==='done',
+            createdAt:y.created_at,updatedAt:y.updated_at,completedAt:y.completed_at,
+            deletedAt:deletedWithParent?null:y.deleted_at
+          }
+        });
+    return normalizeTrashMemo({
+      id:x.id,content,tasks:rowTasks,
+      status:deleted?'deleted':(archive?'archive':'live'),
+      deletedAt:deleted?x.deleted_at:null,
+      trashContent:deleted?content:undefined,
+      syncRevision:Math.max(1,Number(x.revision)||1),
+      important:Boolean(code&2),work:Boolean(code&1),
+      review:c?.content_md,reviewId:c?.id,reviewUpdatedAt:c?.updated_at,
+      createdAt:x.created_at,updatedAt:x.updated_at
+    })
+  })
+};
+
+/* Push: parent row만 tombstone으로 표시합니다.
+   task/comment의 원래 삭제 상태를 덮어쓰지 않아 Trash 복구 때 기존 상태가 그대로 돌아옵니다. */
+push=async()=>{
+  let roots=memos.map((m,i)=>{
+    normalizeTrashMemo(m);
+    let deleted=m.status==='deleted',deletedAt=memoDeletedAt(m);
+    return{
+      id:m.id,user_id:user.id,parent_id:null,type:'note',
+      content_md:deleted?encodeTrashPayload(m):m.content,
+      created_at:m.createdAt,
+      updated_at:deleted?(deletedAt||m.updatedAt):m.updatedAt,
+      sort_order:-(i*4+(m.important?2:0)+(m.work?1:0)+1),
+      revision:Math.max(1,Number(m.syncRevision)||1),
+      deleted_at:deleted?(deletedAt||m.updatedAt):(m.status==='archive'?m.updatedAt:null)
+    }
+  });
+  let reviews=memos.filter(m=>m.review!==undefined).map(m=>({
+    id:m.reviewId||(m.reviewId=id()),user_id:user.id,parent_id:m.id,type:'comment',
+    content_md:m.review||'',created_at:m.createdAt,
+    updated_at:m.reviewUpdatedAt||m.updatedAt,sort_order:0,
+    revision:Math.max(1,Number(m.syncRevision)||1),
+    deleted_at:m.status==='archive'?m.updatedAt:null
+  }));
+  let ts=memos.flatMap(m=>(m.tasks||[]).map((x,i)=>({
+    id:x.id,block_id:m.id,user_id:user.id,content_md:x.text,
+    task_state:x.done?'done':'open',focused:false,archived:false,
+    created_at:x.createdAt,updated_at:x.updatedAt,completed_at:x.completedAt,
+    sort_order:i,revision:1,deleted_at:x.deletedAt||null
+  })));
+  let blocks=[...roots,...reviews];
+  if(blocks.length){let{error}=await sb.from('blocks').upsert(blocks,{onConflict:'id'});if(error)throw error}
+  if(ts.length){let{error}=await sb.from('block_tasks').upsert(ts,{onConflict:'id'});if(error)throw error}
+};
+
+/* 혹시 과거 버전 marker가 archive로 로컬에 남아 있으면 즉시 Trash로 이동 */
+memos.forEach(m=>{
+  if((m.status==='archive'||m.status==='live')&&isTrashPayload(m.content)){
+    normalizeTrashMemo(m)
+  }
+});
+
+/* Trash UI */
+$('#revision').insertAdjacentHTML('beforebegin','<button id="trashOpen" class="plain trash-open">휴지통</button>');
+document.body.insertAdjacentHTML('beforeend',`
+<div id="trashModal" class="modal hidden">
+  <div class="dialog trash-dialog">
+    <button id="trashClose" class="plain" style="float:right;width:auto">닫기</button>
+    <h2>휴지통</h2>
+    <p>삭제된 메모는 동기화용 tombstone으로 유지되며 Live / Archive에는 표시되지 않습니다.</p>
+    <div id="trashList" class="trash-list"></div>
+  </div>
+</div>`);
+const trashPreview=m=>{
+  let body=(m.trashContent??m.content??'').trim();
+  if(body)return body;
+  let active=(m.tasks||[]).filter(t=>!t.deletedAt).map(t=>t.text).filter(Boolean);
+  return active.length?active.join(' · '):'이전 버전에서 삭제되어 원문이 남아 있지 않은 항목';
+};
+const drawTrash=()=>{
+  let deleted=memos.filter(m=>m.status==='deleted').sort((a,b)=>Date.parse(b.deletedAt||b.updatedAt)-Date.parse(a.deletedAt||a.updatedAt));
+  $('#trashList').innerHTML=deleted.length?deleted.map(m=>`
+    <div class="trash-row" data-trash-id="${m.id}">
+      <div class="trash-copy">
+        <div class="trash-text">${esc(trashPreview(m))}</div>
+        <div class="trash-date">${date(m.deletedAt||m.updatedAt)}</div>
+      </div>
+      <button class="trash-restore" title="복구">↶ 복구</button>
+    </div>`).join(''):'<div class="empty">휴지통이 비어 있습니다.</div>';
+};
+$('#trashOpen').onclick=()=>{drawTrash();$('#trashModal').classList.remove('hidden')};
+$('#trashClose').onclick=()=>$('#trashModal').classList.add('hidden');
+$('#trashList').onclick=e=>{
+  let b=e.target.closest('.trash-restore');if(!b)return;
+  let m=memos.find(x=>x.id===b.closest('[data-trash-id]').dataset.trashId);if(!m)return;
+  let stamp=now();
+  m.content=m.trashContent??m.content??'';
+  m.status='live';
+  m.deletedAt=null;
+  m.updatedAt=stamp;
+  m.syncRevision=Math.max(1,Number(m.syncRevision)||1)+1;
+  save();
+  drawTrash();
+  syncNow(true);
+};
+
+/* Mobile 검색 팝업 */
+document.querySelector('.views').insertAdjacentHTML('afterend','<button id="mobileSearchOpen" class="button mobile-search-open">검색</button>');
+document.body.insertAdjacentHTML('beforeend',`
+<div id="searchModal" class="modal hidden">
+  <div class="dialog search-dialog">
+    <h2>검색</h2>
+    <input id="mobileSearchInput" placeholder="검색어 띄어쓰기 입력…">
+    <div class="row">
+      <button id="mobileSearchClear" class="button">초기화</button>
+      <button id="mobileSearchApply" class="button primary">검색</button>
+    </div>
+  </div>
+</div>`);
+$('#mobileSearchOpen').onclick=()=>{
+  $('#mobileSearchInput').value=query;
+  $('#searchModal').classList.remove('hidden');
+  setTimeout(()=>$('#mobileSearchInput').focus(),0)
+};
+$('#mobileSearchApply').onclick=()=>{
+  query=$('#mobileSearchInput').value;
+  $('#search').value=query;
+  $('#searchModal').classList.add('hidden');
+  render()
+};
+$('#mobileSearchClear').onclick=()=>{
+  query='';$('#search').value='';$('#mobileSearchInput').value='';
+  $('#searchModal').classList.add('hidden');render()
+};
+$('#mobileSearchInput').onkeydown=e=>{
+  if(e.key==='Enter'){e.preventDefault();$('#mobileSearchApply').click()}
+};
+
+/* 저장된 메모에 모바일 전용 Todo 추가 버튼 */
+const r04RenderBase=render;
+render=()=>{
+  r04RenderBase();
+  document.querySelectorAll('.card').forEach(card=>{
+    let tools=card.querySelector('.card-tools');
+    if(tools&&!tools.querySelector('.mobile-todo-add')){
+      tools.insertAdjacentHTML('afterbegin','<button class="mobile-todo-add" title="할 일 추가">Todo추가</button>')
+    }
+  });
+};
+window.addEventListener('click',e=>{
+  let b=e.target.closest?.('.mobile-todo-add');if(!b)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  let card=b.closest('.card'),m=memos.find(x=>x.id===card.dataset.id);if(!m)return;
+  let stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null,deletedAt:null};
+  m.tasks.push(next);m.updatedAt=stamp;save();
+  setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0)
+},true);
+
+/* PC는 태그 리스트, Mobile은 태그 팝업.
+   Mobile 팝업 옵션은 세로 목록으로 표시합니다. */
+const r04Style=document.createElement('style');
+r04Style.textContent=`
+.trash-dialog{width:min(620px,100%);max-height:82vh;display:flex;flex-direction:column}
+.trash-list{overflow:auto;margin-top:8px}
+.trash-row{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line)}
+.trash-copy{flex:1;min-width:0}
+.trash-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.trash-date{margin-top:3px;color:var(--muted);font-size:11px}
+.trash-restore{border:1px solid #84b397;background:#edf6f0;color:#347653;border-radius:7px;padding:6px 9px;cursor:pointer;font:inherit;font-size:12px;font-weight:650}
+.trash-restore:hover{background:#dfeee4}
+.mobile-search-open,.mobile-todo-add{display:none}
+@media(min-width:621px){
+  .tags{display:flex!important}
+  #tagPicker{display:none!important}
+  #mobileSearchOpen{display:none!important}
+  .tag{font-size:14px;padding:7px 9px}
+}
+@media(max-width:620px){
+  #search{display:none!important}
+  .mobile-search-open{display:inline-flex!important;align-items:center;justify-content:center;margin:0 auto 7px;min-width:92px;height:38px;border:1px solid #77aa8b;background:#edf6f0;color:#347653;font-size:14px;font-weight:700;border-radius:8px}
+  #tagPicker{display:inline-flex!important;align-items:center;justify-content:center;min-width:92px;height:38px;margin:0 auto 10px;font-size:14px;font-weight:700;border-radius:8px}
+  .views{gap:7px;margin-top:10px}
+  .views button{min-height:38px;font-size:17px;padding:7px 9px!important}
+  .mode-switch{padding:3px}
+  .mode-switch button{min-width:38px}
+  .tag-modal .dialog{max-height:82vh}
+  .tag-options{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;gap:7px}
+  .tag-option{width:100%;text-align:left;border-radius:8px;padding:10px 12px;font-size:15px}
+  .bottom{gap:6px}
+  .bottom .plain{min-height:38px;padding:8px 10px!important;border:1px solid #d6e7db;border-radius:8px;background:#f7fbf8;color:#477b5d;font-size:13px!important}
+  .bottom #sync{font-weight:650}
+  .revision{border:0!important;background:transparent!important;min-height:0!important}
+  .trash-open{color:#a05e5e!important}
+  .compose>div:last-child{display:flex!important;width:100%!important;min-width:0!important;gap:5px!important;align-items:center!important;justify-content:center!important;flex-wrap:nowrap!important}
+  .compose>div:last-child>.hint{display:none!important}
+  .compose>div:last-child>.date-insert{display:contents!important}
+  .compose .button{width:auto!important;height:34px!important;min-width:0!important;padding:0 8px!important;font-size:11px!important;white-space:nowrap}
+  #save{order:1}
+  #addTempTask{order:2}
+  #insertDate{order:3}
+  #insertDateTime{order:4}
+  .mobile-todo-add{display:inline-flex!important;align-items:center;justify-content:center;border:1px solid #86b69a;background:#eef7f1;color:#347653;border-radius:6px;padding:4px 6px;font-size:10px;font-weight:700;white-space:nowrap;cursor:pointer}
+  .card-tools{gap:3px!important;align-items:center}
+  .card-tools .important,.card-tools .delete{font-size:19px!important;min-width:30px}
+  .search-dialog input{font-size:16px;padding:11px}
+  .trash-dialog{max-height:88vh}
+  .trash-row{align-items:flex-start}
+  .trash-restore{padding:8px 9px}
+}`;
+document.head.append(r04Style);
+
+/* 초기 렌더: tombstone은 어떤 view에서도 카드로 그리지 않고 Trash에서만 접근 */
+render();
+
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 </script></body></html>
