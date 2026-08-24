@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#377b59"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r17_260824</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r18_260824</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -29,7 +29,7 @@ render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.
 document.addEventListener('click',e=>{let b=e.target.closest('[data-lite]');if(b){e.preventDefault();e.stopImmediatePropagation();if(b.dataset.lite==='date')groupByDate=!groupByDate;if(b.dataset.lite==='tasks')tasksOnly=!tasksOnly;if(b.dataset.lite==='flag')flagOnly=!flagOnly;if(b.dataset.lite==='work')workMode=(workMode+1)%3;if(b.dataset.lite==='deadline'){deadlineOnly=!deadlineOnly;if(deadlineOnly)view='live'}render();return}let card=e.target.closest('.card');if(!card)return;let m=memos.find(x=>x.id===card.dataset.id);if(e.target.closest('.work-chip')){m.work=!m.work;m.updatedAt=now();save()}},true);
 document.addEventListener('keydown',e=>{let target=e.target,card=target.closest?.('.card'),editing=target.matches?.('[contenteditable]');if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();syncNow();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();localStorage.setItem(DATA,JSON.stringify(memos));status('로컬 저장 완료');return}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){if(editing){e.preventDefault();target.blur();return}if(!target.matches?.('textarea')){e.preventDefault();$('#newMemo').focus();return}}if(card&&target.classList?.contains('tasktext')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),row=target.closest('.task'),index=m.tasks.findIndex(x=>x.id===row.dataset.task),stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null};m.tasks.splice(index+1,0,next);m.updatedAt=stamp;save();setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0)}});
 
-/* Rev. r17_260824: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
+/* Rev. r18_260824: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
    메모/할 일/후기 편집, focus, blur, render는 important를 수정하지 않습니다. */
 window.addEventListener('click',e=>{
   const button=e.target.closest?.('button.icon.important');
@@ -204,7 +204,7 @@ render=()=>{
   try{tombstoneSafeRender()}finally{memos=all}
 };
 
-/* Rev. r17_260824: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
+/* Rev. r18_260824: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
 const revStyle=document.createElement('style');revStyle.textContent=`
 .revision{padding:7px 8px 1px;color:#7e9a88;font-size:10px;letter-spacing:.02em}
 .compose>div:last-child{width:176px;min-width:176px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:36px 34px auto;gap:6px}
@@ -249,7 +249,7 @@ const revStyle=document.createElement('style');revStyle.textContent=`
 document.head.append(revStyle);
 
 
-/* Rev. r17_260824
+/* Rev. r18_260824
    - PC: 태그는 좌측 목록으로 표시
    - Mobile: 검색/태그 팝업, 조작 버튼 확대, 입력 버튼 한 줄, 메모별 Todo추가
    - Trash: 삭제 메모는 Live/Archive에서 완전히 숨기고 휴지통 팝업에서만 표시/복구
@@ -553,7 +553,7 @@ document.head.append(r04Style);
 render();
 
 
-/* Rev. r17_260824
+/* Rev. r18_260824
    1) 메모 본문의 http(s), www, 일반 도메인(cad.ednc.com 포함)을 링크로 렌더링
    2) 메모별 마감일/시간 + 알림 설정
    3) 마감 메타데이터는 기존 blocks 테이블의 child comment에 예약 prefix로 저장
@@ -921,7 +921,7 @@ r08Style.textContent=`
 }`;
 document.head.append(r08Style);
 
-/* Rev. r17_260824: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
+/* Rev. r18_260824: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
 const r09Style=document.createElement('style');
 r09Style.textContent=`
 /* 중요 표시 블럭: 기존보다 한 단계 더 보이는 옅은 적색 */
@@ -988,7 +988,7 @@ r10Style.textContent=`
 
 document.head.append(r10Style);
 
-/* Rev. r17_260824
+/* Rev. r18_260824
    카드 우측 조작 버튼의 터치 영역을 균등하게 맞추고
    회사/개인 이모지(work-chip)를 각 버튼 영역의 정중앙에 배치합니다.
 */
@@ -1034,7 +1034,7 @@ r11Style.textContent=`
 
 document.head.append(r11Style);
 
-/* Rev. r17_260824
+/* Rev. r18_260824
    - 마감 필터 제목 밑줄 길이 정리
    - 모바일 보기 아이콘 좌우 균등 배치
    - 모바일 검색/태그 버튼 한 줄 2열 배치
@@ -1093,7 +1093,7 @@ r12Style.textContent=`
 
 document.head.append(r12Style);
 
-/* Rev. r17_260824
+/* Rev. r18_260824
    - 모바일 보기 아이콘 완전 균등 정렬
    - 할 일 텍스트 기본 bold
    - 중요 메모 하이라이트를 옅은 주황 계열로 변경
@@ -1180,7 +1180,7 @@ r13Style.textContent=`
 
 document.head.append(r13Style);
 
-/* Rev. r17_260824
+/* Rev. r18_260824
    - 중요 관련 깃발 아이콘을 🚩로 통일
    - PC 우측 2줄 버튼을 왼쪽 기준의 동일 열로 정렬
 */
@@ -1388,7 +1388,7 @@ render();
 setTimeout(checkDueNotifications,500);
 
 
-/* Rev. r17_260824
+/* Rev. r18_260824
    알람(마감) 필터에서만 마감정보를 카드 최상단의 큰 일정 제목으로 이동합니다.
    일반 보기에서는 기존 하단 due-badge를 그대로 유지합니다.
 */
@@ -1426,7 +1426,7 @@ render=()=>{
 
 
 /* =========================================================
-   Rev. r17_260824 - Routine System
+   Rev. r18_260824 - Routine System
    - 기존 메모/태그/마감 화면은 그대로 유지
    - 좌측 패널의 별도 '루틴' 버튼으로 화면 전환
    - 요일 반복 루틴 생성/수정/삭제
@@ -1457,6 +1457,7 @@ let routineDate='';
 let routineDashboardDays=30;
 let routineEditingId=null;
 let routineWeekSelection=new Set();
+let routineModeSelection='check';
 
 const localDateKey=(d=new Date())=>{
   const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
@@ -1483,6 +1484,7 @@ const encodeRoutine=r=>ROUTINE_PREFIX+'\n'+JSON.stringify({
   title:r.title||'',
   goal:r.goal||'',
   weekdays:Array.isArray(r.weekdays)?r.weekdays:[],
+  mode:r.mode||'check',
   createdAt:r.createdAt,
   updatedAt:r.updatedAt
 });
@@ -1492,6 +1494,7 @@ const decodeRoutine=s=>{
 const encodeRoutineLog=l=>ROUTINE_LOG_PREFIX+'\n'+JSON.stringify({
   date:l.date,
   done:!!l.done,
+  value:l.value??null,
   note:l.note||'',
   createdAt:l.createdAt,
   updatedAt:l.updatedAt
@@ -1520,11 +1523,18 @@ const routinesForDate=dateKey=>activeRoutines()
 
 const routineLog=(routineId,dateKey)=>routineStore.logs.find(l=>l.routineId===routineId&&l.date===dateKey);
 
+const routineLogCompleted=(routine,log)=>{
+  if(!log)return false;
+  if((routine.mode||'check')==='check')return !!log.done;
+  return log.value!==null&&log.value!==undefined
+};
+
+
 const ensureRoutineLog=(routineId,dateKey)=>{
   let l=routineLog(routineId,dateKey);
   if(l)return l;
   const stamp=now();
-  l={id:id(),routineId,date:dateKey,done:false,note:'',createdAt:stamp,updatedAt:stamp};
+  l={id:id(),routineId,date:dateKey,done:false,value:null,note:'',createdAt:stamp,updatedAt:stamp};
   routineStore.logs.push(l);
   return l
 };
@@ -1538,7 +1548,7 @@ const routinePeriodStats=days=>{
     const key=localDateKey(d);
     const rs=routinesForDate(key);
     let done=0;
-    rs.forEach(r=>{if(routineLog(r.id,key)?.done)done++});
+    rs.forEach(r=>{if(routineLogCompleted(r,routineLog(r.id,key)))done++});
     totalScheduled+=rs.length;
     totalDone+=done;
     const full=rs.length>0&&done===rs.length;
@@ -1553,7 +1563,7 @@ const routinePeriodStats=days=>{
 
 const routineSelectedProgress=()=>{
   const rs=routinesForDate(routineDate);
-  const done=rs.filter(r=>routineLog(r.id,routineDate)?.done).length;
+  const done=rs.filter(r=>routineLogCompleted(r,routineLog(r.id,routineDate))).length;
   return{total:rs.length,done,rate:rs.length?Math.round(done/rs.length*100):0}
 };
 
@@ -1593,6 +1603,15 @@ document.body.insertAdjacentHTML('beforeend',`
       <span>반복 요일</span>
       <div id="routineWeekdays" class="routine-weekdays"></div>
     </div>
+    <div class="routine-field">
+      <span>기록 방식</span>
+      <div id="routineModes" class="routine-modes">
+        <button type="button" data-routine-mode="check">✓ 했다 / 안했다</button>
+        <button type="button" data-routine-mode="emoji">🙂 이모지 5단계</button>
+        <button type="button" data-routine-mode="percent">80% 퍼센트 5단계</button>
+      </div>
+      <small class="routine-mode-help">오늘 기분, 하루 완성도처럼 단순 체크가 아닌 루틴에 사용할 수 있습니다.</small>
+    </div>
     <div class="row routine-modal-actions">
       <button id="routineDelete" class="button routine-delete hidden">삭제</button>
       <button id="routineSave" class="button primary">저장</button>
@@ -1611,15 +1630,22 @@ const renderRoutineWeekdays=()=>{
   ).join('')
 };
 
+const renderRoutineModes=()=>{
+  document.querySelectorAll('[data-routine-mode]').forEach(b=>{
+    b.classList.toggle('selected',b.dataset.routineMode===routineModeSelection)
+  })
+};
 const openRoutineModal=r=>{
   routineEditingId=r?.id||null;
   routineWeekSelection=new Set(r?.weekdays||[]);
+  routineModeSelection=r?.mode||'check';
   $('#routineModalTitle').textContent=r?'루틴 수정':'루틴 추가';
   $('#routineTitle').value=r?.title||'';
   $('#routineGoal').value=r?.goal||'';
   $('#routineDelete').classList.toggle('hidden',!r);
   $('#routineMessage').textContent='';
   renderRoutineWeekdays();
+  renderRoutineModes();
   $('#routineModal').classList.remove('hidden');
   setTimeout(()=>$('#routineTitle').focus(),0)
 };
@@ -1629,6 +1655,11 @@ $('#routineWeekdays').onclick=e=>{
   const d=Number(b.dataset.day);
   if(routineWeekSelection.has(d))routineWeekSelection.delete(d);else routineWeekSelection.add(d);
   renderRoutineWeekdays()
+};
+$('#routineModes').onclick=e=>{
+  const b=e.target.closest('[data-routine-mode]');if(!b)return;
+  routineModeSelection=b.dataset.routineMode||'check';
+  renderRoutineModes()
 };
 $('#routineModalClose').onclick=()=>$('#routineModal').classList.add('hidden');
 
@@ -1641,10 +1672,10 @@ $('#routineSave').onclick=()=>{
   if(routineEditingId){
     const r=routineStore.routines.find(x=>x.id===routineEditingId);
     if(!r)return;
-    r.title=title;r.goal=goal;r.weekdays=[...routineWeekSelection];r.updatedAt=stamp
+    r.title=title;r.goal=goal;r.weekdays=[...routineWeekSelection];r.mode=routineModeSelection;r.updatedAt=stamp
   }else{
     routineStore.routines.push({
-      id:id(),title,goal,weekdays:[...routineWeekSelection],
+      id:id(),title,goal,weekdays:[...routineWeekSelection],mode:routineModeSelection,
       createdAt:stamp,updatedAt:stamp,deletedAt:null
     })
   }
@@ -1703,18 +1734,30 @@ const renderRoutinePage=()=>{
 
   const cards=rs.length?rs.map(r=>{
     const log=routineLog(r.id,routineDate);
-    const done=!!log?.done;
+    const mode=r.mode||'check';
+    const done=routineLogCompleted(r,log);
+    const control=mode==='emoji'
+      ? `<div class="routine-rating emoji-rating" data-rating-routine="${r.id}">
+          ${[
+            ['5','😄'],['4','🙂'],['3','😐'],['2','🙁'],['1','😡']
+          ].map(([v,label])=>`<button type="button" data-rating-value="${v}" class="${String(log?.value)===v?'selected':''}" title="${label}">${label}</button>`).join('')}
+         </div>`
+      : mode==='percent'
+      ? `<div class="routine-rating percent-rating" data-rating-routine="${r.id}">
+          ${[20,40,60,80,100].map(v=>`<button type="button" data-rating-value="${v}" class="${Number(log?.value)===v?'selected':''}">${v}%</button>`).join('')}
+         </div>`
+      : `<button class="routine-check ${done?'done':''}" data-routine-check="${r.id}" title="${done?'완료 취소':'완료'}"><span>✓</span></button>`;
     return `
     <article class="routine-item" data-routine-id="${r.id}">
       <div class="routine-item-top">
-        <button class="routine-check ${done?'done':''}" data-routine-check="${r.id}" title="${done?'완료 취소':'완료'}"><span>✓</span></button>
+        <div class="routine-control">${control}</div>
         <div class="routine-copy">
           <div class="routine-title">${routineEsc(r.title)}</div>
           ${r.goal?`<div class="routine-goal">${routineEsc(r.goal)}</div>`:''}
         </div>
         <button class="routine-edit" data-routine-edit="${r.id}" title="루틴 수정">✎</button>
       </div>
-      <textarea class="routine-note" data-routine-note="${r.id}" rows="3" maxlength="1000" placeholder="이 날의 루틴 메모…">${routineEsc(log?.note||'')}</textarea>
+      <textarea class="routine-note" data-routine-note="${r.id}" rows="1" maxlength="1000" placeholder="이 날의 루틴 메모…">${routineEsc(log?.note||'')}</textarea>
     </article>`
   }).join(''):'<div class="routine-empty">이 날짜에 예정된 루틴이 없습니다.</div>';
 
@@ -1784,8 +1827,28 @@ const renderRoutinePage=()=>{
     saveRoutineLocal(false);renderRoutinePage();status('로컬에 저장됨')
   });
 
+  routinePage.querySelectorAll('[data-rating-routine]').forEach(group=>{
+    group.querySelectorAll('[data-rating-value]').forEach(b=>b.onclick=()=>{
+      const rid=group.dataset.ratingRoutine;
+      const r=routineStore.routines.find(x=>x.id===rid);if(!r)return;
+      const l=ensureRoutineLog(rid,routineDate);
+      const raw=b.dataset.ratingValue;
+      const next=(r.mode==='percent')?Number(raw):Number(raw);
+      l.value=(Number(l.value)===next)?null:next;
+      l.done=l.value!==null;
+      l.updatedAt=now();
+      saveRoutineLocal(false);renderRoutinePage();status('로컬에 저장됨')
+    })
+  });
+
+  const autoGrowRoutineNote=t=>{
+    t.style.height='auto';
+    t.style.height=Math.max(34,t.scrollHeight)+'px'
+  };
   routinePage.querySelectorAll('[data-routine-note]').forEach(t=>{
+    autoGrowRoutineNote(t);
     t.oninput=()=>{
+      autoGrowRoutineNote(t);
       const l=ensureRoutineLog(t.dataset.routineNote,routineDate);
       l.note=t.value;l.updatedAt=now();
       saveRoutineLocal(false);status('로컬에 저장됨')
@@ -1872,6 +1935,7 @@ const pullRoutines=async()=>{
         title:d.title||'',
         goal:d.goal||'',
         weekdays:Array.isArray(d.weekdays)?d.weekdays:[],
+        mode:d.mode||'check',
         createdAt:row.created_at||d.createdAt||now(),
         updatedAt:row.updated_at||d.updatedAt||row.created_at||now(),
         deletedAt:row.deleted_at||null
@@ -1880,7 +1944,7 @@ const pullRoutines=async()=>{
       const d=decodeRoutineLog(row.content_md);if(!d||!row.parent_id)return;
       remoteLogs.push({
         id:row.id,routineId:row.parent_id,date:d.date,
-        done:!!d.done,note:d.note||'',
+        done:!!d.done,value:d.value??null,note:d.note||'',
         createdAt:row.created_at||d.createdAt||now(),
         updatedAt:row.updated_at||d.updatedAt||row.created_at||now()
       })
@@ -2180,7 +2244,81 @@ r16Style.textContent=`
   .sync-card .sync-state{text-align:center}
 }
 `;
+
 document.head.append(r16Style);
+
+const r18Style=document.createElement('style');
+r18Style.textContent=`
+/* 루틴 기록 방식 선택 */
+.routine-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.routine-modes button{
+  border:1px solid #d9ded9;border-radius:8px;background:#f7f8f6;color:#696d67;
+  padding:8px 6px;font:inherit;font-size:11px;cursor:pointer
+}
+.routine-modes button.selected{
+  background:#e1efe5;border-color:#6fa784;color:#2f704d;font-weight:750
+}
+.routine-mode-help{display:block;margin-top:5px;color:var(--muted);font-size:9px}
+
+/* 루틴 카드 컨트롤 영역 */
+.routine-control{flex:0 0 auto;display:flex;align-items:flex-start}
+.routine-rating{display:flex;gap:4px;flex-wrap:wrap}
+.routine-rating button{
+  min-width:31px;height:31px;border:1px solid #d8ddd8;border-radius:8px;
+  background:#f3f4f2;color:#747770;cursor:pointer;font:inherit;
+  display:inline-flex;align-items:center;justify-content:center
+}
+.emoji-rating button{font-size:18px;filter:grayscale(.72);opacity:.62}
+.emoji-rating button.selected{
+  background:#e1f1e6;border-color:#65a57e;filter:none;opacity:1;
+  box-shadow:0 0 0 1px #65a57e inset
+}
+.percent-rating button{font-size:10px;font-weight:700}
+.percent-rating button.selected{
+  background:#198b50;border-color:#198b50;color:#fff
+}
+
+/* 메모는 기본 한 줄, 입력량에 맞춰 JS가 자동 증가 */
+.routine-note{
+  rows:1;
+  min-height:34px!important;
+  height:34px;
+  overflow:hidden;
+  resize:none!important;
+  line-height:1.45
+}
+
+/* 평가형 루틴은 컨트롤 폭이 넓으므로 본문과 자연스럽게 줄바꿈 */
+.routine-item-top{align-items:flex-start}
+.routine-item:has(.routine-rating) .routine-item-top{
+  flex-wrap:wrap
+}
+.routine-item:has(.routine-rating) .routine-copy{
+  flex:1 1 220px
+}
+.routine-item:has(.routine-rating) .routine-control{
+  order:2;
+  width:100%;
+  padding-left:40px;
+  margin-top:6px
+}
+.routine-item:has(.routine-rating) .routine-copy{order:1}
+.routine-item:has(.routine-rating) .routine-edit{order:1}
+.routine-item:has(.routine-rating) .routine-note{
+  margin-left:40px
+}
+
+@media(max-width:620px){
+  .routine-modes{grid-template-columns:1fr}
+  .routine-rating{gap:5px}
+  .routine-rating button{min-width:36px;height:34px}
+  .emoji-rating button{font-size:20px}
+  .routine-item:has(.routine-rating) .routine-control{padding-left:44px}
+  .routine-item:has(.routine-rating) .routine-note{margin-left:44px}
+}
+`;
+document.head.append(r18Style);
+
 
 /* 기존 render wrapper와 공존 */
 const r16RenderBase=render;
