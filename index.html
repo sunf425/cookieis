@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#377b59"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r15_260820</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r16_260824</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -29,7 +29,7 @@ render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.
 document.addEventListener('click',e=>{let b=e.target.closest('[data-lite]');if(b){e.preventDefault();e.stopImmediatePropagation();if(b.dataset.lite==='date')groupByDate=!groupByDate;if(b.dataset.lite==='tasks')tasksOnly=!tasksOnly;if(b.dataset.lite==='flag')flagOnly=!flagOnly;if(b.dataset.lite==='work')workMode=(workMode+1)%3;if(b.dataset.lite==='deadline'){deadlineOnly=!deadlineOnly;if(deadlineOnly)view='live'}render();return}let card=e.target.closest('.card');if(!card)return;let m=memos.find(x=>x.id===card.dataset.id);if(e.target.closest('.work-chip')){m.work=!m.work;m.updatedAt=now();save()}},true);
 document.addEventListener('keydown',e=>{let target=e.target,card=target.closest?.('.card'),editing=target.matches?.('[contenteditable]');if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();syncNow();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();localStorage.setItem(DATA,JSON.stringify(memos));status('로컬 저장 완료');return}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){if(editing){e.preventDefault();target.blur();return}if(!target.matches?.('textarea')){e.preventDefault();$('#newMemo').focus();return}}if(card&&target.classList?.contains('tasktext')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),row=target.closest('.task'),index=m.tasks.findIndex(x=>x.id===row.dataset.task),stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null};m.tasks.splice(index+1,0,next);m.updatedAt=stamp;save();setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0)}});
 
-/* Rev. r15_260820: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
+/* Rev. r16_260824: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
    메모/할 일/후기 편집, focus, blur, render는 important를 수정하지 않습니다. */
 window.addEventListener('click',e=>{
   const button=e.target.closest?.('button.icon.important');
@@ -204,7 +204,7 @@ render=()=>{
   try{tombstoneSafeRender()}finally{memos=all}
 };
 
-/* Rev. r15_260820: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
+/* Rev. r16_260824: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
 const revStyle=document.createElement('style');revStyle.textContent=`
 .revision{padding:7px 8px 1px;color:#7e9a88;font-size:10px;letter-spacing:.02em}
 .compose>div:last-child{width:176px;min-width:176px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:36px 34px auto;gap:6px}
@@ -249,7 +249,7 @@ const revStyle=document.createElement('style');revStyle.textContent=`
 document.head.append(revStyle);
 
 
-/* Rev. r15_260820
+/* Rev. r16_260824
    - PC: 태그는 좌측 목록으로 표시
    - Mobile: 검색/태그 팝업, 조작 버튼 확대, 입력 버튼 한 줄, 메모별 Todo추가
    - Trash: 삭제 메모는 Live/Archive에서 완전히 숨기고 휴지통 팝업에서만 표시/복구
@@ -553,7 +553,7 @@ document.head.append(r04Style);
 render();
 
 
-/* Rev. r15_260820
+/* Rev. r16_260824
    1) 메모 본문의 http(s), www, 일반 도메인(cad.ednc.com 포함)을 링크로 렌더링
    2) 메모별 마감일/시간 + 알림 설정
    3) 마감 메타데이터는 기존 blocks 테이블의 child comment에 예약 prefix로 저장
@@ -921,7 +921,7 @@ r08Style.textContent=`
 }`;
 document.head.append(r08Style);
 
-/* Rev. r15_260820: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
+/* Rev. r16_260824: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
 const r09Style=document.createElement('style');
 r09Style.textContent=`
 /* 중요 표시 블럭: 기존보다 한 단계 더 보이는 옅은 적색 */
@@ -988,7 +988,7 @@ r10Style.textContent=`
 
 document.head.append(r10Style);
 
-/* Rev. r15_260820
+/* Rev. r16_260824
    카드 우측 조작 버튼의 터치 영역을 균등하게 맞추고
    회사/개인 이모지(work-chip)를 각 버튼 영역의 정중앙에 배치합니다.
 */
@@ -1034,7 +1034,7 @@ r11Style.textContent=`
 
 document.head.append(r11Style);
 
-/* Rev. r15_260820
+/* Rev. r16_260824
    - 마감 필터 제목 밑줄 길이 정리
    - 모바일 보기 아이콘 좌우 균등 배치
    - 모바일 검색/태그 버튼 한 줄 2열 배치
@@ -1093,7 +1093,7 @@ r12Style.textContent=`
 
 document.head.append(r12Style);
 
-/* Rev. r15_260820
+/* Rev. r16_260824
    - 모바일 보기 아이콘 완전 균등 정렬
    - 할 일 텍스트 기본 bold
    - 중요 메모 하이라이트를 옅은 주황 계열로 변경
@@ -1180,7 +1180,7 @@ r13Style.textContent=`
 
 document.head.append(r13Style);
 
-/* Rev. r15_260820
+/* Rev. r16_260824
    - 중요 관련 깃발 아이콘을 🚩로 통일
    - PC 우측 2줄 버튼을 왼쪽 기준의 동일 열로 정렬
 */
@@ -1388,7 +1388,7 @@ render();
 setTimeout(checkDueNotifications,500);
 
 
-/* Rev. r15_260820
+/* Rev. r16_260824
    알람(마감) 필터에서만 마감정보를 카드 최상단의 큰 일정 제목으로 이동합니다.
    일반 보기에서는 기존 하단 due-badge를 그대로 유지합니다.
 */
@@ -1423,6 +1423,732 @@ render=()=>{
     }
   });
 };
+
+
+/* =========================================================
+   Rev. r16_260824 - Routine System
+   - 기존 메모/태그/마감 화면은 그대로 유지
+   - 좌측 패널의 별도 '루틴' 버튼으로 화면 전환
+   - 요일 반복 루틴 생성/수정/삭제
+   - 날짜별 수행 체크 + 3줄 메모
+   - 오늘 진행 게이지
+   - 7일/30일/90일 대시보드
+   - Supabase blocks 테이블을 이용한 루틴/로그 동기화
+   ========================================================= */
+
+const ROUTINE_DATA='review_todo_routines_v1';
+const ROUTINE_PREFIX='[[ROUTINE_V1]]';
+const ROUTINE_LOG_PREFIX='[[ROUTINE_LOG_V1]]';
+
+let routineStore=(()=>{
+  try{
+    const raw=JSON.parse(localStorage.getItem(ROUTINE_DATA)||'{}');
+    return{
+      routines:Array.isArray(raw.routines)?raw.routines:[],
+      logs:Array.isArray(raw.logs)?raw.logs:[]
+    };
+  }catch{
+    return{routines:[],logs:[]}
+  }
+})();
+
+let appMode='memo';
+let routineDate='';
+let routineDashboardDays=30;
+let routineEditingId=null;
+let routineWeekSelection=new Set();
+
+const localDateKey=(d=new Date())=>{
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`
+};
+routineDate=localDateKey();
+
+const parseLocalDate=s=>{
+  const [y,m,d]=(s||'').split('-').map(Number);
+  return new Date(y,m-1,d)
+};
+const shiftDate=(s,days)=>{
+  const d=parseLocalDate(s);d.setDate(d.getDate()+days);return localDateKey(d)
+};
+const routineDayLabel=s=>{
+  const d=parseLocalDate(s),w=['일','월','화','수','목','금','토'];
+  return `${d.getFullYear()}. ${String(d.getMonth()+1).padStart(2,'0')}. ${String(d.getDate()).padStart(2,'0')} (${w[d.getDay()]})`
+};
+const routineEsc=s=>esc(s??'');
+
+const isRoutinePayload=s=>typeof s==='string'&&s.startsWith(ROUTINE_PREFIX);
+const isRoutineLogPayload=s=>typeof s==='string'&&s.startsWith(ROUTINE_LOG_PREFIX);
+const encodeRoutine=r=>ROUTINE_PREFIX+'\n'+JSON.stringify({
+  title:r.title||'',
+  goal:r.goal||'',
+  weekdays:Array.isArray(r.weekdays)?r.weekdays:[],
+  createdAt:r.createdAt,
+  updatedAt:r.updatedAt
+});
+const decodeRoutine=s=>{
+  try{return JSON.parse(s.slice(s.indexOf('\n')+1))}catch{return null}
+};
+const encodeRoutineLog=l=>ROUTINE_LOG_PREFIX+'\n'+JSON.stringify({
+  date:l.date,
+  done:!!l.done,
+  note:l.note||'',
+  createdAt:l.createdAt,
+  updatedAt:l.updatedAt
+});
+const decodeRoutineLog=s=>{
+  try{return JSON.parse(s.slice(s.indexOf('\n')+1))}catch{return null}
+};
+
+const saveRoutineLocal=(rerender=true)=>{
+  localStorage.setItem(ROUTINE_DATA,JSON.stringify(routineStore));
+  if(rerender&&appMode==='routine')renderRoutinePage()
+};
+
+const activeRoutines=()=>routineStore.routines.filter(r=>!r.deletedAt);
+
+const routineForDate=(r,dateKey)=>{
+  if(r.deletedAt)return false;
+  const d=parseLocalDate(dateKey);
+  if(new Date(r.createdAt).getTime()>d.getTime()+86400000-1)return false;
+  return (r.weekdays||[]).includes(d.getDay())
+};
+
+const routinesForDate=dateKey=>activeRoutines()
+  .filter(r=>routineForDate(r,dateKey))
+  .sort((a,b)=>Date.parse(a.createdAt)-Date.parse(b.createdAt));
+
+const routineLog=(routineId,dateKey)=>routineStore.logs.find(l=>l.routineId===routineId&&l.date===dateKey);
+
+const ensureRoutineLog=(routineId,dateKey)=>{
+  let l=routineLog(routineId,dateKey);
+  if(l)return l;
+  const stamp=now();
+  l={id:id(),routineId,date:dateKey,done:false,note:'',createdAt:stamp,updatedAt:stamp};
+  routineStore.logs.push(l);
+  return l
+};
+
+const routinePeriodStats=days=>{
+  const end=parseLocalDate(localDateKey()),start=new Date(end);start.setDate(end.getDate()-days+1);
+  let totalScheduled=0,totalDone=0,completedDays=0,bestStreak=0,currentStreak=0;
+  const dayRows=[];
+  for(let i=0;i<days;i++){
+    const d=new Date(start);d.setDate(start.getDate()+i);
+    const key=localDateKey(d);
+    const rs=routinesForDate(key);
+    let done=0;
+    rs.forEach(r=>{if(routineLog(r.id,key)?.done)done++});
+    totalScheduled+=rs.length;
+    totalDone+=done;
+    const full=rs.length>0&&done===rs.length;
+    if(full){completedDays++;currentStreak++;bestStreak=Math.max(bestStreak,currentStreak)}else currentStreak=0;
+    dayRows.push({key,total:rs.length,done,ratio:rs.length?done/rs.length:0});
+  }
+  return{
+    totalScheduled,totalDone,completedDays,bestStreak,dayRows,
+    rate:totalScheduled?Math.round(totalDone/totalScheduled*100):0
+  }
+};
+
+const routineSelectedProgress=()=>{
+  const rs=routinesForDate(routineDate);
+  const done=rs.filter(r=>routineLog(r.id,routineDate)?.done).length;
+  return{total:rs.length,done,rate:rs.length?Math.round(done/rs.length*100):0}
+};
+
+/* ---------- UI Shell ---------- */
+const routineNav=document.createElement('button');
+routineNav.id='routineNav';
+routineNav.className='button routine-nav';
+routineNav.innerHTML='✓ 루틴';
+const viewsEl=document.querySelector('.views');
+if(viewsEl)viewsEl.insertAdjacentElement('afterend',routineNav);
+
+const routinePage=document.createElement('section');
+routinePage.id='routinePage';
+routinePage.className='routine-page hidden';
+document.querySelector('.wrap')?.appendChild(routinePage);
+
+document.body.insertAdjacentHTML('beforeend',`
+<div id="routineModal" class="modal hidden">
+  <div class="dialog routine-dialog">
+    <button id="routineModalClose" class="plain" style="float:right;width:auto">닫기</button>
+    <h2 id="routineModalTitle">루틴 추가</h2>
+    <p>반복할 요일과 완료 목표를 설정하세요.</p>
+    <label class="routine-field">
+      <span>루틴 이름</span>
+      <input id="routineTitle" maxlength="120" placeholder="예: 운동하기">
+    </label>
+    <label class="routine-field">
+      <span>완료 목표 / 설명</span>
+      <textarea id="routineGoal" rows="3" maxlength="500" placeholder="예: 30분 이상 유산소 운동하기"></textarea>
+    </label>
+    <div class="routine-field">
+      <span>반복 요일</span>
+      <div id="routineWeekdays" class="routine-weekdays"></div>
+    </div>
+    <div class="row routine-modal-actions">
+      <button id="routineDelete" class="button routine-delete hidden">삭제</button>
+      <button id="routineSave" class="button primary">저장</button>
+    </div>
+    <p id="routineMessage"></p>
+  </div>
+</div>`);
+
+const weekdayDefs=[
+  {v:1,t:'월'},{v:2,t:'화'},{v:3,t:'수'},{v:4,t:'목'},{v:5,t:'금'},{v:6,t:'토'},{v:0,t:'일'}
+];
+
+const renderRoutineWeekdays=()=>{
+  $('#routineWeekdays').innerHTML=weekdayDefs.map(x=>
+    `<button type="button" class="routine-day ${routineWeekSelection.has(x.v)?'selected':''}" data-day="${x.v}">${x.t}</button>`
+  ).join('')
+};
+
+const openRoutineModal=r=>{
+  routineEditingId=r?.id||null;
+  routineWeekSelection=new Set(r?.weekdays||[]);
+  $('#routineModalTitle').textContent=r?'루틴 수정':'루틴 추가';
+  $('#routineTitle').value=r?.title||'';
+  $('#routineGoal').value=r?.goal||'';
+  $('#routineDelete').classList.toggle('hidden',!r);
+  $('#routineMessage').textContent='';
+  renderRoutineWeekdays();
+  $('#routineModal').classList.remove('hidden');
+  setTimeout(()=>$('#routineTitle').focus(),0)
+};
+
+$('#routineWeekdays').onclick=e=>{
+  const b=e.target.closest('[data-day]');if(!b)return;
+  const d=Number(b.dataset.day);
+  if(routineWeekSelection.has(d))routineWeekSelection.delete(d);else routineWeekSelection.add(d);
+  renderRoutineWeekdays()
+};
+$('#routineModalClose').onclick=()=>$('#routineModal').classList.add('hidden');
+
+$('#routineSave').onclick=()=>{
+  const title=$('#routineTitle').value.trim();
+  const goal=$('#routineGoal').value.trim();
+  if(!title){$('#routineMessage').textContent='루틴 이름을 입력하세요.';return}
+  if(!routineWeekSelection.size){$('#routineMessage').textContent='반복 요일을 하나 이상 선택하세요.';return}
+  const stamp=now();
+  if(routineEditingId){
+    const r=routineStore.routines.find(x=>x.id===routineEditingId);
+    if(!r)return;
+    r.title=title;r.goal=goal;r.weekdays=[...routineWeekSelection];r.updatedAt=stamp
+  }else{
+    routineStore.routines.push({
+      id:id(),title,goal,weekdays:[...routineWeekSelection],
+      createdAt:stamp,updatedAt:stamp,deletedAt:null
+    })
+  }
+  saveRoutineLocal(false);
+  $('#routineModal').classList.add('hidden');
+  renderRoutinePage();
+  status('로컬에 저장됨')
+};
+
+$('#routineDelete').onclick=()=>{
+  const r=routineStore.routines.find(x=>x.id===routineEditingId);
+  if(!r||!confirm('이 루틴을 삭제하시겠습니까?'))return;
+  const stamp=now();r.deletedAt=stamp;r.updatedAt=stamp;
+  saveRoutineLocal(false);
+  $('#routineModal').classList.add('hidden');
+  renderRoutinePage();
+  status('로컬에 저장됨')
+};
+
+/* ---------- Routine Rendering ---------- */
+const renderRoutineDashboard=()=>{
+  const s=routinePeriodStats(routineDashboardDays);
+  const cells=s.dayRows.map(d=>{
+    const cls=d.total===0?'none':d.ratio>=1?'full':d.ratio>0?'partial':'miss';
+    const tip=`${d.key} · ${d.done}/${d.total}`;
+    return `<span class="routine-heat ${cls}" title="${tip}"></span>`
+  }).join('');
+  return `
+    <section class="routine-dashboard-card">
+      <div class="routine-card-head">
+        <div><strong>루틴 대시보드</strong><small>전체 수행 흐름</small></div>
+        <div class="routine-periods">
+          ${[7,30,90].map(n=>`<button data-routine-period="${n}" class="${routineDashboardDays===n?'active':''}">${n===7?'7일':n===30?'30일':'90일'}</button>`).join('')}
+        </div>
+      </div>
+      <div class="routine-stat-top">
+        <div class="routine-ring" style="--p:${s.rate*3.6}deg"><span><b>${s.rate}%</b><small>전체 달성률</small></span></div>
+        <div class="routine-stat-list">
+          <div><span>완료한 날</span><b>${s.completedDays}일</b></div>
+          <div><span>총 수행 횟수</span><b>${s.totalDone}회</b></div>
+          <div><span>최고 연속</span><b>${s.bestStreak}일</b></div>
+          <div><span>계획된 수행</span><b>${s.totalScheduled}회</b></div>
+        </div>
+      </div>
+      <div class="routine-heat-title">최근 ${routineDashboardDays}일 달성 현황</div>
+      <div class="routine-heatmap">${cells||'<span class="routine-muted">기록이 없습니다.</span>'}</div>
+      <div class="routine-legend"><span><i class="full"></i>완료</span><span><i class="partial"></i>일부</span><span><i class="miss"></i>미완료</span></div>
+    </section>`
+};
+
+const renderRoutinePage=()=>{
+  if(!routinePage)return;
+  const rs=routinesForDate(routineDate);
+  const p=routineSelectedProgress();
+  const today=routineDate===localDateKey();
+
+  const cards=rs.length?rs.map(r=>{
+    const log=routineLog(r.id,routineDate);
+    const done=!!log?.done;
+    return `
+    <article class="routine-item" data-routine-id="${r.id}">
+      <div class="routine-item-top">
+        <button class="routine-check ${done?'done':''}" data-routine-check="${r.id}" title="${done?'완료 취소':'완료'}"><span>✓</span></button>
+        <div class="routine-copy">
+          <div class="routine-title">${routineEsc(r.title)}</div>
+          ${r.goal?`<div class="routine-goal">${routineEsc(r.goal)}</div>`:''}
+        </div>
+        <button class="routine-edit" data-routine-edit="${r.id}" title="루틴 수정">✎</button>
+      </div>
+      <textarea class="routine-note" data-routine-note="${r.id}" rows="3" maxlength="1000" placeholder="이 날의 루틴 메모…">${routineEsc(log?.note||'')}</textarea>
+    </article>`
+  }).join(''):'<div class="routine-empty">이 날짜에 예정된 루틴이 없습니다.</div>';
+
+  routinePage.innerHTML=`
+    <div class="routine-page-head">
+      <div>
+        <h1>루틴</h1>
+        <p>매일 반복하는 일을 기록하고 흐름을 확인합니다.</p>
+      </div>
+      <button id="routineAdd" class="routine-add">+ 루틴 추가</button>
+    </div>
+
+    <div class="routine-grid">
+      <section class="routine-today-card">
+        <div class="routine-card-head">
+          <div><strong>${today?'오늘의 루틴':'루틴 기록'}</strong><small>${routineDayLabel(routineDate)}</small></div>
+          <div class="routine-date-nav">
+            <button data-routine-shift="-1">‹</button>
+            <input id="routineDateInput" type="date" value="${routineDate}">
+            <button data-routine-shift="1">›</button>
+          </div>
+        </div>
+        <div class="routine-progress-row">
+          <span>${p.done} / ${p.total} 완료</span>
+          <div class="routine-progress"><i style="width:${p.rate}%"></i></div>
+          <b>${p.rate}%</b>
+        </div>
+        <div class="routine-list">${cards}</div>
+      </section>
+
+      ${renderRoutineDashboard()}
+    </div>
+
+    <section class="routine-all-card">
+      <div class="routine-card-head">
+        <div><strong>내 루틴 목록</strong><small>${activeRoutines().length}개 사용 중</small></div>
+      </div>
+      <div class="routine-all-list">
+        ${activeRoutines().length?activeRoutines().map(r=>{
+          const labels=weekdayDefs.filter(w=>r.weekdays.includes(w.v)).map(w=>w.t).join(' · ');
+          return `<button class="routine-all-row" data-routine-edit="${r.id}">
+            <span><b>${routineEsc(r.title)}</b><small>${routineEsc(r.goal||'목표 설명 없음')}</small></span>
+            <span>${labels}</span>
+          </button>`
+        }).join(''):'<div class="routine-empty">아직 만든 루틴이 없습니다.</div>'}
+      </div>
+    </section>`;
+
+  $('#routineAdd').onclick=()=>openRoutineModal(null);
+  $('#routineDateInput').onchange=e=>{routineDate=e.target.value||localDateKey();renderRoutinePage()};
+
+  routinePage.querySelectorAll('[data-routine-shift]').forEach(b=>b.onclick=()=>{
+    routineDate=shiftDate(routineDate,Number(b.dataset.routineShift));renderRoutinePage()
+  });
+
+  routinePage.querySelectorAll('[data-routine-period]').forEach(b=>b.onclick=()=>{
+    routineDashboardDays=Number(b.dataset.routinePeriod);renderRoutinePage()
+  });
+
+  routinePage.querySelectorAll('[data-routine-edit]').forEach(b=>b.onclick=()=>{
+    const r=routineStore.routines.find(x=>x.id===b.dataset.routineEdit);if(r)openRoutineModal(r)
+  });
+
+  routinePage.querySelectorAll('[data-routine-check]').forEach(b=>b.onclick=()=>{
+    const l=ensureRoutineLog(b.dataset.routineCheck,routineDate);
+    l.done=!l.done;l.updatedAt=now();
+    saveRoutineLocal(false);renderRoutinePage();status('로컬에 저장됨')
+  });
+
+  routinePage.querySelectorAll('[data-routine-note]').forEach(t=>{
+    t.oninput=()=>{
+      const l=ensureRoutineLog(t.dataset.routineNote,routineDate);
+      l.note=t.value;l.updatedAt=now();
+      saveRoutineLocal(false);status('로컬에 저장됨')
+    };
+    t.onblur=()=>renderRoutinePage()
+  });
+};
+
+const applyAppMode=()=>{
+  const compose=document.querySelector('.compose'),list=$('#list');
+  const tagPicker=$('#tagPicker');
+  if(appMode==='routine'){
+    compose?.classList.add('hidden');list?.classList.add('hidden');
+    routinePage?.classList.remove('hidden');
+    routineNav.classList.add('active');
+    if(tagPicker)tagPicker.classList.add('routine-mode-muted');
+    renderRoutinePage()
+  }else{
+    compose?.classList.remove('hidden');list?.classList.remove('hidden');
+    routinePage?.classList.add('hidden');
+    routineNav.classList.remove('active');
+    if(tagPicker)tagPicker.classList.remove('routine-mode-muted')
+  }
+};
+
+routineNav.onclick=()=>{
+  appMode=appMode==='routine'?'memo':'routine';
+  applyAppMode();
+  if(appMode==='memo')render()
+};
+
+/* 태그/메모 보기 조작을 누르면 자연스럽게 메모 화면으로 복귀 */
+window.addEventListener('click',e=>{
+  if(e.target.closest?.('[data-tag],[data-view],[data-lite],#tagPicker,#mobileSearchOpen')){
+    if(appMode==='routine'){
+      appMode='memo';
+      applyAppMode()
+    }
+  }
+},true);
+
+/* ---------- Supabase Routine Sync ---------- */
+const mergeRoutines=(local,remote)=>{
+  const map=new Map(local.map(x=>[x.id,x]));
+  remote.forEach(r=>{
+    const l=map.get(r.id);
+    if(!l){map.set(r.id,r);return}
+    if(l.deletedAt||r.deletedAt){
+      if(r.deletedAt&&!l.deletedAt){map.set(r.id,r);return}
+      if(l.deletedAt&&!r.deletedAt)return;
+    }
+    if(Date.parse(r.updatedAt||r.createdAt)>Date.parse(l.updatedAt||l.createdAt))map.set(r.id,r)
+  });
+  return [...map.values()]
+};
+const mergeRoutineLogs=(local,remote)=>{
+  const map=new Map(local.map(x=>[x.id,x]));
+  remote.forEach(r=>{
+    const l=map.get(r.id);
+    if(!l||Date.parse(r.updatedAt||r.createdAt)>Date.parse(l.updatedAt||l.createdAt))map.set(r.id,r)
+  });
+  return [...map.values()]
+};
+
+const pullRoutines=async()=>{
+  const {data,error}=await sb.from('blocks')
+    .select('id,parent_id,type,content_md,created_at,updated_at,deleted_at')
+    .eq('user_id',user.id)
+    .in('type',['routine','routine_log']);
+  if(error)throw error;
+
+  const remoteRoutines=[],remoteLogs=[];
+  (data||[]).forEach(row=>{
+    if(row.type==='routine'&&isRoutinePayload(row.content_md)){
+      const d=decodeRoutine(row.content_md);if(!d)return;
+      remoteRoutines.push({
+        id:row.id,
+        title:d.title||'',
+        goal:d.goal||'',
+        weekdays:Array.isArray(d.weekdays)?d.weekdays:[],
+        createdAt:row.created_at||d.createdAt||now(),
+        updatedAt:row.updated_at||d.updatedAt||row.created_at||now(),
+        deletedAt:row.deleted_at||null
+      })
+    }else if(row.type==='routine_log'&&isRoutineLogPayload(row.content_md)){
+      const d=decodeRoutineLog(row.content_md);if(!d||!row.parent_id)return;
+      remoteLogs.push({
+        id:row.id,routineId:row.parent_id,date:d.date,
+        done:!!d.done,note:d.note||'',
+        createdAt:row.created_at||d.createdAt||now(),
+        updatedAt:row.updated_at||d.updatedAt||row.created_at||now()
+      })
+    }
+  });
+  routineStore.routines=mergeRoutines(routineStore.routines,remoteRoutines);
+  routineStore.logs=mergeRoutineLogs(routineStore.logs,remoteLogs);
+};
+
+const pushRoutines=async()=>{
+  const rows=[];
+  routineStore.routines.forEach(r=>rows.push({
+    id:r.id,user_id:user.id,parent_id:null,type:'routine',
+    content_md:encodeRoutine(r),created_at:r.createdAt,updated_at:r.updatedAt,
+    sort_order:0,revision:1,deleted_at:r.deletedAt||null
+  }));
+  routineStore.logs.forEach(l=>rows.push({
+    id:l.id,user_id:user.id,parent_id:l.routineId,type:'routine_log',
+    content_md:encodeRoutineLog(l),created_at:l.createdAt,updated_at:l.updatedAt,
+    sort_order:0,revision:1,deleted_at:null
+  }));
+  if(rows.length){
+    const {error}=await sb.from('blocks').upsert(rows,{onConflict:'id'});
+    if(error)throw error
+  }
+};
+
+const syncRoutines=async()=>{
+  if(!sb||!user||!navigator.onLine)return;
+  await pullRoutines();
+  await pushRoutines();
+  saveRoutineLocal(false);
+  if(appMode==='routine')renderRoutinePage()
+};
+
+/* 기존 memo pull이 routine root를 메모로 오인하지 않도록 최종 필터 */
+const r16MemoPullBase=pull;
+pull=async()=>{
+  const rows=await r16MemoPullBase();
+  return rows.filter(m=>!isRoutinePayload(m.content))
+};
+
+/* 혹시 이전 실행에서 루틴 row가 메모처럼 로컬에 섞였다면 제거 */
+memos=memos.filter(m=>!isRoutinePayload(m.content));
+localStorage.setItem(DATA,JSON.stringify(memos));
+
+/* 기존 5분/수동 sync 흐름에 루틴 동기화를 함께 연결 */
+const r16SyncBase=syncNow;
+let lastRoutineSync=0;
+syncNow=async force=>{
+  const result=await r16SyncBase(force);
+  if(!sb||!user||!navigator.onLine)return result;
+  if(!force&&Date.now()-lastRoutineSync<300000)return result;
+  lastRoutineSync=Date.now();
+  try{
+    await syncRoutines();
+  }catch(e){
+    console.error(e);
+    status('루틴 동기화 실패 · 로컬 보관 중')
+  }
+  return result
+};
+
+/* 초기 로그인 연결이 완료된 뒤 루틴도 한 번 가져옴 */
+setTimeout(()=>{if(sb&&user)syncRoutines().catch(console.error)},2200);
+
+/* ---------- 지금 동기화 버튼 카드 ---------- */
+const syncStateEl=$('#syncState'),syncBtnEl=$('#sync');
+if(syncStateEl&&syncBtnEl&&!document.querySelector('.sync-card')){
+  const syncCard=document.createElement('div');
+  syncCard.className='sync-card';
+  syncStateEl.parentNode.insertBefore(syncCard,syncStateEl);
+  syncCard.append(syncStateEl,syncBtnEl)
+}
+
+/* ---------- Styles ---------- */
+const r16Style=document.createElement('style');
+r16Style.textContent=`
+/* Sync card */
+.sync-card{
+  margin:4px 0 9px;
+  padding:10px;
+  border:1px solid #e3e5e2;
+  border-radius:10px;
+  background:#f1f2f0;
+}
+.sync-card .sync-state{
+  padding:0 2px 7px;
+  color:#686b67;
+  text-align:left;
+  font-size:11px;
+}
+.sync-card #sync{
+  width:100%;
+  min-height:36px;
+  border-radius:7px;
+  background:#147a46;
+  color:#fff;
+  text-align:center;
+  font-weight:750;
+}
+.sync-card #sync:hover{background:#0f673a}
+
+/* Routine nav */
+.routine-nav{
+  display:block;
+  width:100%;
+  margin:0 0 9px;
+  border:1px solid #80ae91;
+  background:#f2f8f4;
+  color:#347653;
+  font-weight:750;
+}
+.routine-nav.active{
+  background:#347653;
+  color:#fff;
+  border-color:#347653;
+}
+.routine-mode-muted{opacity:.55}
+
+/* Routine page */
+.routine-page{padding:2px 0 30px}
+.routine-page-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin:0 0 16px;
+}
+.routine-page-head h1{margin:0;font-size:24px;color:#2f4538}
+.routine-page-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.routine-add{
+  border:0;border-radius:7px;background:#147a46;color:#fff;
+  padding:9px 14px;font:inherit;font-weight:750;cursor:pointer;white-space:nowrap
+}
+.routine-add:hover{background:#0f673a}
+
+.routine-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:14px}
+.routine-today-card,.routine-dashboard-card,.routine-all-card{
+  border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden
+}
+.routine-card-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 14px;border-bottom:1px solid var(--line)
+}
+.routine-card-head strong{display:block;font-size:14px}
+.routine-card-head small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+
+.routine-date-nav{display:flex;align-items:center;gap:4px}
+.routine-date-nav button{
+  width:29px;height:29px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;font-size:18px
+}
+.routine-date-nav input{
+  width:130px;border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit;font-size:11px
+}
+
+.routine-progress-row{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;
+  padding:11px 14px;background:#fafbf9;border-bottom:1px solid var(--line);font-size:11px
+}
+.routine-progress{height:7px;border-radius:99px;background:#e4e6e3;overflow:hidden}
+.routine-progress i{display:block;height:100%;background:#1a8b50;border-radius:99px;transition:width .25s ease}
+.routine-progress-row b{color:#347653}
+
+.routine-list{padding:4px 14px 10px}
+.routine-item{padding:12px 0;border-bottom:1px solid #efefec}
+.routine-item:last-child{border-bottom:0}
+.routine-item-top{display:flex;align-items:flex-start;gap:10px}
+.routine-check{
+  width:30px;min-width:30px;height:30px;border-radius:50%;
+  border:1.5px solid #bfc2be;background:#f4f5f3;color:#a8aaa7;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:17px;font-weight:900;line-height:1
+}
+.routine-check.done{background:#1b9655;border-color:#1b9655;color:#fff}
+.routine-copy{flex:1;min-width:0}
+.routine-title{font-size:15px;font-weight:750;color:#2f342f}
+.routine-goal{margin-top:2px;color:#747770;font-size:11px;white-space:pre-wrap}
+.routine-edit{
+  border:0;background:transparent;color:#73766f;cursor:pointer;font-size:17px;padding:2px 4px
+}
+.routine-note{
+  display:block;width:calc(100% - 40px);margin:7px 0 0 40px;
+  min-height:58px;resize:vertical;border:1px solid #e2e5e0;border-radius:7px;
+  padding:7px 8px;background:#fafcf9;color:var(--ink);font:inherit;font-size:11px;line-height:1.45
+}
+.routine-note:focus{outline:0;border-color:#76ad8a;background:#fff}
+.routine-empty{padding:28px 14px;color:var(--muted);text-align:center;font-size:12px}
+
+.routine-periods{display:flex;gap:3px}
+.routine-periods button{
+  border:0;border-radius:6px;background:#f1f2f0;color:#777;font:inherit;font-size:10px;padding:5px 8px;cursor:pointer
+}
+.routine-periods button.active{background:#e1efe5;color:#347653;font-weight:750}
+.routine-stat-top{display:grid;grid-template-columns:130px 1fr;align-items:center;gap:12px;padding:17px 14px}
+.routine-ring{
+  --p:0deg;width:112px;height:112px;border-radius:50%;
+  background:conic-gradient(#1c9254 var(--p),#e8e9e7 0);
+  display:grid;place-items:center;position:relative
+}
+.routine-ring:after{content:'';position:absolute;width:82px;height:82px;border-radius:50%;background:#fff}
+.routine-ring span{z-index:1;text-align:center}
+.routine-ring b{display:block;font-size:22px}
+.routine-ring small{display:block;color:var(--muted);font-size:9px}
+.routine-stat-list{display:flex;flex-direction:column;gap:9px}
+.routine-stat-list div{display:flex;justify-content:space-between;gap:10px;font-size:11px}
+.routine-stat-list span{color:#70736d}.routine-stat-list b{color:#30342f}
+.routine-heat-title{padding:11px 14px 6px;border-top:1px solid var(--line);font-size:11px;font-weight:700}
+.routine-heatmap{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;padding:4px 14px 8px}
+.routine-heat{aspect-ratio:1;border-radius:2px;background:#eceeeb}
+.routine-heat.full{background:#29955d}.routine-heat.partial{background:#e3b84b}.routine-heat.miss{background:#dfe1de}.routine-heat.none{background:#f4f4f2}
+.routine-legend{display:flex;justify-content:flex-end;gap:8px;padding:0 14px 13px;font-size:9px;color:#777}
+.routine-legend span{display:flex;align-items:center;gap:3px}
+.routine-legend i{width:8px;height:8px;border-radius:2px;background:#ddd}
+.routine-legend i.full{background:#29955d}.routine-legend i.partial{background:#e3b84b}.routine-legend i.miss{background:#dfe1de}
+
+.routine-all-card{margin-top:14px}
+.routine-all-list{padding:3px 12px 10px}
+.routine-all-row{
+  width:100%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+  border:0;border-bottom:1px solid #efefec;background:#fff;padding:9px 2px;text-align:left;cursor:pointer;font:inherit
+}
+.routine-all-row:last-child{border-bottom:0}
+.routine-all-row:hover{background:#fafbf9}
+.routine-all-row b{display:block;font-size:12px}
+.routine-all-row small{display:block;color:var(--muted);font-size:10px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.routine-all-row>span:last-child{color:#4e7d60;font-size:10px}
+
+.routine-dialog textarea{
+  width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit;resize:vertical
+}
+.routine-field{display:block;margin:10px 0}
+.routine-field>span{display:block;font-size:11px;font-weight:700;margin-bottom:3px;color:#62655f}
+.routine-weekdays{display:flex;gap:5px;flex-wrap:wrap}
+.routine-day{
+  width:37px;height:37px;border-radius:50%;border:1px solid #d9ded9;background:#f7f8f6;color:#777;cursor:pointer;font:inherit;font-size:12px
+}
+.routine-day.selected{background:#1b8f52;border-color:#1b8f52;color:#fff;font-weight:750}
+.routine-modal-actions{align-items:center}
+.routine-delete{margin-right:auto!important;color:#b45858}
+#routineMessage{min-height:18px;color:#b45858}
+
+@media(max-width:620px){
+  .routine-nav{width:min(220px,100%);margin:2px auto 9px;min-height:38px}
+  .routine-page{padding-top:2px}
+  .routine-page-head{align-items:center}
+  .routine-page-head h1{font-size:20px}
+  .routine-page-head p{display:none}
+  .routine-add{padding:8px 10px;font-size:12px}
+  .routine-grid{display:block}
+  .routine-dashboard-card{margin-top:12px}
+  .routine-card-head{padding:11px 10px}
+  .routine-date-nav input{width:116px}
+  .routine-progress-row{padding:10px}
+  .routine-list{padding-inline:10px}
+  .routine-item{padding:11px 0}
+  .routine-check{width:34px;min-width:34px;height:34px}
+  .routine-title{font-size:16px}
+  .routine-goal{font-size:12px}
+  .routine-note{width:calc(100% - 44px);margin-left:44px;font-size:13px;min-height:66px}
+  .routine-stat-top{grid-template-columns:118px 1fr;padding-inline:10px}
+  .routine-ring{width:104px;height:104px}
+  .routine-ring:after{width:76px;height:76px}
+  .routine-heatmap{grid-template-columns:repeat(15,1fr);gap:3px;padding-inline:10px}
+  .routine-all-card{margin-top:12px}
+  .sync-card{width:100%;margin:3px 0 8px}
+  .sync-card .sync-state{text-align:center}
+}
+`;
+document.head.append(r16Style);
+
+/* 기존 render wrapper와 공존 */
+const r16RenderBase=render;
+render=()=>{
+  r16RenderBase();
+  applyAppMode()
+};
+
+applyAppMode();
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 </script></body></html>
