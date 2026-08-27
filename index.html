@@ -2350,7 +2350,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r28_260827';
+if($('#revision'))$('#revision').textContent='Rev. r29_260827';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -2396,7 +2396,7 @@ const openNotice=manual=>{
   if(!noticeContent){
     if(manual){
       alert(noticeLoadError
-        ?'공지 파일을 불러오지 못했습니다.\n'+noticeLoadError+'\n\nindex.html과 notice_r28_260827.txt가 같은 폴더에 있는지 확인하세요.'
+        ?'공지 파일을 불러오지 못했습니다.\n'+noticeLoadError+'\n\nindex.html과 notice_r29_260827.txt가 같은 폴더에 있는지 확인하세요.'
         :'현재 등록된 공지사항이 없습니다.')
     }
     return
@@ -2410,7 +2410,7 @@ $('#noticeConfirm')?.addEventListener('click',()=>{
   if(noticeSignature)localStorage.setItem(NOTICE_SEEN_KEY,noticeSignature)
 });
 let noticeLoadError='';
-const NOTICE_FILES=['notice_r28_260827.txt','notice.txt'];
+const NOTICE_FILES=['notice_r29_260827.txt','notice.txt'];
 
 const loadNoticeAtStartup=async()=>{
   noticeLoadError='';
@@ -2716,7 +2716,7 @@ render();
 
 
 /* =========================================================
-   Rev. r28_260827 (r24 안정본 기반)
+   Rev. r29_260827 (r24 안정본 기반)
    - Todo 보기 버튼 폭 고정
    - 메모 편집 중 공백/줄바꿈 시 포커스 유지 + 태그 목록 즉시 갱신
    - Ctrl/Cmd+Enter 메모 추가 후 입력창 포커스 유지
@@ -2724,7 +2724,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r28_260827';
+if($('#revision'))$('#revision').textContent='Rev. r29_260827';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -3069,7 +3069,7 @@ r21Style.textContent=`
 document.head.append(r21Style);
 
 /* =========================================================
-   Rev. r28_260827
+   Rev. r29_260827
    - 프로젝트 관리창: 선택/필터링 전용
    - 닫기/바깥 클릭은 적용 취소, 전체 프로젝트 보기는 즉시 적용 후 닫기
    - #태그 / @프로젝트 본문 강조
@@ -3205,17 +3205,17 @@ render();
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 
-/* Rev. r28_260827
+/* Rev. r29_260827
    프로젝트 관리창은 선택/필터링 전용입니다.
    추가/삭제 기능과 삭제 이벤트/Observer는 의도적으로 제거했습니다. */
 
 
 /* =========================================================
-   Rev. r28_260827
+   Rev. r29_260827
    - Mobile: 검색 / 태그 / @프로젝트 3버튼 한 줄
    - Mobile: 프로젝트 marker hover/터치 위치 튐 방지
    - Memo content/project: 편집 종료 시 실제 변경을 감지해 즉시 Supabase sync
-   - Notice: 버전별 notice_r28_260827.txt 사용
+   - Notice: 버전별 notice_r29_260827.txt 사용
    ========================================================= */
 
 const ensureR27MobileProjectButton=()=>{
@@ -3385,5 +3385,123 @@ r27Style.textContent=`
 document.head.append(r27Style);
 
 render();
+
+
+/* =========================================================
+   Rev. r29_260827
+   - 메모별 프로젝트 선택창: 바깥 영역 클릭 시 적용 취소 + 닫기
+   - 프로젝트 marker hover: 확대/이동 제거, 파란색만 표시
+   - 검색 팝업: 바깥 영역 클릭/터치 시 적용하지 않고 닫기
+   - 태그 팝업: 바깥 영역 클릭/터치 시 임시 선택 취소 후 닫기
+   ========================================================= */
+
+/* ---------- Memo project picker: cancel by backdrop ---------- */
+const closeMemoProjectWithoutApply=()=>{
+  $('#memoProjectModal')?.classList.add('hidden');
+  projectEditingMemoId=null;
+  projectEditingSelection=[]
+};
+
+$('#memoProjectModal')?.addEventListener('click',e=>{
+  if(e.target!==$('#memoProjectModal'))return;
+  e.preventDefault();
+  closeMemoProjectWithoutApply()
+});
+
+/* 기존 취소 버튼도 동일한 취소 함수를 사용하도록 통일 */
+if($('#memoProjectCancel')){
+  $('#memoProjectCancel').onclick=e=>{
+    e.preventDefault();
+    closeMemoProjectWithoutApply()
+  }
+}
+
+/* ---------- Mobile/desktop search popup: backdrop means cancel ---------- */
+const closeSearchModalWithoutApply=()=>{
+  const modal=$('#searchModal');
+  if(!modal)return;
+  /* 입력창의 임시 내용만 버리고 현재 적용된 query로 되돌립니다. */
+  if($('#mobileSearchInput'))$('#mobileSearchInput').value=query;
+  modal.classList.add('hidden')
+};
+
+$('#searchModal')?.addEventListener('click',e=>{
+  if(e.target!==$('#searchModal'))return;
+  e.preventDefault();
+  closeSearchModalWithoutApply()
+});
+
+/* ---------- Tag popup: snapshot selection, backdrop means cancel ---------- */
+let r29TagSelectionSnapshot=null;
+
+const r29TagPicker=$('#tagPicker');
+if(r29TagPicker){
+  const previousTagPickerClick=r29TagPicker.onclick;
+  r29TagPicker.onclick=e=>{
+    r29TagSelectionSnapshot={
+      selected:[...selectedTags],
+      excluded:typeof excludedTags!=='undefined'?[...excludedTags]:[]
+    };
+    if(previousTagPickerClick)return previousTagPickerClick.call(r29TagPicker,e)
+  }
+}
+
+const cancelTagModalR29=()=>{
+  if(r29TagSelectionSnapshot){
+    selectedTags=[...r29TagSelectionSnapshot.selected];
+    if(typeof excludedTags!=='undefined'){
+      excludedTags=[...r29TagSelectionSnapshot.excluded]
+    }
+  }
+  r29TagSelectionSnapshot=null;
+  $('#tagModal')?.classList.add('hidden');
+  render()
+};
+
+$('#tagModal')?.addEventListener('click',e=>{
+  if(e.target!==$('#tagModal'))return;
+  e.preventDefault();
+  cancelTagModalR29()
+});
+
+/* 선택/초기화로 정상 적용된 경우에는 스냅샷을 폐기합니다. */
+$('#applyTags')?.addEventListener('click',()=>{r29TagSelectionSnapshot=null},true);
+$('#clearTags')?.addEventListener('click',()=>{r29TagSelectionSnapshot=null},true);
+
+/* ---------- Project marker hover: no resize / no movement ---------- */
+const r29Style=document.createElement('style');
+r29Style.textContent=`
+.block-marker.project-marker-clickable,
+.block-marker.project-marker-clickable:hover,
+.block-marker.project-marker-clickable:focus-visible,
+.block-marker.project-marker-clickable:active{
+  transform:none!important;
+  transition:color .08s ease,background-color .08s ease!important;
+  position:relative!important;
+  top:0!important;
+  margin-top:0!important;
+}
+.block-marker.project-marker-clickable:hover,
+.block-marker.project-marker-clickable:focus-visible{
+  color:#2383e2!important;
+  text-shadow:none!important;
+}
+.block-marker.has-project.project-marker-clickable:hover,
+.block-marker.has-project.project-marker-clickable:focus-visible{
+  color:#2383e2!important;
+  text-shadow:none!important;
+}
+@media(max-width:620px){
+  .block-marker.project-marker-clickable,
+  .block-marker.project-marker-clickable:hover,
+  .block-marker.project-marker-clickable:active,
+  .block-marker.project-marker-clickable:focus-visible{
+    transform:none!important;
+    top:0!important;
+    margin-top:0!important
+  }
+}
+`;
+document.head.append(r29Style);
 
 </script></body></html>
