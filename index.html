@@ -2350,7 +2350,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r20_260827';
+if($('#revision'))$('#revision').textContent='Rev. r28_260827';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -2394,7 +2394,11 @@ const openNotice=manual=>{
     return
   }
   if(!noticeContent){
-    if(manual)alert('현재 등록된 공지사항이 없습니다.');
+    if(manual){
+      alert(noticeLoadError
+        ?'공지 파일을 불러오지 못했습니다.\n'+noticeLoadError+'\n\nindex.html과 notice_r28_260827.txt가 같은 폴더에 있는지 확인하세요.'
+        :'현재 등록된 공지사항이 없습니다.')
+    }
     return
   }
   $('#noticeBody').textContent=noticeContent;
@@ -2405,20 +2409,51 @@ $('#noticeConfirm')?.addEventListener('click',()=>{
   $('#noticeModal').classList.add('hidden');
   if(noticeSignature)localStorage.setItem(NOTICE_SEEN_KEY,noticeSignature)
 });
+let noticeLoadError='';
+const NOTICE_FILES=['notice_r28_260827.txt','notice.txt'];
+
 const loadNoticeAtStartup=async()=>{
-  try{
-    const response=await fetch('./notice_r27_260827.txt?v=r27_260827',{cache:'no-store'});
-    if(!response.ok){noticeLoaded=true;return}
-    const body=(await response.text()).trim();
-    noticeContent=body;
-    noticeLoaded=true;
-    if(!body)return;
-    noticeSignature=await noticeHash(body);
-    if(localStorage.getItem(NOTICE_SEEN_KEY)!==noticeSignature)openNotice(false)
-  }catch(e){
-    noticeLoaded=true;
-    console.warn('notice_r27_260827.txt를 불러오지 못했습니다.',e)
+  noticeLoadError='';
+  noticeContent='';
+  noticeSignature='';
+  noticeLoaded=false;
+
+  for(const fileName of NOTICE_FILES){
+    try{
+      const url=new URL(fileName,window.location.href);
+      const response=await fetch(url.toString(),{
+        cache:'no-store',
+        headers:{'Cache-Control':'no-cache'}
+      });
+
+      if(!response.ok){
+        noticeLoadError=`${fileName}: HTTP ${response.status}`;
+        continue
+      }
+
+      const body=(await response.text()).replace(/^\uFEFF/,'').trim();
+      if(!body){
+        noticeLoadError=`${fileName}: 파일이 비어 있습니다.`;
+        continue
+      }
+
+      noticeContent=body;
+      noticeLoaded=true;
+      noticeLoadError='';
+      noticeSignature=await noticeHash(body);
+
+      if(localStorage.getItem(NOTICE_SEEN_KEY)!==noticeSignature){
+        openNotice(false)
+      }
+      return
+    }catch(e){
+      noticeLoadError=`${fileName}: ${e?.message||e}`;
+      console.warn('공지 파일 로딩 실패',fileName,e)
+    }
   }
+
+  noticeLoaded=true;
+  console.warn('사용 가능한 공지 파일을 찾지 못했습니다.',noticeLoadError)
 };
 loadNoticeAtStartup();
 
@@ -2681,7 +2716,7 @@ render();
 
 
 /* =========================================================
-   Rev. r27_260827 (r24 안정본 기반)
+   Rev. r28_260827 (r24 안정본 기반)
    - Todo 보기 버튼 폭 고정
    - 메모 편집 중 공백/줄바꿈 시 포커스 유지 + 태그 목록 즉시 갱신
    - Ctrl/Cmd+Enter 메모 추가 후 입력창 포커스 유지
@@ -2689,7 +2724,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r27_260827';
+if($('#revision'))$('#revision').textContent='Rev. r28_260827';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -3034,7 +3069,7 @@ r21Style.textContent=`
 document.head.append(r21Style);
 
 /* =========================================================
-   Rev. r27_260827
+   Rev. r28_260827
    - 프로젝트 관리창: 선택/필터링 전용
    - 닫기/바깥 클릭은 적용 취소, 전체 프로젝트 보기는 즉시 적용 후 닫기
    - #태그 / @프로젝트 본문 강조
@@ -3170,17 +3205,17 @@ render();
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 
-/* Rev. r27_260827
+/* Rev. r28_260827
    프로젝트 관리창은 선택/필터링 전용입니다.
    추가/삭제 기능과 삭제 이벤트/Observer는 의도적으로 제거했습니다. */
 
 
 /* =========================================================
-   Rev. r27_260827
+   Rev. r28_260827
    - Mobile: 검색 / 태그 / @프로젝트 3버튼 한 줄
    - Mobile: 프로젝트 marker hover/터치 위치 튐 방지
    - Memo content/project: 편집 종료 시 실제 변경을 감지해 즉시 Supabase sync
-   - Notice: 버전별 notice_r27_260827.txt 사용
+   - Notice: 버전별 notice_r28_260827.txt 사용
    ========================================================= */
 
 const ensureR27MobileProjectButton=()=>{
