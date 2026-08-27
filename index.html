@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#377b59"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r19_260824</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r24_260827</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -29,7 +29,7 @@ render=()=>{let all=new Set;memos.filter(m=>m.status!=='archive').forEach(m=>(m.
 document.addEventListener('click',e=>{let b=e.target.closest('[data-lite]');if(b){e.preventDefault();e.stopImmediatePropagation();if(b.dataset.lite==='date')groupByDate=!groupByDate;if(b.dataset.lite==='tasks')tasksOnly=!tasksOnly;if(b.dataset.lite==='flag')flagOnly=!flagOnly;if(b.dataset.lite==='work')workMode=(workMode+1)%3;if(b.dataset.lite==='deadline'){deadlineOnly=!deadlineOnly;if(deadlineOnly)view='live'}render();return}let card=e.target.closest('.card');if(!card)return;let m=memos.find(x=>x.id===card.dataset.id);if(e.target.closest('.work-chip')){m.work=!m.work;m.updatedAt=now();save()}},true);
 document.addEventListener('keydown',e=>{let target=e.target,card=target.closest?.('.card'),editing=target.matches?.('[contenteditable]');if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();syncNow();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();localStorage.setItem(DATA,JSON.stringify(memos));status('로컬 저장 완료');return}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){if(editing){e.preventDefault();target.blur();return}if(!target.matches?.('textarea')){e.preventDefault();$('#newMemo').focus();return}}if(card&&target.classList?.contains('tasktext')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();let m=memos.find(x=>x.id===card.dataset.id),row=target.closest('.task'),index=m.tasks.findIndex(x=>x.id===row.dataset.task),stamp=now(),next={id:id(),text:'',done:false,createdAt:stamp,updatedAt:stamp,completedAt:null};m.tasks.splice(index+1,0,next);m.updatedAt=stamp;save();setTimeout(()=>document.querySelector(`[data-task="${next.id}"] .tasktext`)?.focus(),0)}});
 
-/* Rev. r19_260824: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
+/* Rev. r20_260827: 중요(깃발) 상태는 실제 button.icon.important 클릭에서만 변경합니다.
    메모/할 일/후기 편집, focus, blur, render는 important를 수정하지 않습니다. */
 window.addEventListener('click',e=>{
   const button=e.target.closest?.('button.icon.important');
@@ -204,7 +204,7 @@ render=()=>{
   try{tombstoneSafeRender()}finally{memos=all}
 };
 
-/* Rev. r19_260824: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
+/* Rev. r20_260827: PC 가독성 및 메모 입력부 UI 정돈. 동기화/삭제 로직은 변경하지 않습니다. */
 const revStyle=document.createElement('style');revStyle.textContent=`
 .revision{padding:7px 8px 1px;color:#7e9a88;font-size:10px;letter-spacing:.02em}
 .compose>div:last-child{width:176px;min-width:176px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:36px 34px auto;gap:6px}
@@ -249,7 +249,7 @@ const revStyle=document.createElement('style');revStyle.textContent=`
 document.head.append(revStyle);
 
 
-/* Rev. r19_260824
+/* Rev. r20_260827
    - PC: 태그는 좌측 목록으로 표시
    - Mobile: 검색/태그 팝업, 조작 버튼 확대, 입력 버튼 한 줄, 메모별 Todo추가
    - Trash: 삭제 메모는 Live/Archive에서 완전히 숨기고 휴지통 팝업에서만 표시/복구
@@ -553,7 +553,7 @@ document.head.append(r04Style);
 render();
 
 
-/* Rev. r19_260824
+/* Rev. r20_260827
    1) 메모 본문의 http(s), www, 일반 도메인(cad.ednc.com 포함)을 링크로 렌더링
    2) 메모별 마감일/시간 + 알림 설정
    3) 마감 메타데이터는 기존 blocks 테이블의 child comment에 예약 prefix로 저장
@@ -921,7 +921,7 @@ r08Style.textContent=`
 }`;
 document.head.append(r08Style);
 
-/* Rev. r19_260824: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
+/* Rev. r20_260827: 마감 D-day / 알람필터 / 중요표시 가독성만 보강 */
 const r09Style=document.createElement('style');
 r09Style.textContent=`
 /* 중요 표시 블럭: 기존보다 한 단계 더 보이는 옅은 적색 */
@@ -988,7 +988,7 @@ r10Style.textContent=`
 
 document.head.append(r10Style);
 
-/* Rev. r19_260824
+/* Rev. r20_260827
    카드 우측 조작 버튼의 터치 영역을 균등하게 맞추고
    회사/개인 이모지(work-chip)를 각 버튼 영역의 정중앙에 배치합니다.
 */
@@ -1034,7 +1034,7 @@ r11Style.textContent=`
 
 document.head.append(r11Style);
 
-/* Rev. r19_260824
+/* Rev. r20_260827
    - 마감 필터 제목 밑줄 길이 정리
    - 모바일 보기 아이콘 좌우 균등 배치
    - 모바일 검색/태그 버튼 한 줄 2열 배치
@@ -1093,7 +1093,7 @@ r12Style.textContent=`
 
 document.head.append(r12Style);
 
-/* Rev. r19_260824
+/* Rev. r20_260827
    - 모바일 보기 아이콘 완전 균등 정렬
    - 할 일 텍스트 기본 bold
    - 중요 메모 하이라이트를 옅은 주황 계열로 변경
@@ -1180,7 +1180,7 @@ r13Style.textContent=`
 
 document.head.append(r13Style);
 
-/* Rev. r19_260824
+/* Rev. r20_260827
    - 중요 관련 깃발 아이콘을 🚩로 통일
    - PC 우측 2줄 버튼을 왼쪽 기준의 동일 열로 정렬
 */
@@ -1388,7 +1388,7 @@ render();
 setTimeout(checkDueNotifications,500);
 
 
-/* Rev. r19_260824
+/* Rev. r20_260827
    알람(마감) 필터에서만 마감정보를 카드 최상단의 큰 일정 제목으로 이동합니다.
    일반 보기에서는 기존 하단 due-badge를 그대로 유지합니다.
 */
@@ -1426,7 +1426,7 @@ render=()=>{
 
 
 /* =========================================================
-   Rev. r19_260824 - Routine System
+   Rev. r20_260827 - Routine System
    - 기존 메모/태그/마감 화면은 그대로 유지
    - 좌측 패널의 별도 '루틴' 버튼으로 화면 전환
    - 요일 반복 루틴 생성/수정/삭제
@@ -1897,7 +1897,7 @@ window.addEventListener('click',e=>{
 },true);
 
 /* ---------- Supabase Routine Sync ---------- */
-/* Rev. r19_260824
+/* Rev. r20_260827
    DB schema는 변경하지 않습니다.
    - 메모/루틴 root: blocks.type='note'
    - 후기/루틴 일별 기록: blocks.type='comment'
@@ -2340,5 +2340,838 @@ render=()=>{
 
 applyAppMode();
 
+
+/* =========================================================
+   Rev. r20_260827
+   - 서버 notice.txt 공지사항: 앱 시작 시 새 공지만 1회 자동 표시 + 좌측 메뉴 재열람
+   - Todo 보기 4단계: 모두 / Todo 포함 블럭 / Todo만 / 메모-only
+   - 태그 입력 즉시 인식(공백·줄바꿈·편집 종료)
+   - 태그 우클릭 제외 필터(복수 OR 제외)
+   ========================================================= */
+
+/* ---------- Revision ---------- */
+if($('#revision'))$('#revision').textContent='Rev. r20_260827';
+
+/* ---------- Notice ---------- */
+const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
+let noticeContent='',noticeSignature='',noticeLoaded=false;
+
+if($('#account')&&!$('#noticeOpen')){
+  $('#account').insertAdjacentHTML('beforebegin','<button id="noticeOpen" class="plain notice-open">공지사항</button>');
+}
+if(!$('#noticeModal')){
+  document.body.insertAdjacentHTML('beforeend',`
+  <div id="noticeModal" class="modal hidden">
+    <div class="dialog notice-dialog">
+      <h2>공지사항</h2>
+      <div id="noticeBody" class="notice-body"></div>
+      <div class="notice-actions">
+        <button id="noticeConfirm" class="button primary">확인</button>
+        <small>공지사항은 좌측 하단 메뉴에서 다시 확인하실 수 있습니다.</small>
+      </div>
+    </div>
+  </div>`);
+}
+
+const noticeFallbackHash=s=>{
+  let h=2166136261;
+  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}
+  return 'f'+(h>>>0).toString(16)
+};
+const noticeHash=async s=>{
+  try{
+    if(crypto?.subtle){
+      const data=new TextEncoder().encode(s);
+      const digest=await crypto.subtle.digest('SHA-256',data);
+      return [...new Uint8Array(digest)].map(v=>v.toString(16).padStart(2,'0')).join('')
+    }
+  }catch{}
+  return noticeFallbackHash(s)
+};
+const openNotice=manual=>{
+  if(!noticeLoaded){
+    if(manual)alert('공지사항을 불러오는 중입니다.');
+    return
+  }
+  if(!noticeContent){
+    if(manual)alert('현재 등록된 공지사항이 없습니다.');
+    return
+  }
+  $('#noticeBody').textContent=noticeContent;
+  $('#noticeModal').classList.remove('hidden')
+};
+$('#noticeOpen')?.addEventListener('click',()=>openNotice(true));
+$('#noticeConfirm')?.addEventListener('click',()=>{
+  $('#noticeModal').classList.add('hidden');
+  if(noticeSignature)localStorage.setItem(NOTICE_SEEN_KEY,noticeSignature)
+});
+const loadNoticeAtStartup=async()=>{
+  try{
+    const response=await fetch('./notice.txt',{cache:'no-store'});
+    if(!response.ok){noticeLoaded=true;return}
+    const body=(await response.text()).trim();
+    noticeContent=body;
+    noticeLoaded=true;
+    if(!body)return;
+    noticeSignature=await noticeHash(body);
+    if(localStorage.getItem(NOTICE_SEEN_KEY)!==noticeSignature)openNotice(false)
+  }catch(e){
+    noticeLoaded=true;
+    console.warn('notice.txt를 불러오지 못했습니다.',e)
+  }
+};
+loadNoticeAtStartup();
+
+/* ---------- Todo 4-state view ---------- */
+/*
+  0 = 모두 보기            📝✅
+  1 = Todo 포함 블럭       메모(회색)+✅
+  2 = Todo 내용만          ✅
+  3 = Todo 없는 메모       📝
+*/
+let taskViewMode=0;
+tasksOnly=false;
+
+const taskViewButton=()=>document.querySelector('[data-lite="tasks"]');
+const updateTaskViewButton=()=>{
+  const b=taskViewButton();if(!b)return;
+  b.classList.toggle('filter-on',taskViewMode!==0);
+  b.classList.toggle('task-mode-with-todo',taskViewMode===1);
+  b.innerHTML=taskViewMode===0
+    ?'<span class="task-mode-note">📝</span><span>✅</span>'
+    :taskViewMode===1
+      ?'<span class="task-mode-note muted">📝</span><span>✅</span>'
+      :taskViewMode===2?'✅':'📝';
+  b.title=[
+    '모두 보기',
+    '할 일이 있는 블럭만 보기 (메모 + 할 일)',
+    '할 일이 있는 블럭에서 할 일만 보기',
+    '할 일이 없는 메모만 보기'
+  ][taskViewMode]
+};
+
+/* 기존 document capture의 boolean tasksOnly 핸들러보다 먼저 처리 */
+window.addEventListener('click',e=>{
+  const b=e.target.closest?.('[data-lite="tasks"]');if(!b)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  tasksOnly=false;
+  taskViewMode=(taskViewMode+1)%4;
+  render()
+},true);
+
+/* ---------- Tag include / exclude ---------- */
+let excludedTags=[];
+const memoHasTag=(m,name)=>{
+  const re=new RegExp('(^|\\s)#'+String(name).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=\\s|$|[.,!?;:])','m');
+  return re.test(m?.content||'')
+};
+const refreshTagFilterAppearance=()=>{
+  document.querySelectorAll('#tags .tag[data-tag]').forEach(b=>{
+    const name=b.dataset.tag||'';
+    b.classList.toggle('tag-excluded',!!name&&excludedTags.includes(name));
+    if(name){
+      b.title=excludedTags.includes(name)
+        ?'제외 중 · 우클릭하여 제외 해제'
+        :'좌클릭: 포함 / 우클릭: 제외'
+    }
+  });
+  const picker=$('#tagPicker');
+  if(picker){
+    const count=(selectedTags?.length||0)+(excludedTags.length||0);
+    picker.textContent=count?`태그 ${count}`:'태그'
+  }
+};
+
+/* PC 좌측 태그 좌클릭은 포함 상태로 전환하고 제외와 상호배타 처리 */
+window.addEventListener('click',e=>{
+  const b=e.target.closest?.('#tags .tag[data-tag]');if(!b)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  const name=b.dataset.tag||'';
+  if(!name){selectedTags=[];excludedTags=[]}
+  else{
+    excludedTags=excludedTags.filter(x=>x!==name);
+    selectedTags=selectedTags.includes(name)
+      ?selectedTags.filter(x=>x!==name)
+      :[...selectedTags,name]
+  }
+  render()
+},true);
+
+window.addEventListener('contextmenu',e=>{
+  const b=e.target.closest?.('#tags .tag[data-tag]');if(!b)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  const name=b.dataset.tag||'';if(!name)return;
+  selectedTags=selectedTags.filter(x=>x!==name);
+  excludedTags=excludedTags.includes(name)
+    ?excludedTags.filter(x=>x!==name)
+    :[...excludedTags,name];
+  render()
+},true);
+
+/* Mobile 태그 팝업에서도 우클릭/롱클릭 가능한 환경은 같은 제외 규칙 사용 */
+$('#tagOptions')?.addEventListener('contextmenu',e=>{
+  const b=e.target.closest?.('[data-popup-tag]');if(!b)return;
+  e.preventDefault();e.stopPropagation();
+  const name=b.dataset.popupTag;
+  selectedTags=selectedTags.filter(x=>x!==name);
+  excludedTags=excludedTags.includes(name)
+    ?excludedTags.filter(x=>x!==name)
+    :[...excludedTags,name];
+  b.classList.toggle('excluded',excludedTags.includes(name))
+});
+
+/* ---------- Immediate hashtag recognition ---------- */
+const selectionTextOffset=root=>{
+  const sel=window.getSelection();if(!sel||!sel.rangeCount||!root.contains(sel.focusNode))return null;
+  const range=document.createRange();
+  range.selectNodeContents(root);
+  range.setEnd(sel.focusNode,sel.focusOffset);
+  return range.toString().length
+};
+const restoreTextOffset=(root,offset)=>{
+  if(offset===null||!root)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  let left=offset,node;
+  while((node=walker.nextNode())){
+    const n=node.nodeValue?.length||0;
+    if(left<=n){
+      const r=document.createRange(),s=window.getSelection();
+      r.setStart(node,Math.max(0,left));r.collapse(true);
+      s.removeAllRanges();s.addRange(r);root.focus();return
+    }
+    left-=n
+  }
+  focusEnd(root)
+};
+let tagCommitTimer=0;
+const commitMemoTagRecognition=el=>{
+  const card=el?.closest?.('.card');if(!card)return;
+  const memoId=card.dataset.id,m=memos.find(x=>x.id===memoId);if(!m)return;
+  const offset=selectionTextOffset(el);
+  m.content=el.innerText;
+  m.updatedAt=now();
+  localStorage.setItem(DATA,JSON.stringify(memos));
+  status('로컬에 저장됨');
+  clearTimeout(tagCommitTimer);
+  tagCommitTimer=setTimeout(()=>{
+    render();
+    const next=document.querySelector(`.card[data-id="${memoId}"] .memo`);
+    restoreTextOffset(next,offset)
+  },0)
+};
+document.addEventListener('input',e=>{
+  if(!e.target.classList?.contains('memo'))return;
+  if(e.data===' '||e.inputType==='insertParagraph'||e.inputType==='insertLineBreak'){
+    commitMemoTagRecognition(e.target)
+  }
+},true);
+/* 편집 종료는 기존 저장 흐름 뒤 최종 render가 태그를 즉시 강조하도록 보강 */
+document.addEventListener('focusout',e=>{
+  if(!e.target.classList?.contains('memo'))return;
+  const card=e.target.closest('.card'),m=memos.find(x=>x.id===card?.dataset.id);if(!m)return;
+  m.content=e.target.innerText;
+  m.updatedAt=now();
+  localStorage.setItem(DATA,JSON.stringify(memos));
+  setTimeout(()=>render(),0)
+},true);
+
+/* ---------- Final view post-processing ---------- */
+const r20RenderBase=render;
+render=()=>{
+  tasksOnly=false;
+  r20RenderBase();
+
+  const cards=[...document.querySelectorAll('#list .card')];
+  cards.forEach(card=>{
+    const m=memos.find(x=>x.id===card.dataset.id);if(!m)return;
+    const activeTasks=tasks(m);
+    const hasTasks=activeTasks.length>0;
+    const excluded=excludedTags.some(name=>memoHasTag(m,name));
+
+    let visible=!excluded;
+    if(taskViewMode===1||taskViewMode===2)visible=visible&&hasTasks;
+    else if(taskViewMode===3)visible=visible&&!hasTasks;
+
+    card.classList.toggle('task-view-hidden',!visible);
+
+    const memoEl=card.querySelector('.memo');
+    const reviewEl=card.querySelector('.review-box');
+    if(memoEl)memoEl.classList.toggle('task-body-hidden',taskViewMode===2);
+    if(reviewEl)reviewEl.classList.toggle('task-body-hidden',taskViewMode===2);
+  });
+
+  /* 날짜 구분선도 실제 보이는 카드가 없는 구간이면 감춤 */
+  const list=$('#list');
+  if(list){
+    const children=[...list.children];
+    children.forEach((el,i)=>{
+      if(!el.classList.contains('datehead'))return;
+      let hasVisible=false;
+      for(let j=i+1;j<children.length&&!children[j].classList.contains('datehead');j++){
+        if(children[j].classList.contains('card')&&!children[j].classList.contains('task-view-hidden')){
+          hasVisible=true;break
+        }
+      }
+      el.classList.toggle('task-view-hidden',!hasVisible)
+    });
+    list.querySelector('.r20-filter-empty')?.remove();
+    const visibleCards=cards.filter(c=>!c.classList.contains('task-view-hidden'));
+    if(cards.length&&!visibleCards.length){
+      list.insertAdjacentHTML('beforeend','<div class="empty r20-filter-empty">현재 보기 조건에 맞는 기록이 없습니다.</div>')
+    }
+  }
+
+  updateTaskViewButton();
+  refreshTagFilterAppearance();
+
+  /* 모바일 태그 팝업의 제외 상태 표시 */
+  document.querySelectorAll('#tagOptions [data-popup-tag]').forEach(b=>{
+    b.classList.toggle('excluded',excludedTags.includes(b.dataset.popupTag))
+  })
+};
+
+/* tag popup이 열린 직후에도 제외 상태를 다시 칠함 */
+$('#tagPicker')?.addEventListener('click',()=>setTimeout(()=>{
+  document.querySelectorAll('#tagOptions [data-popup-tag]').forEach(b=>{
+    b.classList.toggle('excluded',excludedTags.includes(b.dataset.popupTag))
+  })
+},0));
+/* ---------- Styles ---------- */
+const r20Style=document.createElement('style');
+r20Style.textContent=`
+.notice-open{color:#477b5d}
+.notice-dialog{width:min(560px,100%);max-height:82vh;display:flex;flex-direction:column}
+.notice-body{
+  margin:12px 0 16px;padding:12px 13px;border:1px solid var(--line);border-radius:8px;
+  background:#fafbf9;white-space:pre-wrap;overflow:auto;line-height:1.7;font-size:13px
+}
+.notice-actions{display:flex;flex-direction:column;align-items:center;gap:7px}
+.notice-actions .button{min-width:96px;padding:7px 16px}
+.notice-actions small{color:var(--muted);font-size:10px;text-align:center}
+.bottom #noticeOpen{text-align:center!important}
+
+.task-view-hidden{display:none!important}
+.task-body-hidden{display:none!important}
+.task-mode-note.muted{filter:grayscale(1);opacity:.28}
+[data-lite="tasks"]{white-space:nowrap}
+[data-lite="tasks"] span{display:inline-block;vertical-align:middle}
+[data-lite="tasks"].task-mode-with-todo{background:#f1f1ef!important}
+
+#tags .tag.tag-excluded{
+  background:rgba(205,78,78,.16)!important;
+  color:#a44f4f!important;
+  text-decoration:line-through;
+  text-decoration-color:rgba(164,79,79,.5);
+}
+#tags .tag.tag-excluded:hover{background:rgba(205,78,78,.22)!important}
+.tag-option.excluded{
+  background:rgba(205,78,78,.14)!important;
+  border-color:rgba(184,76,76,.36)!important;
+  color:#a44f4f!important;
+}
+
+@media(max-width:620px){
+  .notice-dialog{max-height:88vh}
+  .notice-body{font-size:14px}
+}
+`;
+document.head.append(r20Style);
+
+render();
+
+
+/* =========================================================
+   Rev. r26_260827 (r24 안정본 기반)
+   - Todo 보기 버튼 폭 고정
+   - 메모 편집 중 공백/줄바꿈 시 포커스 유지 + 태그 목록 즉시 갱신
+   - Ctrl/Cmd+Enter 메모 추가 후 입력창 포커스 유지
+   - @프로젝트: 목록/필터/추가/삭제/메모별 지정
+   ========================================================= */
+
+/* ---------- Revision ---------- */
+if($('#revision'))$('#revision').textContent='Rev. r26_260827';
+
+/* ---------- Projects ---------- */
+const PROJECTS_KEY='review_todo_projects_v1';
+let projectRegistry=(()=>{
+  try{
+    const v=JSON.parse(localStorage.getItem(PROJECTS_KEY)||'[]');
+    return Array.isArray(v)?[...new Set(v.map(x=>String(x||'').trim()).filter(Boolean))]:[]
+  }catch{return[]}
+})();
+let selectedProjects=[];
+let projectManagerSelection=[];
+let projectEditingMemoId=null;
+let projectEditingSelection=[];
+
+const projectTokenPattern=/@([^\s@#]+)/gu;
+const projectNamesInText=s=>[...new Set([...(String(s||'').matchAll(projectTokenPattern))].map(m=>m[1]).filter(Boolean))];
+const projectNamesInMemo=m=>projectNamesInText(m?.content||'');
+/* 프로젝트 목록의 기준은 메모 본문에 실제 존재하는 @프로젝트입니다.
+   관리창에서는 프로젝트를 추가/삭제하지 않고 선택/필터링만 합니다. */
+const allProjectNames=()=>[...new Set(
+  memos.filter(m=>m.status!=='deleted').flatMap(projectNamesInMemo)
+)].sort((a,b)=>a.localeCompare(b,'ko'));
+const saveProjectRegistry=()=>{
+  projectRegistry=[...new Set(projectRegistry.map(x=>String(x||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
+  localStorage.setItem(PROJECTS_KEY,JSON.stringify(projectRegistry))
+};
+const stripProjectTokens=(content,names=null)=>{
+  const target=names?new Set(names):null;
+  let s=String(content||'').replace(/(^|[\s])@([^\s@#]+)/gu,(whole,prefix,name)=>{
+    if(target&&!target.has(name))return whole;
+    return prefix
+  });
+  return s.replace(/[ \t]{2,}/g,' ').replace(/[ \t]+\n/g,'\n').replace(/\n[ \t]+/g,'\n').trim()
+};
+const setMemoProjects=(m,names)=>{
+  if(!m)return;
+  const clean=stripProjectTokens(m.content);
+  const suffix=[...new Set(names)].filter(Boolean).map(name=>'@'+name).join(' ');
+  m.content=(clean+(clean&&suffix?' ':'')+suffix).trim();
+  m.updatedAt=now()
+};
+const memoMatchesSelectedProjects=m=>{
+  if(!selectedProjects.length)return true;
+  const names=new Set(projectNamesInMemo(m));
+  return selectedProjects.some(name=>names.has(name))
+};
+
+if(!$('#projectModal')){
+  document.body.insertAdjacentHTML('beforeend',`
+  <div id="projectModal" class="modal hidden">
+    <div class="dialog project-dialog">
+      <button id="projectManagerClose" class="plain project-dialog-close" type="button" title="프로젝트 관리 닫기">닫기</button>
+      <h2>프로젝트 선택</h2>
+      <p>메모 본문에 입력된 @프로젝트를 선택해 필터링합니다. 프로젝트를 만들려면 메모에 @프로젝트명을 직접 입력하세요.</p>
+      <div id="projectManageList" class="project-list"></div>
+      <div class="row">
+        <button id="projectFilterClear" class="button">전체 프로젝트 보기</button>
+        <button id="projectFilterApply" class="button primary">선택</button>
+      </div>
+    </div>
+  </div>`);
+}
+if(!$('#memoProjectModal')){
+  document.body.insertAdjacentHTML('beforeend',`
+  <div id="memoProjectModal" class="modal hidden">
+    <div class="dialog project-dialog">
+      <h2>프로젝트 선택</h2>
+      <p>이 메모에 연결할 프로젝트를 선택하세요. 여러 프로젝트를 함께 지정할 수 있습니다.</p>
+      <div id="memoProjectList" class="project-list"></div>
+      <div class="row project-row-split">
+        <button id="memoProjectRemove" class="button project-remove">프로젝트 없음/제거</button>
+        <button id="memoProjectCancel" class="button">취소</button>
+        <button id="memoProjectApply" class="button primary">확인</button>
+      </div>
+    </div>
+  </div>`);
+}
+
+const drawProjectManager=()=>{
+  const root=$('#projectManageList');if(!root)return;
+  const names=allProjectNames();
+  root.innerHTML=names.length?names.map(name=>`
+    <button class="project-option ${projectManagerSelection.includes(name)?'selected':''}" data-project-filter="${esc(name)}">@${esc(name)}</button>
+  `).join(''):'<div class="project-empty">메모에 입력된 @프로젝트가 없습니다.</div>'
+};
+const openProjectManager=()=>{
+  projectManagerSelection=[...selectedProjects];
+  drawProjectManager();
+  $('#projectModal').classList.remove('hidden')
+};
+const drawMemoProjectPicker=()=>{
+  const root=$('#memoProjectList');if(!root)return;
+  const names=allProjectNames();
+  root.innerHTML=names.length?names.map(name=>`
+    <button class="project-option ${projectEditingSelection.includes(name)?'selected':''}" data-memo-project="${esc(name)}">@${esc(name)}</button>
+  `).join(''):'<div class="project-empty">사용 가능한 프로젝트가 없습니다. 메모 본문에 @프로젝트명을 직접 입력하면 목록에 나타납니다.</div>'
+};
+const openMemoProjectPicker=memoId=>{
+  const m=memos.find(x=>x.id===memoId);if(!m)return;
+  projectEditingMemoId=memoId;
+  projectEditingSelection=projectNamesInMemo(m);
+  drawMemoProjectPicker();
+  $('#memoProjectModal').classList.remove('hidden')
+};
+
+$('#projectManageList')?.addEventListener('click',e=>{
+  const b=e.target.closest('[data-project-filter]');if(!b)return;
+  const name=b.dataset.projectFilter;
+  projectManagerSelection=projectManagerSelection.includes(name)
+    ?projectManagerSelection.filter(x=>x!==name)
+    :[...projectManagerSelection,name];
+  drawProjectManager()
+});
+$('#projectFilterApply')?.addEventListener('click',()=>{
+  selectedProjects=[...projectManagerSelection];
+  $('#projectModal').classList.add('hidden');
+  render()
+});
+$('#projectFilterClear')?.addEventListener('click',()=>{
+  selectedProjects=[];
+  projectManagerSelection=[];
+  $('#projectModal').classList.add('hidden');
+  render()
+});
+$('#memoProjectList')?.addEventListener('click',e=>{
+  const b=e.target.closest('[data-memo-project]');if(!b)return;
+  const name=b.dataset.memoProject;
+  projectEditingSelection=projectEditingSelection.includes(name)
+    ?projectEditingSelection.filter(x=>x!==name)
+    :[...projectEditingSelection,name];
+  drawMemoProjectPicker()
+});
+$('#memoProjectCancel')?.addEventListener('click',()=>{
+  $('#memoProjectModal').classList.add('hidden');
+  projectEditingMemoId=null;projectEditingSelection=[]
+});
+$('#memoProjectRemove')?.addEventListener('click',()=>{
+  const m=memos.find(x=>x.id===projectEditingMemoId);
+  if(m&&projectNamesInMemo(m).length){
+    setMemoProjects(m,[]);
+    localStorage.setItem(DATA,JSON.stringify(memos));
+    status('프로젝트 제거 · 로컬에 저장됨');
+    syncNow(true)
+  }
+  $('#memoProjectModal').classList.add('hidden');
+  projectEditingMemoId=null;projectEditingSelection=[];
+  render()
+});
+$('#memoProjectApply')?.addEventListener('click',()=>{
+  const m=memos.find(x=>x.id===projectEditingMemoId);
+  if(m){
+    projectEditingSelection.forEach(name=>{
+      if(!projectRegistry.includes(name))projectRegistry.push(name)
+    });
+    saveProjectRegistry();
+    setMemoProjects(m,projectEditingSelection);
+    localStorage.setItem(DATA,JSON.stringify(memos));
+    status('프로젝트 지정 · 로컬에 저장됨');
+    syncNow(true)
+  }
+  $('#memoProjectModal').classList.add('hidden');
+  projectEditingMemoId=null;projectEditingSelection=[];
+  render()
+});
+
+/* ---------- Tag sidebar without interrupting editing ---------- */
+const drawTagSidebarR21=()=>{
+  const root=$('#tags');if(!root)return;
+  const tags=[...new Set(memos.filter(m=>m.status!=='archive'&&m.status!=='deleted').flatMap(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))))].sort();
+  const projectCount=selectedProjects.length;
+  root.innerHTML=
+    `<button class="tag project-sidebar ${projectCount?'active-project':''}" id="projectPickerSide" type="button"><span>@프로젝트</span>${projectCount?`<span class="project-filter-badge">필터링 중</span>`:''}</button>`+
+    `<button class="tag ${selectedTags.length||excludedTags.length?'':'active'}" data-tag="">전체 보기</button>`+
+    tags.map(name=>`<button class="tag ${selectedTags.includes(name)?'active':''} ${excludedTags.includes(name)?'tag-excluded':''}" data-tag="${esc(name)}">#${esc(name)}</button>`).join('');
+  refreshTagFilterAppearance()
+};
+window.addEventListener('click',e=>{
+  const b=e.target.closest?.('#projectPickerSide');if(!b)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  if(appMode==='routine'){appMode='memo';applyAppMode()}
+  openProjectManager()
+},true);
+
+/* r20의 공백/줄바꿈 render를 차단하고, 모델과 좌측 태그 목록만 갱신합니다. */
+window.addEventListener('input',e=>{
+  const el=e.target;
+  if(!el?.classList?.contains('memo'))return;
+  const tagBoundary=e.data===' '||e.inputType==='insertParagraph'||e.inputType==='insertLineBreak';
+  if(!tagBoundary)return;
+  e.stopImmediatePropagation();
+  const card=el.closest('.card'),m=memos.find(x=>x.id===card?.dataset.id);
+  if(!m)return;
+  m.content=el.innerText;
+  m.updatedAt=now();
+  localStorage.setItem(DATA,JSON.stringify(memos));
+  status('로컬에 저장됨');
+  drawTagSidebarR21()
+},true);
+
+/* Ctrl/Cmd+Enter로 새 메모를 저장한 뒤 입력창으로 즉시 복귀합니다. */
+window.addEventListener('keydown',e=>{
+  if(!(e.ctrlKey||e.metaKey)||e.key!=='Enter'||e.target!==$('#newMemo'))return;
+  e.preventDefault();e.stopImmediatePropagation();
+  createMemo();
+  setTimeout(()=>{
+    const input=$('#newMemo');
+    input?.focus();
+    if(input){
+      input.style.height='auto';
+      input.style.height=input.scrollHeight+'px'
+    }
+  },0)
+},true);
+
+/* 저장 버튼으로 추가해도 연속 입력이 가능하도록 포커스를 되돌립니다. */
+$('#save')?.addEventListener('click',()=>setTimeout(()=>$('#newMemo')?.focus(),0));
+
+/* ---------- Final r21 render wrapper ---------- */
+const r21RenderBase=render;
+render=()=>{
+  r21RenderBase();
+
+  drawTagSidebarR21();
+
+  document.querySelectorAll('#list .card').forEach(card=>{
+    const m=memos.find(x=>x.id===card.dataset.id);if(!m)return;
+    const projectNames=projectNamesInMemo(m);
+    const marker=card.querySelector('.block-marker');
+
+    if(!memoMatchesSelectedProjects(m)){
+      card.classList.add('project-filter-hidden')
+    }else{
+      card.classList.remove('project-filter-hidden')
+    }
+
+    if(marker){
+      marker.classList.add('project-marker-clickable');
+      marker.title=projectNames.length
+        ?`프로젝트: ${projectNames.map(x=>'@'+x).join(', ')} · 클릭하여 변경`
+        :'프로젝트 지정';
+      marker.dataset.projectMemo=m.id;
+      marker.classList.toggle('has-project',projectNames.length>0);
+      if(projectNames.length){
+        marker.textContent='●'
+      }else{
+        marker.textContent=m.important?'🚩':'•'
+      }
+    }
+  });
+
+  /* 프로젝트 필터까지 적용한 후 날짜 헤더/빈 상태를 다시 정리 */
+  const list=$('#list');
+  if(list){
+    const children=[...list.children];
+    children.forEach((el,i)=>{
+      if(!el.classList.contains('datehead'))return;
+      let hasVisible=false;
+      for(let j=i+1;j<children.length&&!children[j].classList.contains('datehead');j++){
+        const c=children[j];
+        if(c.classList.contains('card')&&!c.classList.contains('task-view-hidden')&&!c.classList.contains('project-filter-hidden')){
+          hasVisible=true;break
+        }
+      }
+      if(!hasVisible)el.classList.add('project-filter-hidden');
+      else el.classList.remove('project-filter-hidden')
+    });
+    list.querySelector('.r21-project-empty')?.remove();
+    const cards=[...list.querySelectorAll('.card')];
+    if(cards.length&&!cards.some(c=>!c.classList.contains('task-view-hidden')&&!c.classList.contains('project-filter-hidden'))){
+      list.insertAdjacentHTML('beforeend','<div class="empty r21-project-empty">현재 보기 조건에 맞는 기록이 없습니다.</div>')
+    }
+  }
+
+  updateTaskViewButton()
+};
+
+/* 메모 왼쪽 점을 눌러 프로젝트 지정 */
+window.addEventListener('click',e=>{
+  const marker=e.target.closest?.('.block-marker.project-marker-clickable');if(!marker)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  openMemoProjectPicker(marker.dataset.projectMemo)
+},true);
+
+/* ---------- r21 Styles ---------- */
+const r21Style=document.createElement('style');
+r21Style.textContent=`
+/* Todo 버튼은 내용이 바뀌어도 폭이 절대 변하지 않습니다. */
+[data-lite="tasks"]{
+  width:52px!important;
+  min-width:52px!important;
+  max-width:52px!important;
+  flex:0 0 52px!important;
+  height:32px;
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  overflow:hidden
+}
+[data-lite="tasks"] .task-mode-note{width:22px;text-align:center}
+[data-lite="tasks"] span:last-child{width:22px;text-align:center}
+
+/* 프로젝트 */
+.project-sidebar{
+  background:#fff3bd!important;
+  color:#7a6111!important;
+  border:1px solid #ead37b!important;
+  font-weight:700!important;
+  margin-bottom:4px
+}
+.project-sidebar:hover,.project-sidebar.active-project{
+  background:#ffe99a!important;
+  color:#654e00!important
+}
+.project-dialog{width:min(520px,100%);max-height:78vh;display:flex;flex-direction:column}
+.project-list{display:flex;flex-direction:column;gap:5px;overflow:auto;min-height:70px;max-height:46vh;padding:4px 1px 10px}
+.project-option{
+  border:1px solid #ead99b;background:#fffdf3;color:#765d08;border-radius:7px;
+  padding:7px 9px;text-align:left;cursor:pointer;font:inherit
+}
+.project-option:hover{background:#fff7d4}
+.project-option.selected{background:#ffe89a;border-color:#d8b94e;font-weight:700}
+.project-empty{padding:18px 8px;color:var(--muted);text-align:center;font-size:12px}
+.project-row-split{flex-wrap:wrap}
+.project-remove{margin-right:auto!important}
+.project-filter-hidden{display:none!important}
+.block-marker.project-marker-clickable{cursor:pointer;user-select:none}
+.block-marker.project-marker-clickable:hover{transform:scale(1.18)}
+.block-marker.has-project{
+  color:#d3a400!important;
+  font-size:24px!important;
+  font-weight:900!important;
+  line-height:1.2!important;
+  text-shadow:0 0 0 #d3a400
+}
+@media(max-width:620px){
+  [data-lite="tasks"]{width:54px!important;min-width:54px!important;max-width:54px!important;flex-basis:54px!important}
+  .project-dialog{max-height:88vh}
+  .project-list{max-height:52vh}
+}
+`;
+document.head.append(r21Style);
+
+/* =========================================================
+   Rev. r26_260827
+   - 프로젝트 관리창: 선택/필터링 전용
+   - 닫기/바깥 클릭은 적용 취소, 전체 프로젝트 보기는 즉시 적용 후 닫기
+   - #태그 / @프로젝트 본문 강조
+   - 프로젝트 필터링 상태 배지
+   - 빠르고 읽기 쉬운 커스텀 툴팁
+   ========================================================= */
+
+/* 관리창 닫기: 임시 선택은 버리고 현재 적용 상태 유지 */
+const closeProjectManagerWithoutApply=()=>{
+  projectManagerSelection=[...selectedProjects];
+  $('#projectModal')?.classList.add('hidden')
+};
+$('#projectManagerClose')?.addEventListener('click',e=>{
+  e.preventDefault();
+  closeProjectManagerWithoutApply()
+});
+$('#projectModal')?.addEventListener('click',e=>{
+  if(e.target===$('#projectModal'))closeProjectManagerWithoutApply()
+});
+
+/* #태그는 진한 녹색, @프로젝트는 진한 노랑~주황색으로 표시합니다. */
+mark=s=>esc(s)
+  .replace(/#([가-힣ㄱ-ㅎㅏ-ㅣ\w-]+)/gu,'<span class="hashtag" data-tag="$1" contenteditable="false">#$1</span>')
+  .replace(/@([^\s@#<>&]+)/gu,'<span class="project-inline" contenteditable="false">@$1</span>');
+
+/* 최종 렌더 후 필터 상태 배지를 항상 실제 적용 상태와 맞춥니다. */
+const r22RenderBase=render;
+render=()=>{
+  r22RenderBase();
+  const projectButton=$('#projectPickerSide');
+  if(projectButton){
+    projectButton.classList.toggle('active-project',selectedProjects.length>0);
+    projectButton.innerHTML=`<span>@프로젝트</span>${selectedProjects.length?'<span class="project-filter-badge">필터링 중</span>':''}`
+  }
+};
+
+/* Native title 대신 빠른 커스텀 툴팁 */
+const r22Tooltip=document.createElement('div');
+r22Tooltip.className='r22-tooltip';
+r22Tooltip.setAttribute('role','tooltip');
+document.body.append(r22Tooltip);
+let r22TooltipTimer=null,r22TooltipTarget=null;
+const hideR22Tooltip=()=>{
+  clearTimeout(r22TooltipTimer);
+  r22Tooltip.classList.remove('show');
+  if(r22TooltipTarget?.dataset.r22Tooltip&&!r22TooltipTarget.hasAttribute('title')){
+    r22TooltipTarget.setAttribute('title',r22TooltipTarget.dataset.r22Tooltip)
+  }
+  r22TooltipTarget=null
+};
+const positionR22Tooltip=e=>{
+  const gap=20,pad=10;
+  let x=e.clientX+gap,y=e.clientY+gap;
+  const w=r22Tooltip.offsetWidth||220,h=r22Tooltip.offsetHeight||36;
+  if(x+w>window.innerWidth-pad)x=Math.max(pad,e.clientX-w-gap);
+  if(y+h>window.innerHeight-pad)y=Math.max(pad,e.clientY-h-gap);
+  r22Tooltip.style.left=x+'px';
+  r22Tooltip.style.top=y+'px'
+};
+document.addEventListener('pointerover',e=>{
+  const target=e.target.closest?.('[title]');
+  if(!target)return;
+  const label=target.getAttribute('title');
+  if(!label)return;
+  hideR22Tooltip();
+  r22TooltipTarget=target;
+  target.dataset.r22Tooltip=label;
+  target.removeAttribute('title');
+  r22Tooltip.textContent=label;
+  positionR22Tooltip(e);
+  r22TooltipTimer=setTimeout(()=>{
+    if(r22TooltipTarget===target)r22Tooltip.classList.add('show')
+  },120)
+},true);
+document.addEventListener('pointermove',e=>{
+  if(r22TooltipTarget)positionR22Tooltip(e)
+},true);
+document.addEventListener('pointerout',e=>{
+  if(!r22TooltipTarget)return;
+  const to=e.relatedTarget;
+  if(to&&r22TooltipTarget.contains?.(to))return;
+  hideR22Tooltip()
+},true);
+document.addEventListener('pointerdown',hideR22Tooltip,true);
+window.addEventListener('blur',hideR22Tooltip);
+
+/* r22 styles */
+const r22Style=document.createElement('style');
+r22Style.textContent=`
+.project-dialog{position:relative}
+.project-dialog-close{
+  position:absolute;top:12px;right:14px;width:auto!important;
+  padding:5px 8px!important;font-size:13px!important;color:#777!important
+}
+.project-dialog h2{padding-right:48px}
+.project-sidebar{
+  display:flex!important;align-items:center;justify-content:space-between;gap:7px
+}
+.project-filter-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:2px 6px;border-radius:5px;background:#5b9a72;color:#fff;
+  font-size:10px;font-weight:750;line-height:1.4;white-space:nowrap
+}
+.hashtag{
+  color:#237247!important;
+  font-weight:800!important;
+}
+.project-inline{
+  color:#d58a00!important;
+  font-weight:850!important;
+}
+.r22-tooltip{
+  position:fixed;z-index:99999;max-width:320px;
+  padding:7px 9px;border-radius:7px;
+  background:#2f302d;color:#fff;
+  font-size:14px;font-weight:600;line-height:1.4;
+  box-shadow:0 5px 18px #0003;
+  pointer-events:none;opacity:0;visibility:hidden;
+  transform:translateY(2px);
+  transition:opacity .07s ease,transform .07s ease,visibility .07s
+}
+.r22-tooltip.show{
+  opacity:1;visibility:visible;transform:translateY(0)
+}
+@media(max-width:620px){
+  .project-filter-badge{font-size:9px;padding:2px 5px}
+  .r22-tooltip{font-size:13px;max-width:260px}
+}
+`;
+document.head.append(r22Style);
+
+render();
+
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
+
+/* Rev. r26_260827
+   프로젝트 관리창은 선택/필터링 전용입니다.
+   추가/삭제 기능과 삭제 이벤트/Observer는 의도적으로 제거했습니다. */
+
 </script></body></html>
