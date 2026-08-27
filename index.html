@@ -2407,7 +2407,7 @@ $('#noticeConfirm')?.addEventListener('click',()=>{
 });
 const loadNoticeAtStartup=async()=>{
   try{
-    const response=await fetch('./notice.txt',{cache:'no-store'});
+    const response=await fetch('./notice_r27_260827.txt?v=r27_260827',{cache:'no-store'});
     if(!response.ok){noticeLoaded=true;return}
     const body=(await response.text()).trim();
     noticeContent=body;
@@ -2417,7 +2417,7 @@ const loadNoticeAtStartup=async()=>{
     if(localStorage.getItem(NOTICE_SEEN_KEY)!==noticeSignature)openNotice(false)
   }catch(e){
     noticeLoaded=true;
-    console.warn('notice.txt를 불러오지 못했습니다.',e)
+    console.warn('notice_r27_260827.txt를 불러오지 못했습니다.',e)
   }
 };
 loadNoticeAtStartup();
@@ -2681,7 +2681,7 @@ render();
 
 
 /* =========================================================
-   Rev. r26_260827 (r24 안정본 기반)
+   Rev. r27_260827 (r24 안정본 기반)
    - Todo 보기 버튼 폭 고정
    - 메모 편집 중 공백/줄바꿈 시 포커스 유지 + 태그 목록 즉시 갱신
    - Ctrl/Cmd+Enter 메모 추가 후 입력창 포커스 유지
@@ -2689,7 +2689,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r26_260827';
+if($('#revision'))$('#revision').textContent='Rev. r27_260827';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -3034,7 +3034,7 @@ r21Style.textContent=`
 document.head.append(r21Style);
 
 /* =========================================================
-   Rev. r26_260827
+   Rev. r27_260827
    - 프로젝트 관리창: 선택/필터링 전용
    - 닫기/바깥 클릭은 적용 취소, 전체 프로젝트 보기는 즉시 적용 후 닫기
    - #태그 / @프로젝트 본문 강조
@@ -3170,8 +3170,185 @@ render();
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 
-/* Rev. r26_260827
+/* Rev. r27_260827
    프로젝트 관리창은 선택/필터링 전용입니다.
    추가/삭제 기능과 삭제 이벤트/Observer는 의도적으로 제거했습니다. */
+
+
+/* =========================================================
+   Rev. r27_260827
+   - Mobile: 검색 / 태그 / @프로젝트 3버튼 한 줄
+   - Mobile: 프로젝트 marker hover/터치 위치 튐 방지
+   - Memo content/project: 편집 종료 시 실제 변경을 감지해 즉시 Supabase sync
+   - Notice: 버전별 notice_r27_260827.txt 사용
+   ========================================================= */
+
+const ensureR27MobileProjectButton=()=>{
+  const row=document.querySelector('.mobile-quick-row');
+  if(!row)return;
+
+  let button=$('#mobileProjectOpen');
+  if(!button){
+    button=document.createElement('button');
+    button.type='button';
+    button.id='mobileProjectOpen';
+    button.className='button mobile-project-open';
+    button.textContent='@프로젝트';
+    button.title='프로젝트 선택 / 필터';
+    row.appendChild(button)
+  }else if(button.parentNode!==row){
+    row.appendChild(button)
+  }
+
+  button.onclick=e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    if(appMode==='routine'){
+      appMode='memo';
+      applyAppMode()
+    }
+    openProjectManager()
+  };
+
+  button.classList.toggle('active-project',selectedProjects.length>0);
+  button.innerHTML=selectedProjects.length
+    ?'<span>@프로젝트</span><span class="mobile-project-filter-dot">필터링 중</span>'
+    :'<span>@프로젝트</span>'
+};
+
+const r27RenderBase=render;
+render=()=>{
+  r27RenderBase();
+  ensureR27MobileProjectButton()
+};
+ensureR27MobileProjectButton();
+
+/* 편집 시작 원문을 기억해 프로젝트/@텍스트 포함 메모 변경을 확실히 동기화 */
+const r27MemoEditStart=new Map();
+
+document.addEventListener('focusin',e=>{
+  const el=e.target;
+  if(!el?.classList?.contains('memo'))return;
+  const memoId=el.closest('.card')?.dataset.id;
+  if(!memoId)return;
+  if(!r27MemoEditStart.has(memoId))r27MemoEditStart.set(memoId,el.innerText)
+},true);
+
+document.addEventListener('focusout',e=>{
+  const el=e.target;
+  if(!el?.classList?.contains('memo'))return;
+
+  const memoId=el.closest('.card')?.dataset.id;
+  if(!memoId)return;
+
+  const m=memos.find(x=>x.id===memoId);
+  if(!m){
+    r27MemoEditStart.delete(memoId);
+    return
+  }
+
+  const before=r27MemoEditStart.get(memoId);
+  const after=el.innerText;
+  r27MemoEditStart.delete(memoId);
+
+  if(before===undefined||before===after)return;
+
+  m.content=after;
+  m.updatedAt=now();
+  localStorage.setItem(DATA,JSON.stringify(memos));
+  status('변경사항 동기화 중…');
+
+  setTimeout(()=>{
+    Promise.resolve(syncNow(true)).catch(err=>{
+      console.error(err);
+      status('동기화 실패 · 로컬 보관 중')
+    })
+  },0)
+},true);
+
+const r27Style=document.createElement('style');
+r27Style.textContent=`
+@media(max-width:620px){
+  .mobile-quick-row{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:6px!important;
+    width:100%!important;
+    margin:8px 0 10px!important
+  }
+  .mobile-quick-row #mobileSearchOpen,
+  .mobile-quick-row #tagPicker,
+  .mobile-quick-row #mobileProjectOpen{
+    display:flex!important;
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    height:38px!important;
+    margin:0!important;
+    padding:0 7px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    white-space:nowrap!important;
+    font-size:12px!important
+  }
+  .mobile-project-open{
+    background:#fff3bd!important;
+    color:#765d08!important;
+    border:1px solid #e2c966!important;
+    font-weight:750!important;
+    flex-direction:column!important;
+    gap:0!important;
+    line-height:1.05!important
+  }
+  .mobile-project-open:hover,
+  .mobile-project-open:active,
+  .mobile-project-open.active-project{
+    background:#ffe797!important;
+    border-color:#d4b84c!important;
+    color:#654e00!important
+  }
+  .mobile-project-filter-dot{
+    margin-top:2px;
+    padding:1px 4px;
+    border-radius:4px;
+    background:#5b9a72;
+    color:#fff;
+    font-size:8px;
+    font-weight:800;
+    line-height:1.25
+  }
+
+  .card{
+    grid-template-columns:24px minmax(0,1fr)!important
+  }
+  .block-marker,
+  .block-marker.has-project,
+  .block-marker.project-marker-clickable,
+  .block-marker.project-marker-clickable:hover,
+  .block-marker.project-marker-clickable:active{
+    width:24px!important;
+    min-width:24px!important;
+    max-width:24px!important;
+    height:28px!important;
+    min-height:28px!important;
+    display:flex!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:0!important;
+    margin:0!important;
+    transform:none!important;
+    line-height:28px!important;
+    align-self:start!important;
+    position:relative!important;
+    top:0!important
+  }
+  .block-marker.has-project{
+    font-size:22px!important
+  }
+}
+`;
+document.head.append(r27Style);
+
+render();
 
 </script></body></html>
