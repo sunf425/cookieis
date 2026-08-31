@@ -3280,7 +3280,9 @@ const drawTagSidebarR21=()=>{
       controlRow.appendChild(project)
     }
     project.className=`button project-sidebar ${projectCount?'active-project':''}`;
-    project.innerHTML=`<span>@프로젝트</span>${projectCount?'<span class="project-filter-badge">필터링 중</span>':''}`;
+    project.innerHTML=projectCount
+      ?'<span>필터링 중</span>'
+      :'<span>@프로젝트</span>';
   }
 
   root.querySelectorAll(':scope > .tag[data-tag]').forEach(el=>el.remove());
@@ -4280,7 +4282,7 @@ const r303EnsureSidebarButton=()=>{
   button.className='button priority-sidebar';
   button.classList.toggle('active-priority',r303PriorityMode);
   button.innerHTML=r303PriorityMode
-    ?'<span>▲ 우선순위</span><span class="priority-mode-badge">정렬 중</span>'
+    ?'<span>정렬 중</span>'
     :'<span>▲ 우선순위</span>';
   button.title=r303PriorityMode?'우선순위 보기 끄기':'우선순위 보기 / 순서 조정'
 };
@@ -4315,7 +4317,7 @@ const r303EnsureMobileButton=()=>{
   }
 
   button.classList.toggle('filter-on',r303PriorityMode);
-  button.textContent=r303PriorityMode?'▲ 정렬 중':'▲ 우선순위';
+  button.textContent=r303PriorityMode?'정렬 중':'▲ 우선순위';
   button.title=r303PriorityMode?'우선순위 보기 끄기':'우선순위 보기 / 순서 조정'
 };
 
@@ -4396,6 +4398,33 @@ window.addEventListener('click',e=>{
   r303TogglePriorityMode()
 },true);
 
+const r303NormalizePriorityOrder=()=>{
+  const ordered=memos
+    .filter(m=>m.status!=='deleted')
+    .sort(r303PriorityCompare);
+
+  const stamp=now();
+  ordered.forEach((m,i)=>{
+    m.priorityOrder=R303_PRIORITY_BASE+i*R303_PRIORITY_STEP;
+    m.updatedAt=stamp;
+    m.syncRevision=Math.max(1,Number(m.syncRevision)||1)+1
+  });
+  localStorage.setItem(DATA,JSON.stringify(memos))
+};
+
+const r303PriorityBetween=(before,after)=>{
+  if(!before&&after)return Number(after.priorityOrder)-R303_PRIORITY_STEP;
+  if(before&&!after)return Number(before.priorityOrder)+R303_PRIORITY_STEP;
+  if(!before&&!after)return R303_PRIORITY_BASE;
+
+  const a=Number(before.priorityOrder);
+  const b=Number(after.priorityOrder);
+  if(Number.isFinite(a)&&Number.isFinite(b)&&b-a>1){
+    return Math.floor((a+b)/2)
+  }
+  return null
+};
+
 const r303MovePriority=(memoId,direction)=>{
   if(!r303PriorityMode)return;
 
@@ -4413,19 +4442,58 @@ const r303MovePriority=(memoId,direction)=>{
   r303EnsurePriorityValues();
 
   /*
-    전체 메모를 다시 채점하지 않습니다.
-    현재 메모와 화면에서 바로 인접한 메모의 전역 순위값 두 개만 교환합니다.
+    r30.4 fix12:
+    두 메모의 priorityOrder 값을 맞교환하지 않습니다.
+    현재 메모를 전역 우선순위 목록에서 잠시 뺀 뒤,
+    화면에서 비교한 상대 메모의 바로 앞/뒤 위치에 삽입합니다.
+
+    따라서 상대 메모가 멀리 떨어져 있어도 상대 메모의 기존 위치를
+    통째로 현재 메모의 옛 위치로 보내는 "점프"가 발생하지 않습니다.
   */
-  const a=Number(current.priorityOrder);
-  const b=Number(other.priorityOrder);
-  current.priorityOrder=b;
-  other.priorityOrder=a;
+  const locateInsertion=()=>{
+    const ordered=memos
+      .filter(m=>m.status!=='deleted'&&m.id!==current.id)
+      .sort(r303PriorityCompare);
+
+    const targetIndex=ordered.findIndex(m=>m.id===other.id);
+    if(targetIndex<0)return null;
+
+    if(direction==='up'){
+      return{
+        before:targetIndex>0?ordered[targetIndex-1]:null,
+        after:other
+      }
+    }
+
+    return{
+      before:other,
+      after:targetIndex<ordered.length-1?ordered[targetIndex+1]:null
+    }
+  };
+
+  let place=locateInsertion();
+  if(!place)return;
+
+  let nextPriority=r303PriorityBetween(place.before,place.after);
+
+  /*
+    중간 정수 공간이 다 소진된 매우 드문 경우에만
+    현재 전역 순서를 유지한 채 간격을 다시 1000 단위로 넓힙니다.
+  */
+  if(nextPriority===null){
+    r303NormalizePriorityOrder();
+    place=locateInsertion();
+    if(!place)return;
+    nextPriority=r303PriorityBetween(place.before,place.after)
+  }
+
+  if(nextPriority===null)return;
+
+  current.priorityOrder=nextPriority;
 
   const stamp=now();
   current.updatedAt=stamp;
-  other.updatedAt=stamp;
   current.syncRevision=Math.max(1,Number(current.syncRevision)||1)+1;
-  other.syncRevision=Math.max(1,Number(other.syncRevision)||1)+1;
 
   localStorage.setItem(DATA,JSON.stringify(memos));
   render();
