@@ -6,7 +6,39 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#377b59"><title>Review & Todo</title><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
-</style></head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r24_260827</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
+</style><style>
+/* r30.3 notice archive navigation */
+.notice-version-label{
+  margin:-4px 0 8px;
+  font-size:11px;
+  font-weight:750;
+  color:#7b7b82;
+}
+.notice-history-actions{
+  display:flex;
+  gap:8px;
+  justify-content:space-between;
+  margin-top:12px;
+}
+.notice-history-actions .button{
+  flex:1;
+}
+.notice-history-actions .button:disabled{
+  opacity:.38;
+  cursor:default;
+}
+@media(max-width:620px){
+  .notice-history-actions{
+    gap:6px;
+  }
+  .notice-history-actions .button{
+    padding-left:8px;
+    padding-right:8px;
+    font-size:12px;
+  }
+}
+</style>
+</head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r24_260827</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const DATA='review_todo_memos_v4',CONF='review-todo-lite-supabase',$=s=>document.querySelector(s),now=()=>new Date().toISOString(),id=()=>crypto.randomUUID(),iso=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?now():d.toISOString()},isUuid=v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v||'');let memos=JSON.parse(localStorage.getItem(DATA)||'[]').map(m=>({...m,id:isUuid(m.id)?m.id:id(),createdAt:iso(m.createdAt),updatedAt:iso(m.updatedAt||m.createdAt),tasks:(m.tasks||[]).map(t=>({...t,id:isUuid(t.id)?t.id:id(),createdAt:iso(t.createdAt||m.createdAt),updatedAt:iso(t.updatedAt||t.createdAt||m.updatedAt),completedAt:t.completedAt?iso(t.completedAt):null,deletedAt:t.deletedAt?iso(t.deletedAt):null}))})),view='live',tag=null,query='',temp=[],sb,user,timer,busy=false;
@@ -801,6 +833,7 @@ pull=async()=>{
       deletedAt:deleted?x.deleted_at:null,
       trashContent:deleted?content:undefined,
       syncRevision:Math.max(1,Number(x.revision)||1),
+      priorityOrder:Math.floor(code/4),
       important:Boolean(code&2),work:Boolean(code&1),
       review:c?.content_md,reviewId:c?.id,reviewUpdatedAt:c?.updated_at,
       dueDate:dmeta?.dueDate||'',
@@ -822,7 +855,7 @@ push=async()=>{
       content_md:deleted?encodeTrashPayload(m):m.content,
       created_at:m.createdAt,
       updated_at:deleted?(deletedAt||m.updatedAt):m.updatedAt,
-      sort_order:-(i*4+(m.important?2:0)+(m.work?1:0)+1),
+      sort_order:-((Number.isFinite(Number(m.priorityOrder))?Math.max(0,Math.trunc(Number(m.priorityOrder))):i)*4+(m.important?2:0)+(m.work?1:0)+1),
       revision:Math.max(1,Number(m.syncRevision)||1),
       deleted_at:deleted?(deletedAt||m.updatedAt):(m.status==='archive'?m.updatedAt:null)
     }
@@ -2350,7 +2383,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r29_260827';
+if($('#revision'))$('#revision').textContent='Rev. r30.3_260831';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -2364,7 +2397,12 @@ if(!$('#noticeModal')){
   <div id="noticeModal" class="modal hidden">
     <div class="dialog notice-dialog">
       <h2>공지사항</h2>
+      <div id="noticeVersionLabel" class="notice-version-label"></div>
       <div id="noticeBody" class="notice-body"></div>
+      <div class="notice-history-actions">
+        <button id="noticePrev" class="button">이전 공지사항 보기</button>
+        <button id="noticeNext" class="button">다음 공지사항 보기</button>
+      </div>
       <div class="notice-actions">
         <button id="noticeConfirm" class="button primary">확인</button>
         <small>공지사항은 좌측 하단 메뉴에서 다시 확인하실 수 있습니다.</small>
@@ -2388,6 +2426,86 @@ const noticeHash=async s=>{
   }catch{}
   return noticeFallbackHash(s)
 };
+/*
+  공지 파일은 오래된 순서 → 최신 순서로 관리합니다.
+  앞으로 새 버전 공지를 추가할 때에는 이 배열 끝에 새 파일명 하나만 추가하면 됩니다.
+  실제 서버에 없는 과거 파일은 탐색할 때 자동으로 건너뜁니다.
+*/
+const NOTICE_ARCHIVE_FILES=[
+  'notice_r27_260827.txt',
+  'notice_r28_260827.txt',
+  'notice_r29_260827.txt',
+  'notice_r30.1_260831.txt',
+  'notice_r30.2_260831.txt',
+  'notice_r30.3_260831.txt'
+];
+const NOTICE_LATEST_INDEX=NOTICE_ARCHIVE_FILES.length-1;
+let noticeCurrentIndex=NOTICE_LATEST_INDEX;
+let noticeCurrentFile=NOTICE_ARCHIVE_FILES[NOTICE_LATEST_INDEX];
+
+const noticeVersionText=fileName=>
+  fileName
+    .replace(/^notice_/,'')
+    .replace(/\.txt$/,'')
+    .replace(/_(\d{6})$/,' · $1');
+
+const noticeUpdateNavigation=()=>{
+  const prev=$('#noticePrev');
+  const next=$('#noticeNext');
+  if(prev)prev.disabled=false;
+  if(next)next.disabled=noticeCurrentIndex>=NOTICE_LATEST_INDEX;
+
+  const label=$('#noticeVersionLabel');
+  if(label)label.textContent=noticeVersionText(noticeCurrentFile)
+};
+
+const noticeShowCurrent=()=>{
+  $('#noticeBody').textContent=noticeContent;
+  noticeUpdateNavigation();
+  $('#noticeModal').classList.remove('hidden')
+};
+
+const noticeFetchFile=async fileName=>{
+  try{
+    const url=new URL(fileName,window.location.href);
+    const response=await fetch(url.toString(),{
+      cache:'no-store',
+      headers:{'Cache-Control':'no-cache'}
+    });
+    if(!response.ok)return null;
+
+    const body=(await response.text()).replace(/^\uFEFF/,'').trim();
+    return body||null
+  }catch(e){
+    console.warn('공지 파일 탐색 실패',fileName,e);
+    return null
+  }
+};
+
+const noticeMove=async direction=>{
+  if(direction>0&&noticeCurrentIndex>=NOTICE_LATEST_INDEX)return;
+
+  const start=noticeCurrentIndex+direction;
+
+  for(
+    let i=start;
+    i>=0&&i<=NOTICE_LATEST_INDEX;
+    i+=direction
+  ){
+    const fileName=NOTICE_ARCHIVE_FILES[i];
+    const body=await noticeFetchFile(fileName);
+    if(!body)continue;
+
+    noticeCurrentIndex=i;
+    noticeCurrentFile=fileName;
+    noticeContent=body;
+    noticeShowCurrent();
+    return
+  }
+
+  alert('더 이상 공지사항이 없습니다.')
+};
+
 const openNotice=manual=>{
   if(!noticeLoaded){
     if(manual)alert('공지사항을 불러오는 중입니다.');
@@ -2396,21 +2514,31 @@ const openNotice=manual=>{
   if(!noticeContent){
     if(manual){
       alert(noticeLoadError
-        ?'공지 파일을 불러오지 못했습니다.\n'+noticeLoadError+'\n\nindex.html과 notice_r29_260827.txt가 같은 폴더에 있는지 확인하세요.'
+        ?'공지 파일을 불러오지 못했습니다.\n'+noticeLoadError+'\n\nindex.html과 notice_r30.3_260831.txt가 같은 폴더에 있는지 확인하세요.'
         :'현재 등록된 공지사항이 없습니다.')
     }
     return
   }
-  $('#noticeBody').textContent=noticeContent;
-  $('#noticeModal').classList.remove('hidden')
+
+  /* 좌측 메뉴에서 다시 열 때는 항상 최신 공지부터 보여줍니다. */
+  noticeCurrentIndex=NOTICE_LATEST_INDEX;
+  noticeCurrentFile=NOTICE_ARCHIVE_FILES[NOTICE_LATEST_INDEX];
+  noticeShowCurrent()
 };
+
 $('#noticeOpen')?.addEventListener('click',()=>openNotice(true));
+$('#noticePrev')?.addEventListener('click',()=>noticeMove(-1));
+$('#noticeNext')?.addEventListener('click',()=>noticeMove(1));
 $('#noticeConfirm')?.addEventListener('click',()=>{
   $('#noticeModal').classList.add('hidden');
+  /*
+    과거 공지를 보고 닫더라도 '최신 공지를 확인했다'는 기록은
+    시작 시 불러온 최신 noticeSignature를 기준으로 유지합니다.
+  */
   if(noticeSignature)localStorage.setItem(NOTICE_SEEN_KEY,noticeSignature)
 });
 let noticeLoadError='';
-const NOTICE_FILES=['notice_r29_260827.txt','notice.txt'];
+const NOTICE_FILES=['notice_r30.3_260831.txt','notice.txt'];
 
 const loadNoticeAtStartup=async()=>{
   noticeLoadError='';
@@ -2441,6 +2569,8 @@ const loadNoticeAtStartup=async()=>{
       noticeLoaded=true;
       noticeLoadError='';
       noticeSignature=await noticeHash(body);
+      noticeCurrentIndex=NOTICE_LATEST_INDEX;
+      noticeCurrentFile=NOTICE_ARCHIVE_FILES[NOTICE_LATEST_INDEX];
 
       if(localStorage.getItem(NOTICE_SEEN_KEY)!==noticeSignature){
         openNotice(false)
@@ -2716,7 +2846,7 @@ render();
 
 
 /* =========================================================
-   Rev. r29_260827 (r24 안정본 기반)
+   Rev. r30.3_260831 (r24 안정본 기반)
    - Todo 보기 버튼 폭 고정
    - 메모 편집 중 공백/줄바꿈 시 포커스 유지 + 태그 목록 즉시 갱신
    - Ctrl/Cmd+Enter 메모 추가 후 입력창 포커스 유지
@@ -2724,7 +2854,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r29_260827';
+if($('#revision'))$('#revision').textContent='Rev. r30.3_260831';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -3069,7 +3199,7 @@ r21Style.textContent=`
 document.head.append(r21Style);
 
 /* =========================================================
-   Rev. r29_260827
+   Rev. r30.3_260831
    - 프로젝트 관리창: 선택/필터링 전용
    - 닫기/바깥 클릭은 적용 취소, 전체 프로젝트 보기는 즉시 적용 후 닫기
    - #태그 / @프로젝트 본문 강조
@@ -3205,17 +3335,17 @@ render();
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 
-/* Rev. r29_260827
+/* Rev. r30.3_260831
    프로젝트 관리창은 선택/필터링 전용입니다.
    추가/삭제 기능과 삭제 이벤트/Observer는 의도적으로 제거했습니다. */
 
 
 /* =========================================================
-   Rev. r29_260827
+   Rev. r30.3_260831
    - Mobile: 검색 / 태그 / @프로젝트 3버튼 한 줄
    - Mobile: 프로젝트 marker hover/터치 위치 튐 방지
    - Memo content/project: 편집 종료 시 실제 변경을 감지해 즉시 Supabase sync
-   - Notice: 버전별 notice_r29_260827.txt 사용
+   - Notice: 버전별 notice_r30.3_260831.txt 사용
    ========================================================= */
 
 const ensureR27MobileProjectButton=()=>{
@@ -3388,7 +3518,7 @@ render();
 
 
 /* =========================================================
-   Rev. r29_260827
+   Rev. r30.3_260831
    - 메모별 프로젝트 선택창: 바깥 영역 클릭 시 적용 취소 + 닫기
    - 프로젝트 marker hover: 확대/이동 제거, 파란색만 표시
    - 검색 팝업: 바깥 영역 클릭/터치 시 적용하지 않고 닫기
@@ -3503,5 +3633,671 @@ r29Style.textContent=`
 }
 `;
 document.head.append(r29Style);
+
+
+
+/* =========================================================
+   Rev. r30.3_260831 - 편집 중 동기화 안전장치
+   - 5분 자동/Realtime/수동 동기화는 그대로 수행
+   - 동기화가 render()를 호출해도 현재 입력 중이면 화면 DOM 교체를 보류
+   - 메모/Todo/후기 편집 초안은 동기화 전후 모델에 보존
+   - 편집이 끝난 뒤 보류된 render를 한 번만 반영
+   ========================================================= */
+
+const r301RenderBase=render;
+const r301SyncBase=syncNow;
+
+let r301SyncDepth=0;
+let r301DeferredRender=false;
+const r301EditBaseline=new WeakMap();
+
+const r301InputValue=el=>{
+  if(!el)return '';
+  if(el.isContentEditable)return el.innerText;
+  return typeof el.value==='string'?el.value:''
+};
+
+const r301IsTypingTarget=el=>{
+  if(!el||el===document.body)return false;
+  if(el.matches?.('.memo,.tasktext,.reviewtext,[data-routine-note],#newMemo,#search,#mobileSearchInput'))return true;
+  if(el.isContentEditable)return true;
+  return !!el.matches?.('textarea,input[type="text"],input[type="search"],input:not([type])')
+};
+
+const r301EditableKind=el=>{
+  if(el?.classList?.contains('memo'))return 'memo';
+  if(el?.classList?.contains('tasktext'))return 'task';
+  if(el?.classList?.contains('reviewtext'))return 'review';
+  return null
+};
+
+const r301DraftInfo=el=>{
+  const kind=r301EditableKind(el);
+  if(!kind)return null;
+
+  const card=el.closest?.('.card');
+  const memoId=card?.dataset.id;
+  if(!memoId)return null;
+
+  let taskId=null;
+  if(kind==='task')taskId=el.closest?.('.task')?.dataset.task||null;
+
+  return{
+    el,
+    kind,
+    memoId,
+    taskId,
+    text:r301InputValue(el),
+    baseline:r301EditBaseline.get(el)
+  }
+};
+
+const r301WriteDraftToModel=(draft,stamp)=>{
+  if(!draft)return false;
+
+  const m=memos.find(x=>x.id===draft.memoId);
+  if(!m)return false;
+
+  if(draft.kind==='memo'){
+    m.content=draft.text;
+    if(stamp)m.updatedAt=stamp
+  }else if(draft.kind==='task'){
+    const t=(m.tasks||[]).find(x=>x.id===draft.taskId);
+    if(!t)return false;
+    t.text=draft.text;
+    if(stamp){
+      t.updatedAt=stamp;
+      m.updatedAt=stamp
+    }
+  }else if(draft.kind==='review'){
+    m.review=draft.text;
+    if(stamp)m.reviewUpdatedAt=stamp
+  }else{
+    return false
+  }
+
+  return true
+};
+
+const r301DraftWasEdited=draft=>
+  !!draft&&draft.baseline!==undefined&&draft.text!==draft.baseline;
+
+/* 사용자가 실제 편집을 시작한 시점의 원문을 기억합니다. */
+document.addEventListener('focusin',e=>{
+  const el=e.target;
+  if(!r301EditableKind(el))return;
+  if(!r301EditBaseline.has(el))r301EditBaseline.set(el,r301InputValue(el))
+},true);
+
+/* syncNow 내부 render만 막습니다. 일반적인 버튼/필터 render 동작은 그대로입니다. */
+render=()=>{
+  const active=document.activeElement;
+  const syncRendering=r301SyncDepth>0||busy;
+
+  if(syncRendering&&r301IsTypingTarget(active)){
+    /*
+      예전 코드가 직접 보관하고 있는 syncNow 참조(Realtime/온라인 복귀 등)로
+      동기화가 들어와도 busy=true를 이용해 동일하게 보호합니다.
+      이 시점의 editor 문자열도 다시 모델에 남겨 다음 동기화에서 손실되지 않게 합니다.
+    */
+    const draft=r301DraftInfo(active);
+    if(r301DraftWasEdited(draft)){
+      const stamp=now();
+      if(r301WriteDraftToModel(draft,stamp)){
+        localStorage.setItem(DATA,JSON.stringify(memos))
+      }
+    }
+
+    r301DeferredRender=true;
+    return
+  }
+
+  const result=r301RenderBase();
+  r301DeferredRender=false;
+  return result
+};
+
+/* 보류된 화면 반영은 사용자가 모든 입력 요소에서 빠져나온 뒤 한 번만 수행합니다. */
+document.addEventListener('focusout',e=>{
+  const el=e.target;
+  if(r301EditableKind(el)){
+    /* 실제 변경 여부 판정은 기존 focusout 저장 로직이 처리하도록 baseline만 정리합니다. */
+    setTimeout(()=>r301EditBaseline.delete(el),0)
+  }
+
+  setTimeout(()=>{
+    if(!r301DeferredRender)return;
+    if(r301SyncDepth>0)return;
+    if(r301IsTypingTarget(document.activeElement))return;
+    render()
+  },0)
+},true);
+
+/* 동기화 전 현재 초안을 pin하고, 동기화 도중 추가 입력된 내용도 종료 시 다시 보존합니다. */
+syncNow=async force=>{
+  const activeAtStart=document.activeElement;
+  const protect=r301IsTypingTarget(activeAtStart);
+  let startDraft=protect?r301DraftInfo(activeAtStart):null;
+
+  if(protect)r301SyncDepth++;
+
+  try{
+    /* 편집한 초안만 최신 timestamp를 부여해 remote merge가 작성 중 내용을 덮지 못하게 합니다. */
+    if(r301DraftWasEdited(startDraft)){
+      const stamp=now();
+      if(r301WriteDraftToModel(startDraft,stamp)){
+        localStorage.setItem(DATA,JSON.stringify(memos))
+      }
+    }
+
+    return await r301SyncBase(force)
+  }finally{
+    /*
+      네트워크 요청 중에도 사용자는 계속 타이핑할 수 있습니다.
+      같은 editor가 계속 활성 상태라면 '동기화 종료 시점'의 최신 문자열을 다시 모델에 보존합니다.
+    */
+    const activeNow=document.activeElement;
+    if(protect&&activeNow===activeAtStart){
+      const endDraft=r301DraftInfo(activeNow);
+      if(r301DraftWasEdited(endDraft)){
+        const stamp=now();
+        if(r301WriteDraftToModel(endDraft,stamp)){
+          localStorage.setItem(DATA,JSON.stringify(memos))
+        }
+      }
+    }
+
+    if(protect)r301SyncDepth=Math.max(0,r301SyncDepth-1)
+  }
+};
+
+
+
+/* =========================================================
+   Rev. r30.3_260831 - 빈 Todo Backspace 자연스러운 삭제/이동
+   - 빈 Todo에서 Backspace: 현재 Todo 삭제
+   - 이전 Todo가 있으면 이전 Todo 맨 끝으로 이동
+   - 첫 Todo/유일한 Todo면 메모 본문 맨 끝으로 이동
+   - contenteditable의 <br>, NBSP, zero-width 문자도 빈 Todo로 판단
+   ========================================================= */
+
+const r302EditorText=el=>
+  (el?.innerText??el?.textContent??'')
+    .replace(/\u00a0/g,' ')
+    .replace(/[\u200b-\u200d\u2060\ufeff]/g,'')
+    .replace(/\r?\n/g,'')
+    .trim();
+
+const r302IsEmptyTask=el=>r302EditorText(el)==='';
+
+const r302FocusEnd=el=>{
+  if(!el)return;
+  el.focus({preventScroll:true});
+  const range=document.createRange();
+  range.selectNodeContents(el);
+  range.collapse(false);
+  const sel=window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range)
+};
+
+document.addEventListener('keydown',e=>{
+  const taskEl=e.target?.closest?.('.tasktext');
+  if(!taskEl||e.key!=='Backspace'||e.isComposing)return;
+  if(!r302IsEmptyTask(taskEl))return;
+
+  const taskRow=taskEl.closest('.task');
+  const card=taskEl.closest('.card');
+  const memoId=card?.dataset.id;
+  const taskId=taskRow?.dataset.task;
+  if(!memoId||!taskId)return;
+
+  const m=memos.find(x=>x.id===memoId);
+  if(!m)return;
+
+  const tasks=m.tasks||[];
+  const idx=tasks.findIndex(t=>t.id===taskId);
+  if(idx<0)return;
+
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  const previousTaskId=idx>0?tasks[idx-1]?.id:null;
+  const stamp=now();
+
+  m.tasks=tasks.filter(t=>t.id!==taskId);
+  m.updatedAt=stamp;
+
+  localStorage.setItem(DATA,JSON.stringify(memos));
+
+  /*
+    기존 render/save 체인에 의존하지 않고 현재 Todo DOM만 제거합니다.
+    그래서 삭제 순간 카드 전체가 재생성되지 않고 포커스가 안정적으로 이동합니다.
+  */
+  taskRow.remove();
+
+  let destination=null;
+  if(previousTaskId){
+    const freshCard=document.querySelector(`.card[data-id="${CSS.escape(memoId)}"]`);
+    destination=[...freshCard?.querySelectorAll('.task')||[]]
+      .find(row=>row.dataset.task===previousTaskId)
+      ?.querySelector('.tasktext')||null
+  }
+
+  if(!destination){
+    const freshCard=document.querySelector(`.card[data-id="${CSS.escape(memoId)}"]`);
+    destination=freshCard?.querySelector('.memo')||null
+  }
+
+  r302FocusEnd(destination);
+
+  status('할 일 삭제됨 · 동기화 중…');
+  setTimeout(()=>{
+    Promise.resolve(syncNow(true)).catch(err=>{
+      console.error(err);
+      status('동기화 실패 · 로컬 보관 중')
+    })
+  },0)
+},true);
+
+
+
+/* =========================================================
+   Rev. r30.3_260831 - 전역 우선순위 모드
+   - 평상시 날짜 정렬은 기존 그대로
+   - 우선순위 모드에서만 priorityOrder 순으로 표시
+   - ▲/▼는 현재 보이는 바로 위/아래 메모와 전역 순위만 교환
+   - 태그/프로젝트/회사/깃발/검색/마감 등 필터가 바뀌어도 같은 전역 순위 유지
+   - 새 DB 컬럼 없이 blocks.sort_order의 기존 상태 비트와 함께 저장/동기화
+   ========================================================= */
+
+let r303PriorityMode=false;
+const R303_PRIORITY_BASE=100000000;
+const R303_PRIORITY_STEP=1000;
+
+const r303PriorityNumber=m=>{
+  const n=Number(m?.priorityOrder);
+  return Number.isFinite(n)?n:Number.POSITIVE_INFINITY
+};
+
+const r303PriorityCompare=(a,b)=>{
+  const pa=r303PriorityNumber(a),pb=r303PriorityNumber(b);
+  if(pa!==pb)return pa-pb;
+  const ca=Date.parse(a?.createdAt||0),cb=Date.parse(b?.createdAt||0);
+  if(ca!==cb)return cb-ca;
+  return String(a?.id||'').localeCompare(String(b?.id||''))
+};
+
+/*
+  r30.2까지의 로컬 데이터에는 priorityOrder가 없습니다.
+  첫 적용 시 현재 기본 목록 순서를 그대로 초기 우선순위로 삼습니다.
+  이후 새 메모가 들어오면 기존 전역 관계를 건드리지 않고 맨 앞쪽의 새 값만 부여합니다.
+*/
+const r303EnsurePriorityValues=()=>{
+  const roots=memos.filter(m=>m.status!=='deleted');
+  const missing=roots.filter(m=>!Number.isFinite(Number(m.priorityOrder)));
+  if(!missing.length)return false;
+
+  const existing=roots.filter(m=>Number.isFinite(Number(m.priorityOrder)));
+
+  if(!existing.length){
+    roots.forEach((m,i)=>{m.priorityOrder=R303_PRIORITY_BASE+i*R303_PRIORITY_STEP});
+    localStorage.setItem(DATA,JSON.stringify(memos));
+    return true
+  }
+
+  let min=Math.min(...existing.map(m=>Number(m.priorityOrder)));
+
+  /*
+    기존 서버 sort_order가 0,1,2처럼 촘촘한 구버전 값일 수 있습니다.
+    새 메모를 위에 넣을 공간만 확보하되 기존 상대 순서는 그대로 유지합니다.
+  */
+  if(min < R303_PRIORITY_STEP*(missing.length+2)){
+    const shift=R303_PRIORITY_BASE;
+    existing.forEach(m=>{m.priorityOrder=Number(m.priorityOrder)+shift});
+    min+=shift
+  }
+
+  /* 오래 생성된 누락 메모부터 배치해야 최신 메모가 가장 작은 값(위쪽)을 받습니다. */
+  missing
+    .sort((a,b)=>Date.parse(a.createdAt||0)-Date.parse(b.createdAt||0))
+    .forEach(m=>{
+      min-=R303_PRIORITY_STEP;
+      m.priorityOrder=min
+    });
+
+  localStorage.setItem(DATA,JSON.stringify(memos));
+  return true
+};
+
+r303EnsurePriorityValues();
+
+const r303VisibleCards=()=>[...document.querySelectorAll('#list .card')].filter(card=>{
+  if(card.classList.contains('task-view-hidden'))return false;
+  if(card.classList.contains('project-filter-hidden'))return false;
+  return getComputedStyle(card).display!=='none'
+});
+
+const r303EnsureSidebarButton=()=>{
+  const project=$('#projectPickerSide');
+  if(!project)return;
+
+  let button=$('#priorityModeSide');
+  if(!button){
+    button=document.createElement('button');
+    button.type='button';
+    button.id='priorityModeSide';
+    button.className='tag priority-sidebar';
+    project.parentNode.insertBefore(button,project)
+  }else if(button.nextElementSibling!==project){
+    project.parentNode.insertBefore(button,project)
+  }
+
+  button.classList.toggle('active-priority',r303PriorityMode);
+  button.innerHTML=r303PriorityMode
+    ?'<span>▲ 우선순위</span><span class="priority-mode-badge">정렬 중</span>'
+    :'<span>▲ 우선순위</span>';
+  button.title=r303PriorityMode?'우선순위 보기 끄기':'우선순위 보기 / 순서 조정'
+};
+
+const r303EnsureMobileButton=()=>{
+  const deadline=document.querySelector('[data-lite="deadline"]');
+  if(!deadline)return;
+
+  let button=$('#mobilePriorityMode');
+  if(!button){
+    button=document.createElement('button');
+    button.type='button';
+    button.id='mobilePriorityMode';
+    button.className='tiny mobile-priority-mode';
+    button.textContent='▲';
+    deadline.insertAdjacentElement('afterend',button)
+  }else if(deadline.nextElementSibling!==button){
+    deadline.insertAdjacentElement('afterend',button)
+  }
+
+  button.classList.toggle('filter-on',r303PriorityMode);
+  button.title=r303PriorityMode?'우선순위 보기 끄기':'우선순위 보기 / 순서 조정'
+};
+
+const r303AddPriorityControls=card=>{
+  const marker=card.querySelector(':scope > .block-marker');
+  if(!marker)return;
+
+  const stack=document.createElement('div');
+  stack.className='priority-marker-stack';
+  marker.replaceWith(stack);
+  stack.appendChild(marker);
+
+  const controls=document.createElement('div');
+  controls.className='priority-controls';
+  controls.innerHTML=`
+    <button type="button" class="priority-arrow priority-up" title="이 메모의 우선순위를 한 단계 올리기">▲</button>
+    <button type="button" class="priority-arrow priority-down" title="이 메모의 우선순위를 한 단계 내리기">▼</button>`;
+  stack.appendChild(controls)
+};
+
+const r303ApplyPriorityView=()=>{
+  r303EnsurePriorityValues();
+  r303EnsureSidebarButton();
+  r303EnsureMobileButton();
+
+  const list=$('#list');
+  if(!list)return;
+
+  if(!r303PriorityMode)return;
+
+  /* 우선순위 모드에서는 날짜 헤더가 순서 해석을 방해하므로 숨깁니다. */
+  list.querySelectorAll('.datehead').forEach(el=>el.remove());
+
+  const cards=[...list.querySelectorAll('.card')];
+  cards.sort((ca,cb)=>{
+    const a=memos.find(m=>m.id===ca.dataset.id);
+    const b=memos.find(m=>m.id===cb.dataset.id);
+    return r303PriorityCompare(a,b)
+  });
+  cards.forEach(card=>list.appendChild(card));
+
+  cards.forEach(r303AddPriorityControls)
+};
+
+const r303RenderBase=render;
+render=()=>{
+  const result=r303RenderBase();
+  /*
+    r30.1이 동기화 중 render를 보류한 경우에는 #list가 기존 DOM 그대로입니다.
+    그 경우에도 버튼 상태만 갱신하되 카드 재배열은 기존 화면을 건드리지 않습니다.
+  */
+  if((r301SyncDepth>0||busy)&&r301IsTypingTarget(document.activeElement)){
+    r303EnsureSidebarButton();
+    r303EnsureMobileButton();
+    return result
+  }
+  r303ApplyPriorityView();
+  return result
+};
+
+const r303TogglePriorityMode=()=>{
+  r303PriorityMode=!r303PriorityMode;
+  render()
+};
+
+/* PC 사이드 버튼 / Mobile 상단 ▲ 버튼 */
+window.addEventListener('click',e=>{
+  const button=e.target.closest?.('#priorityModeSide,#mobilePriorityMode');
+  if(!button)return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  if(appMode==='routine'){
+    appMode='memo';
+    applyAppMode()
+  }
+
+  r303TogglePriorityMode()
+},true);
+
+const r303MovePriority=(memoId,direction)=>{
+  if(!r303PriorityMode)return;
+
+  const visible=r303VisibleCards();
+  const index=visible.findIndex(card=>card.dataset.id===memoId);
+  if(index<0)return;
+
+  const otherIndex=direction==='up'?index-1:index+1;
+  if(otherIndex<0||otherIndex>=visible.length)return;
+
+  const current=memos.find(m=>m.id===memoId);
+  const other=memos.find(m=>m.id===visible[otherIndex].dataset.id);
+  if(!current||!other)return;
+
+  r303EnsurePriorityValues();
+
+  /*
+    전체 메모를 다시 채점하지 않습니다.
+    현재 메모와 화면에서 바로 인접한 메모의 전역 순위값 두 개만 교환합니다.
+  */
+  const a=Number(current.priorityOrder);
+  const b=Number(other.priorityOrder);
+  current.priorityOrder=b;
+  other.priorityOrder=a;
+
+  const stamp=now();
+  current.updatedAt=stamp;
+  other.updatedAt=stamp;
+  current.syncRevision=Math.max(1,Number(current.syncRevision)||1)+1;
+  other.syncRevision=Math.max(1,Number(other.syncRevision)||1)+1;
+
+  localStorage.setItem(DATA,JSON.stringify(memos));
+  render();
+
+  requestAnimationFrame(()=>{
+    document.querySelector(`.card[data-id="${CSS.escape(memoId)}"]`)
+      ?.scrollIntoView({block:'nearest'})
+  });
+
+  status('우선순위 변경 · 동기화 중…');
+  setTimeout(()=>{
+    Promise.resolve(syncNow(true)).catch(err=>{
+      console.error(err);
+      status('동기화 실패 · 로컬 보관 중')
+    })
+  },0)
+};
+
+window.addEventListener('click',e=>{
+  const arrow=e.target.closest?.('.priority-arrow');
+  if(!arrow)return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  const card=arrow.closest('.card');
+  if(!card)return;
+
+  r303MovePriority(
+    card.dataset.id,
+    arrow.classList.contains('priority-up')?'up':'down'
+  )
+},true);
+
+const r303Style=document.createElement('style');
+r303Style.textContent=`
+/* PC sidebar priority mode */
+.priority-sidebar{
+  background:#f1ebff!important;
+  color:#6f55a5!important;
+  border:1px solid #d8c8f3!important;
+  font-weight:750!important;
+  margin-bottom:4px
+}
+.priority-sidebar:hover,
+.priority-sidebar.active-priority{
+  background:#dfd0fb!important;
+  color:#523687!important;
+  border-color:#c2aae9!important
+}
+.priority-mode-badge{
+  display:inline-block;
+  margin-left:6px;
+  padding:1px 5px;
+  border-radius:5px;
+  background:#7354ad;
+  color:#fff;
+  font-size:8px;
+  font-weight:800;
+  line-height:1.35
+}
+
+/* The project dot remains in exactly the same position. */
+.priority-marker-stack{
+  width:24px;
+  min-width:24px;
+  max-width:24px;
+  align-self:start;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:1px;
+  padding:0;
+  margin:0
+}
+.priority-marker-stack > .block-marker{
+  flex:0 0 auto!important;
+  transform:none!important;
+  margin:0!important;
+  top:0!important
+}
+.priority-controls{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  width:22px;
+  margin-top:1px
+}
+.priority-arrow{
+  width:22px;
+  min-width:22px;
+  height:16px;
+  min-height:16px;
+  padding:0;
+  margin:0;
+  border:0;
+  border-radius:4px;
+  background:transparent;
+  color:#8065b2;
+  font:inherit;
+  font-size:11px;
+  font-weight:900;
+  line-height:16px;
+  text-align:center;
+  cursor:pointer;
+  user-select:none;
+  transform:none!important
+}
+.priority-arrow:hover,
+.priority-arrow:focus-visible{
+  background:#eee6fb;
+  color:#397bd1;
+  transform:none!important
+}
+.priority-arrow:active{
+  background:#e3d8f7;
+  color:#2567bd;
+  transform:none!important
+}
+
+/* PC에서는 sidebar 버튼만 표시 */
+.mobile-priority-mode{display:none!important}
+
+@media(max-width:620px){
+  /* Mobile: 마감기한 버튼 오른쪽의 작은 보라색 ▲ */
+  #mobilePriorityMode{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:28px!important;
+    min-width:28px!important;
+    max-width:28px!important;
+    height:32px!important;
+    padding:0!important;
+    border:1px solid #d7c8f0!important;
+    border-radius:7px!important;
+    background:#f1ebff!important;
+    color:#7456a9!important;
+    font-size:13px!important;
+    font-weight:900!important
+  }
+  #mobilePriorityMode.filter-on{
+    background:#d9c8f7!important;
+    border-color:#bca4e5!important;
+    color:#4f3181!important
+  }
+
+  .priority-sidebar{display:none!important}
+
+  .priority-marker-stack{
+    width:24px!important;
+    min-width:24px!important;
+    max-width:24px!important
+  }
+  .priority-controls{
+    width:24px!important;
+    margin-top:1px!important
+  }
+  .priority-arrow{
+    width:24px!important;
+    min-width:24px!important;
+    height:17px!important;
+    min-height:17px!important;
+    line-height:17px!important;
+    font-size:11px!important
+  }
+}
+`;
+document.head.append(r303Style);
+
+render();
 
 </script></body></html>
