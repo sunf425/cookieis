@@ -38,6 +38,224 @@
   }
 }
 </style>
+<style>
+/* r30.4 fix6 - PC/모바일 프로젝트·우선순위 배치 분리 */
+#projectPriorityRow{
+  display:flex;
+  gap:8px;
+  width:100%;
+  margin:0 0 10px;
+}
+#projectPriorityRow > .button{
+  flex:1 1 0;
+  min-width:0;
+  min-height:36px;
+  border-radius:8px;
+  font-weight:750;
+}
+#projectPriorityRow .project-sidebar{
+  background:#fff1bd!important;
+  border:1px solid #efc858!important;
+  color:#8d6800!important;
+}
+#projectPriorityRow .project-sidebar.active-project{
+  background:#ffe99a!important;
+}
+#projectPriorityRow .priority-sidebar{
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background:#f1ebff!important;
+  color:#6f55a5!important;
+  border:1px solid #d8c8f3!important;
+}
+#projectPriorityRow .priority-sidebar:hover,
+#projectPriorityRow .priority-sidebar.active-priority{
+  background:#dfd0fb!important;
+  color:#523687!important;
+  border-color:#c2aae9!important;
+}
+
+/* PC에서는 모바일 빠른행 우선순위 버튼을 숨김 */
+#mobilePriorityMode{display:none!important}
+
+@media(max-width:620px){
+  /* PC용 프로젝트/우선순위 행은 모바일에서 완전히 숨김 */
+  #projectPriorityRow{display:none!important}
+
+  /* 기존 모바일 quick row를 검색/태그/프로젝트/우선순위 4등분 */
+  .mobile-quick-row{
+    display:flex!important;
+    width:100%!important;
+    gap:6px!important;
+    margin:8px 0 10px!important;
+  }
+  .mobile-quick-row #mobileSearchOpen,
+  .mobile-quick-row #tagPicker,
+  .mobile-quick-row #mobileProjectOpen,
+  .mobile-quick-row #mobilePriorityMode{
+    display:inline-flex!important;
+    flex:1 1 0!important;
+    width:0!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:38px!important;
+    margin:0!important;
+    padding:0 6px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+    border-radius:8px!important;
+    font-size:12px!important;
+    font-weight:750!important;
+    white-space:nowrap!important;
+  }
+}
+</style>
+<style>
+/* r30.4 fix7 - 프로젝트/우선순위 버튼 정렬 미세조정 */
+
+/* PC: 프로젝트 버튼 텍스트/배지를 중앙 정렬 */
+#projectPriorityRow #projectPickerSide{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  gap:6px!important;
+}
+#projectPriorityRow #projectPickerSide > span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Mobile: 검색/태그/프로젝트/우선순위 4개를 한 줄에 균등 배치 */
+@media(max-width:620px){
+  .mobile-quick-row{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:5px!important;
+    width:100%!important;
+    margin:8px 0 10px!important;
+    align-items:stretch!important;
+  }
+
+  .mobile-quick-row #mobileSearchOpen,
+  .mobile-quick-row #tagPicker,
+  .mobile-quick-row #mobileProjectOpen,
+  .mobile-quick-row #mobilePriorityMode{
+    display:flex!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:38px!important;
+    margin:0!important;
+    padding:0 4px!important;
+    box-sizing:border-box!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+    border-radius:8px!important;
+    font-size:11px!important;
+    font-weight:750!important;
+    line-height:1.15!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+
+  .mobile-quick-row #mobileProjectOpen,
+  .mobile-quick-row #mobilePriorityMode{
+    letter-spacing:-0.2px;
+  }
+
+  .mobile-quick-row #mobileProjectOpen .mobile-project-filter-dot,
+  .mobile-quick-row #mobilePriorityMode .priority-mode-badge{
+    display:none!important;
+  }
+}
+</style>
+<style>
+/* r30.4 fix9 - 모바일 상단 별도 행 제거 + 4버튼 가독성 복원 */
+@media(max-width:620px){
+  #projectPriorityRow{
+    display:none!important;
+  }
+
+  .mobile-quick-row{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:4px!important;
+    width:100%!important;
+  }
+
+  .mobile-quick-row > #mobileSearchOpen,
+  .mobile-quick-row > #tagPicker,
+  .mobile-quick-row > #mobileProjectOpen,
+  .mobile-quick-row > #mobilePriorityMode{
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    height:40px!important;
+    padding:0 3px!important;
+    font-size:12px!important;
+    font-weight:750!important;
+    line-height:1.1!important;
+    letter-spacing:-0.25px!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+
+  .mobile-quick-row > #mobilePriorityMode{
+    font-size:11.5px!important;
+  }
+}
+</style>
+<style>
+/* r30.4 fix10 - 모바일 4버튼 내부 여백 최소화 + 글자 확대 */
+@media(max-width:620px){
+  .mobile-quick-row{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:3px!important;
+    width:100%!important;
+    margin:8px 0 10px!important;
+  }
+
+  .mobile-quick-row > #mobileSearchOpen,
+  .mobile-quick-row > #tagPicker,
+  .mobile-quick-row > #mobileProjectOpen,
+  .mobile-quick-row > #mobilePriorityMode{
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    height:42px!important;
+    margin:0!important;
+    padding:0 1px!important;
+    box-sizing:border-box!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+    font-size:13.5px!important;
+    font-weight:750!important;
+    line-height:1!important;
+    letter-spacing:-0.45px!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+
+  .mobile-quick-row > #mobilePriorityMode{
+    font-size:13px!important;
+    letter-spacing:-0.55px!important;
+  }
+
+  .mobile-quick-row > #mobileProjectOpen{
+    font-size:13px!important;
+    letter-spacing:-0.5px!important;
+  }
+}
+</style>
 </head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r24_260827</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -3024,12 +3242,65 @@ $('#memoProjectApply')?.addEventListener('click',()=>{
 /* ---------- Tag sidebar without interrupting editing ---------- */
 const drawTagSidebarR21=()=>{
   const root=$('#tags');if(!root)return;
-  const tags=[...new Set(memos.filter(m=>m.status!=='archive'&&m.status!=='deleted').flatMap(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))))].sort();
+  const source=memos.filter(m=>{
+    if(m.status==='deleted')return false;
+    return view==='archive'?m.status==='archive':m.status!=='archive'
+  });
+  const tags=[...new Set(source.flatMap(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))))].sort();
   const projectCount=selectedProjects.length;
-  root.innerHTML=
-    `<button class="tag project-sidebar ${projectCount?'active-project':''}" id="projectPickerSide" type="button"><span>@프로젝트</span>${projectCount?`<span class="project-filter-badge">필터링 중</span>`:''}</button>`+
-    `<button class="tag ${selectedTags.length||excludedTags.length?'':'active'}" data-tag="">전체 보기</button>`+
-    tags.map(name=>`<button class="tag ${selectedTags.includes(name)?'active':''} ${excludedTags.includes(name)?'tag-excluded':''}" data-tag="${esc(name)}">#${esc(name)}</button>`).join('');
+
+  /*
+    r30.4 fix4:
+    @프로젝트는 태그 목록과 완전히 분리된 #projectPriorityRow에서만 관리합니다.
+  */
+  let controlRow=$('#projectPriorityRow');
+  if(!controlRow){
+    controlRow=document.createElement('div');
+    controlRow.id='projectPriorityRow';
+    controlRow.className='project-priority-row';
+    root.parentNode.insertBefore(controlRow,root)
+  }
+  if(controlRow){
+    /*
+      r30.4 fix9:
+      PC 전용 프로젝트/우선순위 행은 필요할 때만 동적으로 생성합니다.
+      모바일 DOM에는 별도 상단 행을 두지 않습니다.
+    */
+    if(root.parentNode&&controlRow.nextElementSibling!==root){
+      root.parentNode.insertBefore(controlRow,root)
+    }
+
+    let project=$('#projectPickerSide');
+    if(!project){
+      project=document.createElement('button');
+      project.id='projectPickerSide';
+      project.type='button';
+      controlRow.appendChild(project)
+    }else if(project.parentNode!==controlRow){
+      controlRow.appendChild(project)
+    }
+    project.className=`button project-sidebar ${projectCount?'active-project':''}`;
+    project.innerHTML=`<span>@프로젝트</span>${projectCount?'<span class="project-filter-badge">필터링 중</span>':''}`;
+  }
+
+  root.querySelectorAll(':scope > .tag[data-tag]').forEach(el=>el.remove());
+
+  const all=document.createElement('button');
+  all.type='button';
+  all.className=`tag ${selectedTags.length||excludedTags.length?'':'active'}`;
+  all.dataset.tag='';
+  all.textContent='전체 보기';
+  root.appendChild(all);
+
+  tags.forEach(name=>{
+    const button=document.createElement('button');
+    button.type='button';
+    button.className=`tag ${selectedTags.includes(name)?'active':''} ${excludedTags.includes(name)?'tag-excluded':''}`;
+    button.dataset.tag=name;
+    button.textContent='#'+name;
+    root.appendChild(button)
+  });
+
   refreshTagFilterAppearance()
 };
 window.addEventListener('click',e=>{
@@ -3980,20 +4251,33 @@ const r303VisibleCards=()=>[...document.querySelectorAll('#list .card')].filter(
 });
 
 const r303EnsureSidebarButton=()=>{
-  const project=$('#projectPickerSide');
-  if(!project)return;
+  let controlRow=$('#projectPriorityRow');
+  if(!controlRow){
+    const tagsRoot=$('#tags');
+    if(!tagsRoot)return;
+    controlRow=document.createElement('div');
+    controlRow.id='projectPriorityRow';
+    controlRow.className='project-priority-row';
+    tagsRoot.parentNode.insertBefore(controlRow,tagsRoot)
+  }
 
   let button=$('#priorityModeSide');
   if(!button){
     button=document.createElement('button');
     button.type='button';
     button.id='priorityModeSide';
-    button.className='tag priority-sidebar';
-    project.parentNode.insertBefore(button,project)
-  }else if(button.nextElementSibling!==project){
-    project.parentNode.insertBefore(button,project)
   }
 
+  /*
+    r30.4 fix4:
+    ▲ 우선순위도 #projectPriorityRow에서만 관리합니다.
+    태그 DOM(#tags)과 부모/자식 관계를 전혀 갖지 않습니다.
+  */
+  if(button.parentNode!==controlRow){
+    controlRow.appendChild(button)
+  }
+
+  button.className='button priority-sidebar';
   button.classList.toggle('active-priority',r303PriorityMode);
   button.innerHTML=r303PriorityMode
     ?'<span>▲ 우선순위</span><span class="priority-mode-badge">정렬 중</span>'
@@ -4002,22 +4286,36 @@ const r303EnsureSidebarButton=()=>{
 };
 
 const r303EnsureMobileButton=()=>{
-  const deadline=document.querySelector('[data-lite="deadline"]');
-  if(!deadline)return;
+  const row=document.querySelector('.mobile-quick-row');
+  if(!row)return;
 
   let button=$('#mobilePriorityMode');
   if(!button){
     button=document.createElement('button');
     button.type='button';
     button.id='mobilePriorityMode';
-    button.className='tiny mobile-priority-mode';
-    button.textContent='▲';
-    deadline.insertAdjacentElement('afterend',button)
-  }else if(deadline.nextElementSibling!==button){
-    deadline.insertAdjacentElement('afterend',button)
+    button.className='button mobile-priority-mode';
+    button.textContent='▲ 우선순위';
+    button.title='우선순위 보기 / 순서 조정'
+  }
+
+  /*
+    r30.4 fix6:
+    모바일은 기존 검색 / 태그 / @프로젝트 행에 네 번째 버튼으로만 배치합니다.
+    PC용 #projectPriorityRow는 모바일에서 사용하지 않습니다.
+  */
+  if(button.parentNode!==row){
+    row.appendChild(button)
+  }
+
+  /* 항상 기존 @프로젝트 버튼 뒤에 위치 */
+  const project=$('#mobileProjectOpen');
+  if(project&&project.nextElementSibling!==button){
+    project.insertAdjacentElement('afterend',button)
   }
 
   button.classList.toggle('filter-on',r303PriorityMode);
+  button.textContent=r303PriorityMode?'▲ 정렬 중':'▲ 우선순위';
   button.title=r303PriorityMode?'우선순위 보기 끄기':'우선순위 보기 / 순서 조정'
 };
 
@@ -4164,6 +4462,13 @@ window.addEventListener('click',e=>{
 const r303Style=document.createElement('style');
 r303Style.textContent=`
 /* PC sidebar priority mode */
+#priorityModeSide{
+  display:flex!important;
+  width:100%;
+  box-sizing:border-box;
+  align-items:center;
+  justify-content:space-between;
+}
 .priority-sidebar{
   background:#f1ebff!important;
   color:#6f55a5!important;
@@ -4250,7 +4555,7 @@ r303Style.textContent=`
 }
 
 /* PC에서는 sidebar 버튼만 표시 */
-.mobile-priority-mode{display:none!important}
+
 
 @media(max-width:620px){
   /* Mobile: 마감기한 버튼 오른쪽의 작은 보라색 ▲ */
@@ -4276,7 +4581,7 @@ r303Style.textContent=`
     color:#4f3181!important
   }
 
-  .priority-sidebar{display:none!important}
+
 
   .priority-marker-stack{
     width:24px!important;
@@ -4299,6 +4604,14 @@ r303Style.textContent=`
 `;
 document.head.append(r303Style);
 
+/*
+  r30.4 fix5:
+  r303 함수 선언이 모두 끝난 뒤에만 프로젝트/우선순위 독립 UI를 초기화합니다.
+  선언 이전에는 절대 r303 함수를 참조하지 않습니다.
+*/
+drawTagSidebarR21();
+r303EnsureSidebarButton();
+r303EnsureMobileButton();
 render();
 
 
@@ -4339,13 +4652,40 @@ const r304DrawDesktopTags=names=>{
   const root=$('#tags');
   if(!root)return;
 
-  root.innerHTML=
-    `<button class="tag ${selectedTags.length?'':'active'}" data-tag="">전체 보기</button>`+
-    names.map(name=>{
-      const selected=selectedTags.includes(name);
-      const excluded=typeof excludedTags!=='undefined'&&excludedTags.includes(name);
-      return `<button class="tag ${selected?'active':''} ${excluded?'tag-excluded':''}" data-tag="${esc(name)}">#${esc(name)}</button>`
-    }).join('')
+  /*
+    r30.4 fix:
+    #tags 안에는 일반 태그뿐 아니라 PC용 @프로젝트 / ▲ 우선순위 버튼도 함께 있습니다.
+    따라서 컨테이너 전체를 innerHTML로 교체하지 않고 data-tag 버튼만 갱신합니다.
+  */
+  root.querySelectorAll(':scope > .tag[data-tag]').forEach(el=>el.remove());
+
+  const fragment=document.createDocumentFragment();
+
+  const all=document.createElement('button');
+  all.type='button';
+  all.className=`tag ${selectedTags.length||((typeof excludedTags!=='undefined')&&excludedTags.length)?'':'active'}`;
+  all.dataset.tag='';
+  all.textContent='전체 보기';
+  fragment.appendChild(all);
+
+  names.forEach(name=>{
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='tag';
+    if(selectedTags.includes(name))button.classList.add('active');
+    if(typeof excludedTags!=='undefined'&&excludedTags.includes(name)){
+      button.classList.add('tag-excluded')
+    }
+    button.dataset.tag=name;
+    button.textContent='#'+name;
+    fragment.appendChild(button)
+  });
+
+  root.appendChild(fragment);
+
+  /* 프로젝트/우선순위는 태그와 독립된 UI이므로 항상 별도로 보장합니다. */
+  if(typeof r303EnsureSidebarButton==='function')r303EnsureSidebarButton();
+  refreshTagFilterAppearance()
 };
 
 const r304DrawMobileTagOptions=()=>{
@@ -4376,11 +4716,26 @@ render=()=>{
   const result=r304RenderBase();
 
   r304DrawDesktopTags(names);
+  drawTagSidebarR21();
 
   const picker=$('#tagPicker');
   if(picker){
     picker.textContent=selectedTags.length?`태그 ${selectedTags.length}`:'태그'
   }
+
+  /*
+    태그 / 프로젝트 / 우선순위 진입 UI는 서로 독립적으로 유지합니다.
+    최종 렌더가 끝난 뒤 PC와 모바일 우선순위 버튼을 다시 확인합니다.
+  */
+  r303EnsureSidebarButton();
+  ensureR27MobileProjectButton();
+  r303EnsureMobileButton();
+
+  requestAnimationFrame(()=>{
+    r303EnsureSidebarButton();
+    ensureR27MobileProjectButton();
+    r303EnsureMobileButton()
+  });
 
   return result
 };
@@ -4440,6 +4795,101 @@ window.addEventListener('contextmenu',e=>{
   r304DrawMobileTagOptions()
 },true);
 
+render();
+
+
+/* r30.4 fix5 - 최종 진입점 보장 */
+queueMicrotask(()=>{
+  try{
+    drawTagSidebarR21();
+    ensureR27MobileProjectButton();
+    r303EnsureSidebarButton();
+    r303EnsureMobileButton()
+  }catch(e){
+    console.error('프로젝트/우선순위 UI 초기화 실패',e)
+  }
+});
+
+
+/* r30.4 fix8 - 모바일 검색/태그/@프로젝트/우선순위 4버튼 한 줄 강제 고정 */
+const r304Fix8MobileQuickRow=()=>{
+  const row=document.querySelector('.mobile-quick-row');
+  if(!row)return;
+  [
+    $('#mobileSearchOpen'),
+    $('#tagPicker'),
+    $('#mobileProjectOpen'),
+    $('#mobilePriorityMode')
+  ].forEach(el=>{if(el)row.appendChild(el)});
+};
+
+const r304Fix8Style=document.createElement('style');
+r304Fix8Style.textContent=`
+@media(max-width:620px){
+  .mobile-quick-row{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    grid-template-rows:42px!important;
+    grid-auto-rows:42px!important;
+    gap:3px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+    margin:8px 0 10px!important;
+    align-items:stretch!important;
+  }
+  .mobile-quick-row > #mobileSearchOpen,
+  .mobile-quick-row > #tagPicker,
+  .mobile-quick-row > #mobileProjectOpen,
+  .mobile-quick-row > #mobilePriorityMode{
+    display:flex!important;
+    position:static!important;
+    float:none!important;
+    flex:none!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    height:42px!important;
+    margin:0!important;
+    padding:0 1px!important;
+    box-sizing:border-box!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    font-size:15px!important;
+    line-height:1.1!important;
+  }
+  .mobile-quick-row > #mobileSearchOpen{grid-column:1!important;grid-row:1!important}
+  .mobile-quick-row > #tagPicker{grid-column:2!important;grid-row:1!important}
+  .mobile-quick-row > #mobileProjectOpen{grid-column:3!important;grid-row:1!important}
+  .mobile-quick-row > #mobilePriorityMode{grid-column:4!important;grid-row:1!important}
+
+  .mobile-quick-row > #mobileProjectOpen{
+    font-size:14.5px!important;
+    letter-spacing:-0.35px!important;
+  }
+  .mobile-quick-row > #mobilePriorityMode{
+    font-size:14.5px!important;
+    letter-spacing:-0.4px!important;
+  }
+}
+`;
+document.head.append(r304Fix8Style);
+
+const r304Fix8RenderBase=render;
+render=()=>{
+  const result=r304Fix8RenderBase();
+  r304Fix8MobileQuickRow();
+  requestAnimationFrame(r304Fix8MobileQuickRow);
+  return result;
+};
+queueMicrotask(()=>{
+  r304Fix8MobileQuickRow();
+  requestAnimationFrame(r304Fix8MobileQuickRow);
+});
 render();
 
 </script></body></html>
