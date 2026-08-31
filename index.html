@@ -2383,7 +2383,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r30.3_260831';
+if($('#revision'))$('#revision').textContent='Rev. r30.4_260831';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -2437,7 +2437,8 @@ const NOTICE_ARCHIVE_FILES=[
   'notice_r29_260827.txt',
   'notice_r30.1_260831.txt',
   'notice_r30.2_260831.txt',
-  'notice_r30.3_260831.txt'
+  'notice_r30.3_260831.txt',
+  'notice_r30.4_260831.txt'
 ];
 const NOTICE_LATEST_INDEX=NOTICE_ARCHIVE_FILES.length-1;
 let noticeCurrentIndex=NOTICE_LATEST_INDEX;
@@ -2514,7 +2515,7 @@ const openNotice=manual=>{
   if(!noticeContent){
     if(manual){
       alert(noticeLoadError
-        ?'공지 파일을 불러오지 못했습니다.\n'+noticeLoadError+'\n\nindex.html과 notice_r30.3_260831.txt가 같은 폴더에 있는지 확인하세요.'
+        ?'공지 파일을 불러오지 못했습니다.\n'+noticeLoadError+'\n\nindex.html과 notice_r30.4_260831.txt가 같은 폴더에 있는지 확인하세요.'
         :'현재 등록된 공지사항이 없습니다.')
     }
     return
@@ -2538,7 +2539,7 @@ $('#noticeConfirm')?.addEventListener('click',()=>{
   if(noticeSignature)localStorage.setItem(NOTICE_SEEN_KEY,noticeSignature)
 });
 let noticeLoadError='';
-const NOTICE_FILES=['notice_r30.3_260831.txt','notice.txt'];
+const NOTICE_FILES=['notice_r30.4_260831.txt','notice.txt'];
 
 const loadNoticeAtStartup=async()=>{
   noticeLoadError='';
@@ -2846,7 +2847,7 @@ render();
 
 
 /* =========================================================
-   Rev. r30.3_260831 (r24 안정본 기반)
+   Rev. r30.4_260831 (r24 안정본 기반)
    - Todo 보기 버튼 폭 고정
    - 메모 편집 중 공백/줄바꿈 시 포커스 유지 + 태그 목록 즉시 갱신
    - Ctrl/Cmd+Enter 메모 추가 후 입력창 포커스 유지
@@ -2854,7 +2855,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r30.3_260831';
+if($('#revision'))$('#revision').textContent='Rev. r30.4_260831';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -3199,7 +3200,7 @@ r21Style.textContent=`
 document.head.append(r21Style);
 
 /* =========================================================
-   Rev. r30.3_260831
+   Rev. r30.4_260831
    - 프로젝트 관리창: 선택/필터링 전용
    - 닫기/바깥 클릭은 적용 취소, 전체 프로젝트 보기는 즉시 적용 후 닫기
    - #태그 / @프로젝트 본문 강조
@@ -3335,13 +3336,13 @@ render();
 
 const liteConsoleError=console.error;console.error=(...args)=>{liteConsoleError(...args);let e=args[0],detail=e?.code||e?.message;if(detail)setTimeout(()=>status('동기화 실패: '+detail),0)};
 
-/* Rev. r30.3_260831
+/* Rev. r30.4_260831
    프로젝트 관리창은 선택/필터링 전용입니다.
    추가/삭제 기능과 삭제 이벤트/Observer는 의도적으로 제거했습니다. */
 
 
 /* =========================================================
-   Rev. r30.3_260831
+   Rev. r30.4_260831
    - Mobile: 검색 / 태그 / @프로젝트 3버튼 한 줄
    - Mobile: 프로젝트 marker hover/터치 위치 튐 방지
    - Memo content/project: 편집 종료 시 실제 변경을 감지해 즉시 Supabase sync
@@ -3518,7 +3519,7 @@ render();
 
 
 /* =========================================================
-   Rev. r30.3_260831
+   Rev. r30.4_260831
    - 메모별 프로젝트 선택창: 바깥 영역 클릭 시 적용 취소 + 닫기
    - 프로젝트 marker hover: 확대/이동 제거, 파란색만 표시
    - 검색 팝업: 바깥 영역 클릭/터치 시 적용하지 않고 닫기
@@ -3637,7 +3638,7 @@ document.head.append(r29Style);
 
 
 /* =========================================================
-   Rev. r30.3_260831 - 편집 중 동기화 안전장치
+   Rev. r30.4_260831 - 편집 중 동기화 안전장치
    - 5분 자동/Realtime/수동 동기화는 그대로 수행
    - 동기화가 render()를 호출해도 현재 입력 중이면 화면 DOM 교체를 보류
    - 메모/Todo/후기 편집 초안은 동기화 전후 모델에 보존
@@ -3814,7 +3815,7 @@ syncNow=async force=>{
 
 
 /* =========================================================
-   Rev. r30.3_260831 - 빈 Todo Backspace 자연스러운 삭제/이동
+   Rev. r30.4_260831 - 빈 Todo Backspace 자연스러운 삭제/이동
    - 빈 Todo에서 Backspace: 현재 Todo 삭제
    - 이전 Todo가 있으면 이전 Todo 맨 끝으로 이동
    - 첫 Todo/유일한 Todo면 메모 본문 맨 끝으로 이동
@@ -3903,7 +3904,7 @@ document.addEventListener('keydown',e=>{
 
 
 /* =========================================================
-   Rev. r30.3_260831 - 전역 우선순위 모드
+   Rev. r30.4_260831 - 전역 우선순위 모드
    - 평상시 날짜 정렬은 기존 그대로
    - 우선순위 모드에서만 priorityOrder 순으로 표시
    - ▲/▼는 현재 보이는 바로 위/아래 메모와 전역 순위만 교환
@@ -4297,6 +4298,147 @@ r303Style.textContent=`
 }
 `;
 document.head.append(r303Style);
+
+render();
+
+
+
+/* =========================================================
+   Rev. r30.4_260831 - Live / Archive 태그 목록 기준 통일
+   - PC와 모바일 모두 현재 보고 있는 영역의 태그만 표시
+   - Live: Live 메모에 실제 존재하는 태그만
+   - Archive: Archive 메모에 실제 존재하는 태그만
+   - 모드 전환 시 현재 영역에 없는 선택/제외 태그만 자동 해제
+   ========================================================= */
+
+const r304TagNamesForCurrentView=()=>{
+  const source=memos.filter(m=>{
+    if(m.status==='deleted')return false;
+    return view==='archive'
+      ?m.status==='archive'
+      :m.status!=='archive'
+  });
+
+  return [...new Set(
+    source.flatMap(m=>
+      (String(m.content||'').match(/#([가-힣\w-]+)/g)||[])
+        .map(tag=>tag.slice(1))
+    )
+  )].sort((a,b)=>a.localeCompare(b,'ko'))
+};
+
+const r304PruneTagSelections=names=>{
+  const allowed=new Set(names);
+  selectedTags=selectedTags.filter(name=>allowed.has(name));
+  if(typeof excludedTags!=='undefined'){
+    excludedTags=excludedTags.filter(name=>allowed.has(name))
+  }
+};
+
+const r304DrawDesktopTags=names=>{
+  const root=$('#tags');
+  if(!root)return;
+
+  root.innerHTML=
+    `<button class="tag ${selectedTags.length?'':'active'}" data-tag="">전체 보기</button>`+
+    names.map(name=>{
+      const selected=selectedTags.includes(name);
+      const excluded=typeof excludedTags!=='undefined'&&excludedTags.includes(name);
+      return `<button class="tag ${selected?'active':''} ${excluded?'tag-excluded':''}" data-tag="${esc(name)}">#${esc(name)}</button>`
+    }).join('')
+};
+
+const r304DrawMobileTagOptions=()=>{
+  const names=r304TagNamesForCurrentView();
+  r304PruneTagSelections(names);
+
+  const root=$('#tagOptions');
+  if(!root)return;
+
+  root.innerHTML=names.length
+    ?names.map(name=>{
+      const selected=selectedTags.includes(name);
+      const excluded=typeof excludedTags!=='undefined'&&excludedTags.includes(name);
+      return `<button class="tag-option ${selected?'selected':''} ${excluded?'excluded':''}" data-popup-tag="${esc(name)}">#${esc(name)}</button>`
+    }).join('')
+    :'<span style="color:var(--muted);font-size:13px">현재 보기에는 태그가 없습니다.</span>'
+};
+
+/*
+  기존 render의 메모/필터/프로젝트/우선순위 동작은 그대로 사용하고,
+  태그 목록만 마지막에 현재 Live/Archive 기준으로 다시 맞춥니다.
+*/
+const r304RenderBase=render;
+render=()=>{
+  const names=r304TagNamesForCurrentView();
+  r304PruneTagSelections(names);
+
+  const result=r304RenderBase();
+
+  r304DrawDesktopTags(names);
+
+  const picker=$('#tagPicker');
+  if(picker){
+    picker.textContent=selectedTags.length?`태그 ${selectedTags.length}`:'태그'
+  }
+
+  return result
+};
+
+/* 모바일 태그 버튼은 기존 전체-memo 계산을 거치지 않고 현재 모드 태그만 사용 */
+window.addEventListener('click',e=>{
+  const picker=e.target.closest?.('#tagPicker');
+  if(!picker)return;
+
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  r29TagSelectionSnapshot={
+    selected:[...selectedTags],
+    excluded:typeof excludedTags!=='undefined'?[...excludedTags]:[]
+  };
+
+  r304DrawMobileTagOptions();
+  $('#tagModal')?.classList.remove('hidden')
+},true);
+
+/* 모바일 태그 선택 후에도 같은 현재-mode 목록을 유지 */
+window.addEventListener('click',e=>{
+  const button=e.target.closest?.('#tagOptions [data-popup-tag]');
+  if(!button)return;
+
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  const name=button.dataset.popupTag;
+  if(typeof excludedTags!=='undefined'){
+    excludedTags=excludedTags.filter(x=>x!==name)
+  }
+  selectedTags=selectedTags.includes(name)
+    ?selectedTags.filter(x=>x!==name)
+    :[...selectedTags,name];
+
+  r304DrawMobileTagOptions()
+},true);
+
+/* 모바일 우클릭/롱클릭 제외 태그도 현재-mode 목록만 다시 표시 */
+window.addEventListener('contextmenu',e=>{
+  const button=e.target.closest?.('#tagOptions [data-popup-tag]');
+  if(!button)return;
+
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  const name=button.dataset.popupTag;
+  selectedTags=selectedTags.filter(x=>x!==name);
+  if(typeof excludedTags!=='undefined'){
+    excludedTags=excludedTags.includes(name)
+      ?excludedTags.filter(x=>x!==name)
+      :[...excludedTags,name]
+  }
+
+  r304DrawMobileTagOptions()
+},true);
 
 render();
 
