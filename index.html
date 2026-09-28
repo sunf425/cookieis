@@ -4,7 +4,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#377b59"><title>Review & Todo</title><link rel="stylesheet" href="./calendar_r32.0_fix1.css"><style>
+<meta name="theme-color" content="#377b59"><title>Review & Todo</title><link rel="stylesheet" href="./calendar_r32.0_fix2.css"><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
 </style><style>
 /* r30.3 notice archive navigation */
@@ -433,7 +433,26 @@ const rawSyncNow=syncNow;let lastBackgroundSync=0;syncNow=force=>{if(!force&&Dat
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==='s'){e.preventDefault();e.stopImmediatePropagation();syncNow(true);return}if((e.ctrlKey||e.metaKey)&&e.shiftKey&&['1','2'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation()}},true);let actionBox=$('#save').parentElement;actionBox.insertAdjacentHTML('beforeend','<div class="date-insert"><button type="button" id="insertDate" class="button">Today</button><button type="button" id="insertDateTime" class="button">Time</button></div>');const insertIntoNew=timeOnly=>{let d=new Date(),p=n=>String(n).padStart(2,'0'),text=timeOnly?`${p(d.getHours())}:${p(d.getMinutes())}`:`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`,el=$('#newMemo'),a=el.selectionStart,b=el.selectionEnd,before=a>0?el.value[a-1]:'',prefix=before&&!/\s/.test(before)?' ':'';el.focus();el.setRangeText(prefix+text,a,b,'end');el.dispatchEvent(new Event('input',{bubbles:true}))};$('#insertDate').onclick=()=>insertIntoNew(false);$('#insertDateTime').onclick=()=>insertIntoNew(true);
 actionBox.insertAdjacentHTML('beforeend','<button type="button" id="addTempTask" class="button">+ 할 일</button>');$('#addTempTask').onclick=()=>{temp.push({id:id(),text:''});renderTemp(temp.length-1)};
 extraStyle.textContent+=`.search{background:#edf5ef;color:#397b58}.search::placeholder{color:#7eaa8d}.search:focus{border-color:#5c9c75}.date-insert{display:flex;gap:3px;margin-top:5px}.date-insert .button{font-size:10px;padding:3px 5px}.hashtag{color:#c97832}#tempTasks .task-remove{display:block!important;visibility:visible!important;color:#a9a7a1;font-size:18px;padding:0 4px}@media(max-width:620px){#tempTasks .task-remove{font-size:20px;padding:0 7px}}`;
-const removeReview=m=>{let reviewId=m.reviewId;m.review=undefined;m.reviewId=undefined;m.reviewUpdatedAt=now();save();if(sb&&user&&reviewId)sb.from('blocks').delete().eq('user_id',user.id).eq('id',reviewId).then(({error})=>{if(error)console.error(error)})};
+const removeReview=m=>{
+  if(!m)return;
+  const reserved=r320ReviewLooksReserved(m);
+  let reviewId=m.reviewId;
+
+  m.review=undefined;
+  m.reviewId=undefined;
+  m.reviewUpdatedAt=now();
+  save();
+
+  /* Calendar / Due / Completion metadata row는 절대 Workspace 후기 삭제로 지우지 않습니다. */
+  if(reserved)return;
+
+  if(sb&&user&&reviewId){
+    sb.from('blocks').delete()
+      .eq('user_id',user.id)
+      .eq('id',reviewId)
+      .then(({error})=>{if(error)console.error(error)})
+  }
+};
 const reviewRender=render;render=()=>{reviewRender();document.querySelectorAll('.card').forEach(card=>{let m=memos.find(x=>x.id===card.dataset.id),box=card.querySelector('.review-box');if(box){box.querySelector('.review-label').textContent='↳';if(!box.querySelector('.review-remove'))box.insertAdjacentHTML('beforeend','<button class="task-remove review-remove" title="후기 삭제">×</button>')}});let wb=document.querySelector('[data-lite="work"]');if(wb){wb.classList.remove('filter-on');wb.textContent=workMode===0?'👪':workMode===2?'😎':'🏢'}document.querySelectorAll('.work-chip').forEach(button=>{let m=memos.find(x=>x.id===button.closest('.card').dataset.id);button.textContent=m?.work?'🏢':'😎'})};
 window.addEventListener('click',e=>{let b=e.target.closest?.('[data-lite="work"]');if(b){e.preventDefault();e.stopImmediatePropagation();workMode=workMode===0?2:workMode===2?1:0;render();return}let x=e.target.closest?.('.review-remove');if(x){e.preventDefault();e.stopImmediatePropagation();removeReview(memos.find(m=>m.id===x.closest('.card').dataset.id))}},true);
 window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.code==='KeyS'){e.preventDefault();e.stopImmediatePropagation();syncNow(true);return}let review=e.target.closest?.('.reviewtext');if(review&&e.key==='Backspace'&&!review.innerText){e.preventDefault();e.stopImmediatePropagation();removeReview(memos.find(m=>m.id===review.closest('.card').dataset.id))}},true);
@@ -719,13 +738,18 @@ push=async()=>{
       deleted_at:deleted?(deletedAt||m.updatedAt):(m.status==='archive'?m.updatedAt:null)
     }
   });
-  let reviews=memos.filter(m=>m.review!==undefined).map(m=>({
-    id:m.reviewId||(m.reviewId=id()),user_id:user.id,parent_id:m.id,type:'comment',
-    content_md:m.review||'',created_at:m.createdAt,
-    updated_at:m.reviewUpdatedAt||m.updatedAt,sort_order:0,
-    revision:Math.max(1,Number(m.syncRevision)||1),
-    deleted_at:m.status==='archive'?m.updatedAt:null
-  }));
+  let reviews=memos
+    .filter(m=>m.review!==undefined&&!isWorkspaceReservedChildPayload(m.review))
+    .filter(m=>m.reviewId!==m.dueId)
+    .filter(m=>!(m.calendarEntries||[]).some(entry=>entry?.id===m.reviewId))
+    .filter(m=>!(m.completionHistory||[]).some(entry=>entry?.id===m.reviewId))
+    .map(m=>({
+      id:m.reviewId||(m.reviewId=id()),user_id:user.id,parent_id:m.id,type:'comment',
+      content_md:m.review||'',created_at:m.createdAt,
+      updated_at:m.reviewUpdatedAt||m.updatedAt,sort_order:0,
+      revision:Math.max(1,Number(m.syncRevision)||1),
+      deleted_at:m.status==='archive'?m.updatedAt:null
+    }));
   let ts=memos.flatMap(m=>(m.tasks||[]).map((x,i)=>({
     id:x.id,block_id:m.id,user_id:user.id,content_md:x.text,
     task_state:x.done?'done':'open',focused:false,archived:false,
@@ -904,6 +928,17 @@ render();
       (DB 스키마 변경 없음 / index.html 단일 파일 유지)
 */
 const DUE_META_PREFIX='[[review-todo:due:v1]]';
+const WORKSPACE_RESERVED_CHILD_PREFIXES=[
+  DUE_META_PREFIX,
+  '[[review-todo:calendar-entry:v1]]',
+  '[[review-todo:completion:v1]]',
+  '[[review-todo:daily-meta:v1]]',
+  '[[ROUTINE_LOG_V1]]',
+  '[[ROUTINE_LOG_V2]]'
+];
+const isWorkspaceReservedChildPayload=value=>
+  typeof value==='string'&&
+  WORKSPACE_RESERVED_CHILD_PREFIXES.some(prefix=>value.startsWith(prefix));
 const DUE_NOTIFIED_KEY='review_todo_due_notified_v1';
 const dueNotified=JSON.parse(localStorage.getItem(DUE_NOTIFIED_KEY)||'{}');
 const isDueMeta=v=>typeof v==='string'&&v.startsWith(DUE_META_PREFIX);
@@ -1117,11 +1152,15 @@ pull=async()=>{
   childRows.forEach(x=>{
     if(isDueMeta(x.content_md)){
       let old=dues.get(x.parent_id);
-      if(!old||Date.parse(x.updated_at)>=Date.parse(old.updated_at))dues.set(x.parent_id,x)
-    }else{
-      let old=reviews.get(x.parent_id);
-      if(!old||Date.parse(x.updated_at)>=Date.parse(old.updated_at))reviews.set(x.parent_id,x)
+      if(!old||Date.parse(x.updated_at)>=Date.parse(old.updated_at))dues.set(x.parent_id,x);
+      return
     }
+
+    if(x.type!=='comment')return;
+    if(isWorkspaceReservedChildPayload(x.content_md))return;
+
+    let old=reviews.get(x.parent_id);
+    if(!old||Date.parse(x.updated_at)>=Date.parse(old.updated_at))reviews.set(x.parent_id,x)
   });
   return b.data.filter(x=>!x.parent_id).map(x=>{
     let deleted=!!x.deleted_at&&isTrashPayload(x.content_md),
@@ -2300,7 +2339,7 @@ routineNav.onclick=()=>false;
 routinePage?.remove();
 calendarNav.onclick=()=>{
   if(!window.RTCalendar&&!document.querySelector('#calendarPage')){
-    alert('Calendar 모듈을 불러오지 못했습니다.\n\nindex.html, calendar_r32.0_fix1.js, calendar_r32.0_fix1.css 세 파일을 같은 폴더에 두고 다시 실행해주세요.');
+    alert('Calendar 모듈을 불러오지 못했습니다.\n\nindex.html, calendar_r32.0_fix2.js, calendar_r32.0_fix2.css 세 파일을 같은 폴더에 두고 다시 실행해주세요.');
     return
   }
   appMode='calendar';
@@ -2783,7 +2822,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260928';
+if($('#revision'))$('#revision').textContent='Rev. r32.0_260928_fix2';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -3255,7 +3294,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260928';
+if($('#revision'))$('#revision').textContent='Rev. r32.0_260928_fix2';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -5174,7 +5213,7 @@ render();
 
 
 /* =========================================================
-   Rev. r32.0_260928 - Calendar / Completion metadata sync
+   Rev. r32.0_260928_fix2 - Calendar / Completion metadata sync
    기존 Supabase blocks 스키마를 변경하지 않고 Item child comment에
    예약 prefix를 사용하여 Calendar 일정과 완료 회고를 동기화합니다.
    ========================================================= */
@@ -5401,8 +5440,73 @@ const r312ApplyCompletionDerivedState=item=>{
   return item
 };
 
+const R320_REVIEW_RECOVERY_KEY='review_todo_reserved_review_recovery_v1';
+
+const r320ReviewLooksReserved=item=>{
+  if(!item)return false;
+  if(isWorkspaceReservedChildPayload(item.review))return true;
+  if(!item.reviewId)return false;
+  if(item.reviewId===item.dueId)return true;
+  if((item.calendarEntries||[]).some(entry=>entry?.id===item.reviewId))return true;
+  if((item.completionHistory||[]).some(entry=>entry?.id===item.reviewId))return true;
+  return false
+};
+
+const r320SanitizeReservedReviews=(items,{backup=false}={})=>{
+  const affected=[];
+
+  (items||[]).forEach(item=>{
+    if(!r320ReviewLooksReserved(item))return;
+
+    affected.push({
+      itemId:item.id,
+      review:item.review,
+      reviewId:item.reviewId,
+      reviewUpdatedAt:item.reviewUpdatedAt,
+      sanitizedAt:now()
+    });
+
+    delete item.review;
+    delete item.reviewId;
+    delete item.reviewUpdatedAt
+  });
+
+  if(backup&&affected.length){
+    try{
+      const existing=JSON.parse(localStorage.getItem(R320_REVIEW_RECOVERY_KEY)||'[]');
+      const list=Array.isArray(existing)?existing:[];
+      const keyed=new Map(list.map(row=>[
+        `${row.itemId}|${row.reviewId||''}|${row.review||''}`,
+        row
+      ]));
+      affected.forEach(row=>{
+        keyed.set(`${row.itemId}|${row.reviewId||''}|${row.review||''}`,row)
+      });
+      localStorage.setItem(
+        R320_REVIEW_RECOVERY_KEY,
+        JSON.stringify([...keyed.values()].slice(-100))
+      )
+    }catch(e){
+      console.warn('reserved review recovery snapshot failed',e)
+    }
+  }
+
+  return affected.length
+};
+
+/* r32.0 fix2:
+   이미 이 브라우저 localStorage에 Calendar metadata가 후기처럼 들어간 경우
+   서버 row는 건드리지 않고 Workspace의 review 참조만 제거합니다. */
+const r320RecoveredLocalReviews=r320SanitizeReservedReviews(memos,{backup:true});
+if(r320RecoveredLocalReviews){
+  localStorage.setItem(DATA,JSON.stringify(memos))
+}
+
 const r312MetaMergeBase=merge;
 merge=(left,right)=>{
+  r320SanitizeReservedReviews(left,{backup:true});
+  r320SanitizeReservedReviews(right);
+
   const result=r312MetaMergeBase(left,right);
   const leftMap=new Map((left||[]).map(x=>[x.id,x]));
   const rightMap=new Map((right||[]).map(x=>[x.id,x]));
@@ -5414,6 +5518,8 @@ merge=(left,right)=>{
     item.completionHistory=r312MergeMetaArray(l.completionHistory,r.completionHistory);
     r312ApplyCompletionDerivedState(item)
   });
+
+  r320SanitizeReservedReviews(result,{backup:true});
   return result
 };
 
@@ -5476,6 +5582,8 @@ pull=async()=>{
 
     if(isDueMeta(row.content_md))return;
     if(typeof isAnyRoutineLogPayload==='function'&&isAnyRoutineLogPayload(row.content_md))return;
+    if(row.type!=='comment')return;
+    if(isWorkspaceReservedChildPayload(row.content_md))return;
 
     const old=regularReviews.get(row.parent_id);
     if(!old||Date.parse(row.updated_at)>=Date.parse(old.updated_at)){
@@ -5501,6 +5609,7 @@ pull=async()=>{
     r312ApplyCompletionDerivedState(item)
   });
 
+  r320SanitizeReservedReviews(items);
   return items
 };
 
@@ -5569,6 +5678,13 @@ push=async()=>{
   }
 };
 
+const r320ReviewSafePushBase=push;
+push=async()=>{
+  const cleaned=r320SanitizeReservedReviews(memos,{backup:true});
+  if(cleaned)localStorage.setItem(DATA,JSON.stringify(memos));
+  return await r320ReviewSafePushBase()
+};
+
 const r312SyncBase=syncNow;
 syncNow=async force=>{
   const result=await r312SyncBase(force);
@@ -5578,7 +5694,7 @@ syncNow=async force=>{
 
 
 /* =========================================================
-   Rev. r32.0_260928 - Unified Item Core API
+   Rev. r32.0_260928_fix2 - Unified Item Core API
    Calendar/Routine의 다음 세대 코드는 memos 배열을 직접 만지지 않고
    이 API를 통해 현재 Review & Todo Item/Checklist를 사용합니다.
 
@@ -6040,7 +6156,7 @@ const r317UndoRoutine=(routineId,date)=>{
 
 window.RTCore=Object.freeze({
   schemaVersion:R31_SCHEMA_VERSION,
-  appVersion:'r32.0_260928',
+  appVersion:'r32.0_260928_fix2',
   routineGeneration:2,
 
   getItems:()=>r31Clone(memos),
@@ -6102,6 +6218,9 @@ window.RTCore=Object.freeze({
 const r319ExpandedWorkspaceMemos=new Set();
 const r312WorkspaceRenderBase=render;
 render=()=>{
+  const cleaned=r320SanitizeReservedReviews(memos,{backup:true});
+  if(cleaned)localStorage.setItem(DATA,JSON.stringify(memos));
+
   r312WorkspaceRenderBase();
 
   document.querySelectorAll('.card').forEach(card=>{
@@ -6256,4 +6375,4 @@ document.head.append(r312WorkspaceStyle);
 
 window.dispatchEvent(new CustomEvent('rtcore:ready',{detail:window.RTCore}));
 
-</script><script src="./calendar_r32.0_fix1.js"></script></body></html>
+</script><script src="./calendar_r32.0_fix2.js"></script></body></html>
