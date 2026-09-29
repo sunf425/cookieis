@@ -4,7 +4,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#377b59"><title>Review & Todo</title><link rel="stylesheet" href="./calendar_r32.0_fix2.css"><style>
+<meta name="theme-color" content="#377b59"><title>Review & Todo</title><link rel="stylesheet" href="./calendar_r32.0_fix3.css"><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
 </style><style>
 /* r30.3 notice archive navigation */
@@ -2339,7 +2339,7 @@ routineNav.onclick=()=>false;
 routinePage?.remove();
 calendarNav.onclick=()=>{
   if(!window.RTCalendar&&!document.querySelector('#calendarPage')){
-    alert('Calendar 모듈을 불러오지 못했습니다.\n\nindex.html, calendar_r32.0_fix2.js, calendar_r32.0_fix2.css 세 파일을 같은 폴더에 두고 다시 실행해주세요.');
+    alert('Calendar 모듈을 불러오지 못했습니다.\n\nindex.html, calendar_r32.0_fix3.js, calendar_r32.0_fix3.css 세 파일을 같은 폴더에 두고 다시 실행해주세요.');
     return
   }
   appMode='calendar';
@@ -2822,7 +2822,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260928_fix2';
+if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix3';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -3294,7 +3294,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260928_fix2';
+if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix3';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -3467,7 +3467,11 @@ const drawTagSidebarR21=()=>{
     if(m.status==='deleted')return false;
     return view==='archive'?m.status==='archive':m.status!=='archive'
   });
-  const tags=[...new Set(source.flatMap(m=>(m.content.match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))))].sort();
+  const tagSet=new Set(
+    source.flatMap(m=>(String(m.content||'').match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1)))
+  );
+  if(source.some(r320MemoIsPlan))tagSet.add(R320_VIRTUAL_PLAN_TAG);
+  const tags=[...tagSet].sort((a,b)=>a.localeCompare(b,'ko'));
   const projectCount=selectedProjects.length;
 
   /*
@@ -4942,6 +4946,17 @@ render();
    - 모드 전환 시 현재 영역에 없는 선택/제외 태그만 자동 해제
    ========================================================= */
 
+const R320_VIRTUAL_PLAN_TAG='Plan';
+
+const r320MemoIsPlan=m=>
+  Array.isArray(m?.calendarEntries)&&
+  m.calendarEntries.some(entry=>entry&&entry.status!=='deleted');
+
+const r320MemoHasWorkspaceTag=(m,name)=>
+  name===R320_VIRTUAL_PLAN_TAG
+    ?r320MemoIsPlan(m)
+    :memoHasTag(m,name);
+
 const r304TagNamesForCurrentView=()=>{
   const source=memos.filter(m=>{
     if(m.status==='deleted')return false;
@@ -4950,12 +4965,16 @@ const r304TagNamesForCurrentView=()=>{
       :m.status!=='archive'
   });
 
-  return [...new Set(
+  const names=new Set(
     source.flatMap(m=>
       (String(m.content||'').match(/#([가-힣\w-]+)/g)||[])
         .map(tag=>tag.slice(1))
     )
-  )].sort((a,b)=>a.localeCompare(b,'ko'))
+  );
+
+  if(source.some(r320MemoIsPlan))names.add(R320_VIRTUAL_PLAN_TAG);
+
+  return [...names].sort((a,b)=>a.localeCompare(b,'ko'))
 };
 
 const r304PruneTagSelections=names=>{
@@ -5031,14 +5050,60 @@ render=()=>{
   const names=r304TagNamesForCurrentView();
   r304PruneTagSelections(names);
 
+  /* 기존 Workspace render는 실제 #태그 문자열만 검사합니다.
+     #Plan은 Calendar 관계로 계산하는 가상 태그이므로 base render 동안만 제외합니다. */
+  const wantedPlan=selectedTags.includes(R320_VIRTUAL_PLAN_TAG);
+  const excludedPlan=typeof excludedTags!=='undefined'&&excludedTags.includes(R320_VIRTUAL_PLAN_TAG);
+  const selectedSnapshot=[...selectedTags];
+  const excludedSnapshot=typeof excludedTags!=='undefined'?[...excludedTags]:[];
+
+  selectedTags=selectedTags.filter(name=>name!==R320_VIRTUAL_PLAN_TAG);
+  if(typeof excludedTags!=='undefined'){
+    excludedTags=excludedTags.filter(name=>name!==R320_VIRTUAL_PLAN_TAG)
+  }
+
   const result=r304RenderBase();
+
+  selectedTags=selectedSnapshot;
+  if(typeof excludedTags!=='undefined')excludedTags=excludedSnapshot;
+
+  /* 실제 렌더된 카드에 가상 #Plan 포함/제외 조건을 적용합니다. */
+  document.querySelectorAll('#list .card').forEach(card=>{
+    const memo=memos.find(x=>x.id===card.dataset.id);
+    if(!memo)return;
+    const isPlan=r320MemoIsPlan(memo);
+    const hiddenByPlan=(wantedPlan&&!isPlan)||(excludedPlan&&isPlan);
+    card.classList.toggle('virtual-plan-hidden',hiddenByPlan)
+  });
+
+  /* #Plan 때문에 카드가 모두 감춰진 날짜 헤더도 같이 숨깁니다. */
+  const list=$('#list');
+  if(list){
+    const children=[...list.children];
+    children.forEach((el,i)=>{
+      if(!el.classList.contains('datehead'))return;
+      let visible=false;
+      for(let j=i+1;j<children.length&&!children[j].classList.contains('datehead');j++){
+        if(
+          children[j].classList.contains('card') &&
+          !children[j].classList.contains('task-view-hidden') &&
+          !children[j].classList.contains('virtual-plan-hidden')
+        ){
+          visible=true;
+          break
+        }
+      }
+      el.classList.toggle('virtual-plan-hidden',!visible)
+    })
+  }
 
   r304DrawDesktopTags(names);
   drawTagSidebarR21();
 
   const picker=$('#tagPicker');
   if(picker){
-    picker.textContent=selectedTags.length?`태그 ${selectedTags.length}`:'태그'
+    const count=selectedTags.length+(typeof excludedTags!=='undefined'?excludedTags.length:0);
+    picker.textContent=count?`태그 ${count}`:'태그'
   }
 
   /*
@@ -5213,7 +5278,7 @@ render();
 
 
 /* =========================================================
-   Rev. r32.0_260928_fix2 - Calendar / Completion metadata sync
+   Rev. r32.0_260929_fix3 - Calendar / Completion metadata sync
    기존 Supabase blocks 스키마를 변경하지 않고 Item child comment에
    예약 prefix를 사용하여 Calendar 일정과 완료 회고를 동기화합니다.
    ========================================================= */
@@ -5694,7 +5759,7 @@ syncNow=async force=>{
 
 
 /* =========================================================
-   Rev. r32.0_260928_fix2 - Unified Item Core API
+   Rev. r32.0_260929_fix3 - Unified Item Core API
    Calendar/Routine의 다음 세대 코드는 memos 배열을 직접 만지지 않고
    이 API를 통해 현재 Review & Todo Item/Checklist를 사용합니다.
 
@@ -6156,7 +6221,7 @@ const r317UndoRoutine=(routineId,date)=>{
 
 window.RTCore=Object.freeze({
   schemaVersion:R31_SCHEMA_VERSION,
-  appVersion:'r32.0_260928_fix2',
+  appVersion:'r32.0_260929_fix3',
   routineGeneration:2,
 
   getItems:()=>r31Clone(memos),
@@ -6231,7 +6296,7 @@ render=()=>{
     if(tools&&!tools.querySelector('.go-timetable')&&!item.completedAt){
       tools.insertAdjacentHTML(
         'afterbegin',
-        '<button type="button" class="icon go-timetable" title="오늘 Calendar 브레인 덤프로 보내기">→Time</button>'
+        '<button type="button" class="icon go-timetable" title="오늘 Calendar 브레인 덤프로 보내기" aria-label="Calendar로 보내기">📅</button>'
       )
     }
 
@@ -6375,4 +6440,4 @@ document.head.append(r312WorkspaceStyle);
 
 window.dispatchEvent(new CustomEvent('rtcore:ready',{detail:window.RTCore}));
 
-</script><script src="./calendar_r32.0_fix2.js"></script></body></html>
+</script><script src="./calendar_r32.0_fix3.js"></script></body></html>
