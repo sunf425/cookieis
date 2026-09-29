@@ -4,7 +4,2650 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#377b59"><title>Review & Todo</title><link rel="stylesheet" href="./calendar_r32.0_fix3.css"><style>
+<meta name="theme-color" content="#377b59"><title>Review & Todo</title><style id="rt-calendar-embedded-style">
+/* Review & Todo Calendar
+   Rev. r31.7_260928 / Routine Execution + Daily Drag Fix */
+
+.main.calendar-mode{padding:22px 28px}
+.main.calendar-mode .wrap{max-width:1380px;width:100%}
+.calendar-page{width:100%;min-width:0}
+.calendar-page.hidden{display:none!important}
+
+.top-mode-switch{gap:3px}
+.top-mode-switch .top-mode-btn{min-width:0}
+#calendarNav.active{background:#edf7f1!important;color:#236345!important}
+
+.cal-header{
+  position:sticky;
+  top:-22px;
+  z-index:6;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:14px;
+  padding:14px 0 13px;
+  margin-bottom:12px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #e8e9e7;
+}
+.cal-date-nav{display:flex;align-items:center;gap:6px;min-width:0}
+.cal-date-nav>button,
+.cal-view-switch button,
+.cal-header-actions button{
+  border:1px solid #e2e5e2;
+  background:#fff;
+  color:#444943;
+  border-radius:8px;
+  min-height:34px;
+  padding:6px 10px;
+  cursor:pointer;
+  font:inherit;
+}
+.cal-date-nav>button:first-child,
+.cal-date-nav>button:last-child{width:36px;padding:0;font-size:20px}
+.cal-date-nav .cal-date-title{
+  border-color:transparent;
+  font-weight:800;
+  font-size:15px;
+  text-align:left;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cal-view-switch{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  padding:3px;
+  border:1px solid #e2e5e2;
+  background:#f7f8f7;
+  border-radius:10px;
+}
+.cal-view-switch button{
+  border:0;
+  background:transparent;
+  min-height:30px;
+  padding:4px 12px;
+}
+.cal-view-switch button.active{
+  background:#fff;
+  color:#246445;
+  font-weight:800;
+  box-shadow:0 1px 4px #00000010;
+}
+.cal-header-actions{display:flex;justify-content:flex-end;gap:6px}
+.cal-header-actions button:first-child{font-weight:750}
+
+.cal-day-layout{
+  display:grid;
+  grid-template-columns:minmax(260px,340px) minmax(520px,1fr);
+  gap:16px;
+  align-items:start;
+}
+.cal-day-left{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  position:sticky;
+  top:55px;
+  max-height:calc(100vh - 78px);
+  overflow:auto;
+  padding-right:2px;
+}
+.cal-panel{
+  background:#fff;
+  border:1px solid #e5e7e5;
+  border-radius:12px;
+  box-shadow:0 1px 3px #00000008;
+}
+.cal-panel-head{
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  border-bottom:1px solid #eff0ee;
+}
+.cal-panel-head strong{font-size:13px}
+.cal-panel-head small{font-size:11px;color:#939892}
+
+.cal-big3-list{padding:7px}
+.cal-big3-item{
+  display:flex;
+  width:100%;
+  align-items:center;
+  gap:9px;
+  padding:9px 8px;
+  border:0;
+  background:transparent;
+  border-radius:8px;
+  text-align:left;
+  cursor:pointer;
+  color:#343834;
+}
+.cal-big3-item:hover{background:#f5f7f5}
+.cal-big3-item b{
+  display:grid;
+  place-items:center;
+  width:23px;
+  height:23px;
+  border-radius:50%;
+  background:#edf6f0;
+  color:#276748;
+  font-size:11px;
+  flex:0 0 auto;
+}
+.cal-big3-item span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cal-empty-mini{padding:16px 12px;color:#9a9e99;font-size:12px;text-align:center}
+
+.cal-brain-list{padding:6px}
+.cal-brain-item{padding:9px;border-radius:9px}
+.cal-brain-item+.cal-brain-item{border-top:1px solid #f0f1ef}
+.cal-brain-title{display:flex;align-items:center;gap:6px;min-width:0}
+.cal-brain-title strong{font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cal-big3-badge{
+  flex:0 0 auto;
+  border-radius:999px;
+  background:#f0eafa;
+  color:#684b99;
+  padding:2px 6px;
+  font-size:9px;
+  font-weight:850;
+}
+.cal-brain-actions{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.cal-brain-actions button,
+.cal-time-actions button,
+.cal-add-secondary,
+.cal-settings-mini{
+  border:1px solid #e2e5e2;
+  background:#fff;
+  border-radius:6px;
+  color:#6e746e;
+  font:inherit;
+  font-size:10px;
+  padding:4px 7px;
+  cursor:pointer;
+}
+.cal-brain-actions button:hover,
+.cal-time-actions button:hover{background:#f2f5f2;color:#303530}
+.cal-brain-actions button.active,
+.cal-time-actions button.active{background:#f0eafa;color:#60438f;border-color:#d9c9ef}
+.cal-brain-actions button.danger{color:#aa5b5b}
+.cal-add-secondary{
+  width:calc(100% - 16px);
+  margin:2px 8px 10px;
+  min-height:34px;
+  border-style:dashed;
+  font-size:12px;
+}
+
+.cal-daily-text-panel{padding:12px}
+.cal-daily-text-panel label{display:block}
+.cal-daily-text-panel label+label{margin-top:12px}
+.cal-daily-text-panel label>strong{display:block;margin-bottom:5px;font-size:12px}
+.cal-daily-text-panel textarea{
+  width:100%;
+  min-height:86px;
+  resize:vertical;
+  border:1px solid #e4e6e4;
+  border-radius:8px;
+  padding:9px 10px;
+  outline:0;
+  font:inherit;
+  font-size:12px;
+  line-height:1.6;
+  background:#fbfcfb;
+}
+.cal-daily-text-panel textarea:focus{background:#fff;border-color:#8bb49c}
+
+.cal-timetable-panel{position:relative;overflow:hidden}
+.cal-timetable-head{position:relative;top:auto;z-index:1;background:#fff}
+.cal-timetable-head>div{display:flex;align-items:baseline;gap:7px}
+
+.cal-fold{
+  width:100%;
+  border:0;
+  border-bottom:1px solid #eceeec;
+  background:#f6f7f6;
+  min-height:35px;
+  color:#707570;
+  font:inherit;
+  font-size:11px;
+  cursor:pointer;
+}
+.cal-fold b{margin-left:8px;color:#526258}
+
+.cal-time-grid{position:relative;min-height:48px;background:#fff}
+.cal-slot-list{position:relative}
+.cal-slot{
+  height:34px;
+  display:grid;
+  grid-template-columns:60px 1fr;
+  align-items:start;
+  position:relative;
+}
+.cal-slot>span{
+  padding:3px 9px 0 0;
+  text-align:right;
+  font-size:9px;
+  color:#a0a49f;
+  transform:none;
+}
+.cal-slot>i{
+  height:100%;
+  border-top:1px solid #f0f1ef;
+  border-left:1px solid #eceeec;
+}
+.cal-slot.hour>i{border-top-color:#dde1dd}
+.cal-slot.hour>span{color:#757a75;font-weight:700}
+
+.cal-block-layer{
+  position:absolute;
+  left:61px;
+  right:8px;
+  top:0;
+  bottom:0;
+  pointer-events:none;
+}
+.cal-time-block{
+  position:absolute;
+  left:8px;
+  right:4px;
+  top:calc((var(--cal-start) - var(--segment-from)) / 30 * 34px + 2px);
+  height:calc((var(--cal-end) - var(--cal-start)) / 30 * 34px - 4px);
+  min-height:30px;
+  z-index:2;
+  pointer-events:auto;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  padding:6px 7px 5px 9px;
+  border:1px solid #cddfd4;
+  border-left:4px solid #4d8d68;
+  border-radius:8px;
+  background:#f3faf5;
+  overflow:hidden;
+}
+.cal-time-block-main{min-width:0;display:flex;flex-direction:column}
+.cal-time-block-main strong{
+  font-size:11px;
+  line-height:1.35;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cal-time-block-main small{
+  color:#6f7c72;
+  font-size:9px;
+  line-height:1.3;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cal-time-actions{
+  display:flex;
+  gap:2px;
+  flex:0 0 auto;
+  opacity:.25;
+  transition:opacity .12s ease;
+}
+.cal-time-block:hover .cal-time-actions{opacity:1}
+.cal-time-actions button{padding:2px 5px;background:#ffffffd9}
+
+.cal-floating-add{
+  position:sticky;
+  float:right;
+  right:16px;
+  bottom:18px;
+  z-index:8;
+  width:52px;
+  height:52px;
+  margin:14px 14px 14px auto;
+  border:0;
+  border-radius:50%;
+  background:#2d7752;
+  color:#fff;
+  font-size:27px;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 7px 20px #245c413b;
+}
+
+.cal-week-grid{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:8px;
+}
+.cal-week-day{
+  min-height:145px;
+  border:1px solid #e4e7e4;
+  background:#fff;
+  border-radius:11px;
+  padding:10px;
+  text-align:left;
+  cursor:pointer;
+  color:#3d423e;
+}
+.cal-week-day:hover{border-color:#afc9b8}
+.cal-week-day.today{box-shadow:inset 0 0 0 2px #7da78c}
+.cal-week-day-head{display:flex;justify-content:space-between;color:#7f847f}
+.cal-week-day>strong{display:block;font-size:26px;margin-top:25px}
+.cal-week-day>small{color:#949994}
+.cal-week-big3{display:block;margin-top:6px;color:#7357a2;font-size:10px}
+
+.cal-month-weekdays,
+.cal-month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.cal-month-weekdays span{padding:8px;text-align:center;color:#858a85;font-size:11px}
+.cal-month-grid{border-top:1px solid #e5e7e5;border-left:1px solid #e5e7e5}
+.cal-month-day{
+  min-height:105px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:8px;
+  padding:9px;
+  border:0;
+  border-right:1px solid #e5e7e5;
+  border-bottom:1px solid #e5e7e5;
+  background:#fff;
+  color:#454945;
+  cursor:pointer;
+}
+.cal-month-day:hover{background:#fafcfa}
+.cal-month-day.outside{color:#b5b8b5;background:#fbfbfb}
+.cal-month-day.today b{
+  display:grid;
+  place-items:center;
+  width:25px;height:25px;
+  border-radius:50%;
+  background:#2f7653;
+  color:#fff;
+}
+.cal-month-day span{font-size:10px;color:#7f857f}
+.cal-month-day i{
+  font-style:normal;
+  font-size:9px;
+  padding:2px 5px;
+  border-radius:999px;
+  color:#684b99;
+  background:#f0eafa;
+}
+.cal-overview-note{
+  margin-top:14px;
+  padding:11px 13px;
+  border-radius:9px;
+  background:#f7f8f7;
+  color:#858a85;
+  font-size:11px;
+}
+
+.cal-modal{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:grid;
+  place-items:center;
+  padding:16px;
+  background:#0000005c;
+}
+.cal-modal.hidden{display:none!important}
+.cal-dialog{
+  width:min(440px,100%);
+  background:#fff;
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 20px 70px #00000035;
+}
+.cal-dialog h2{margin:0 0 7px;font-size:18px}
+.cal-dialog>p{margin:0 0 14px;color:#878c87;font-size:12px}
+.cal-dialog input,
+.cal-dialog select{
+  width:100%;
+  border:1px solid #dfe3df;
+  border-radius:8px;
+  padding:9px 10px;
+  outline:0;
+  background:#fff;
+  font:inherit;
+}
+.cal-dialog input:focus,
+.cal-dialog select:focus{border-color:#77a589}
+.cal-dialog label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:10px 0;
+  color:#555b56;
+  font-size:12px;
+}
+.cal-dialog label span{display:flex;align-items:center;gap:7px}
+.cal-dialog label select{min-width:110px}
+.cal-dialog-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:7px;
+  margin-top:16px;
+}
+.cal-dialog-actions button{
+  min-width:72px;
+  border:1px solid #dfe2df;
+  background:#fff;
+  border-radius:8px;
+  padding:8px 12px;
+  font:inherit;
+  cursor:pointer;
+}
+.cal-dialog-actions button.primary{background:#2f7653;color:#fff;border-color:#2f7653}
+.cal-create-dialog input{font-size:15px;padding:11px 12px}
+
+.cal-toast{
+  position:fixed;
+  left:50%;
+  bottom:28px;
+  z-index:80;
+  transform:translate(-50%,16px);
+  max-width:min(520px,calc(100vw - 30px));
+  padding:9px 13px;
+  border-radius:9px;
+  background:#2f3530;
+  color:#fff;
+  font-size:12px;
+  box-shadow:0 8px 28px #0004;
+  opacity:0;
+  pointer-events:none;
+  transition:.16s ease;
+}
+.cal-toast.show{opacity:1;transform:translate(-50%,0)}
+.cal-toast.warn{background:#744f35}
+
+.calendar-jump-highlight{animation:calJump 1.6s ease}
+@keyframes calJump{
+  0%,100%{box-shadow:none}
+  30%{box-shadow:0 0 0 3px #78a88a55;background:#f1f9f4}
+}
+
+@media(max-width:900px){
+  .main.calendar-mode{padding:14px}
+  .cal-header{
+    top:-14px;
+    grid-template-columns:1fr auto;
+  }
+  .cal-view-switch{grid-row:2;grid-column:1/-1}
+  .cal-header-actions{grid-column:2}
+  .cal-day-layout{grid-template-columns:minmax(220px,290px) minmax(430px,1fr);gap:10px}
+}
+
+@media(max-width:620px){
+  .main.calendar-mode{padding:10px 10px 24px}
+  .main.calendar-mode .wrap{max-width:none}
+  .calendar-page{padding-bottom:60px}
+  .cal-header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    grid-template-columns:1fr auto;
+    gap:7px;
+    padding:9px 0 8px;
+    margin-bottom:8px;
+  }
+  .cal-date-nav{min-width:0}
+  .cal-date-nav>button:first-child,
+  .cal-date-nav>button:last-child{width:31px}
+  .cal-date-nav .cal-date-title{font-size:12px;padding:4px;min-width:0}
+  .cal-header-actions button{padding:5px 7px;font-size:10px}
+  .cal-view-switch{grid-column:1/-1;grid-row:2}
+  .cal-view-switch button{font-size:11px}
+
+  .cal-day-layout{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+  }
+  .cal-day-left{
+    display:contents;
+    position:static;
+    max-height:none;
+    overflow:visible;
+  }
+  .cal-big3-panel{order:1}
+  .cal-timetable-panel{order:2;width:100%}
+  .cal-brain-panel{order:3}
+  .cal-daily-text-panel{order:4}
+  .cal-timetable-head{top:87px}
+
+  .cal-time-grid{min-width:0}
+  .cal-slot{grid-template-columns:49px 1fr;height:36px}
+  .cal-slot>span{font-size:8px;padding-right:7px}
+  .cal-block-layer{left:50px;right:4px}
+  .cal-time-block{
+    left:4px;
+    right:1px;
+    top:calc((var(--cal-start) - var(--segment-from)) / 30 * 36px + 2px);
+    height:calc((var(--cal-end) - var(--cal-start)) / 30 * 36px - 4px);
+    padding:5px 4px 4px 7px;
+  }
+  .cal-time-block-main strong{font-size:10.5px}
+  .cal-time-block-main small{font-size:8px}
+  .cal-time-actions{opacity:1;gap:1px}
+  .cal-time-actions button{font-size:9px;padding:2px 4px}
+  .cal-time-actions button[data-cal-act="big3"]{font-size:8px}
+
+  .cal-floating-add{
+    width:56px;height:56px;
+    bottom:14px;
+    right:10px;
+    margin-right:10px;
+  }
+  .cal-week-grid{grid-template-columns:1fr}
+  .cal-week-day{min-height:74px;display:grid;grid-template-columns:1fr auto auto;align-items:center}
+  .cal-week-day>strong{margin:0;font-size:19px}
+  .cal-week-big3{margin:0}
+  .cal-month-day{min-height:72px;padding:6px;gap:3px}
+  .cal-month-day span{font-size:9px}
+  .cal-month-day i{font-size:7px;padding:1px 3px}
+
+  .cal-modal{padding:12px}
+  .cal-dialog{padding:18px 15px;border-radius:13px}
+}
+
+@media(max-width:390px){
+  .cal-time-actions button{padding:2px 3px}
+  .cal-time-block-main small{display:none}
+}
+
+
+/* ===== r31.2 Completion / Review ===== */
+.cal-time-block.completed{
+  border-color:#d7dbd7;
+  border-left-color:#9a9f9b;
+  background:#f2f3f2;
+  color:#747975;
+}
+.cal-time-block.completed .cal-time-block-main strong{
+  text-decoration:line-through;
+  text-decoration-thickness:1px;
+}
+.cal-time-block.completed .cal-time-block-main small{color:#969b97}
+.cal-check-btn{
+  background:#2f7653!important;
+  border-color:#2f7653!important;
+  color:#fff!important;
+  font-weight:800!important;
+}
+.cal-undo-btn{
+  background:#fff!important;
+  border-color:#d4d7d4!important;
+  color:#737873!important;
+  white-space:nowrap;
+}
+.cal-completion-dialog{width:min(570px,100%)}
+.cal-completion-kicker{
+  display:inline-flex;
+  padding:3px 8px;
+  border-radius:999px;
+  background:#edf7f1;
+  color:#317453;
+  font-size:10px;
+  font-weight:850;
+  margin-bottom:8px;
+}
+.cal-completion-dialog h2{
+  margin-bottom:18px;
+  font-size:17px;
+  line-height:1.45;
+}
+.cal-completion-question{
+  margin:0 0 9px!important;
+  color:#353a36!important;
+  font-size:13px!important;
+  font-weight:800;
+}
+.cal-completion-question.second{margin-top:18px!important}
+.cal-result-options{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-bottom:15px;
+}
+.cal-result-options label{margin:0;display:block}
+.cal-result-options input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.cal-result-options span{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:43px;
+  border:1px solid #e0e4e0;
+  border-radius:9px;
+  background:#fafbfa;
+  color:#555b56;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+.cal-result-options input:checked+span{
+  border-color:#75a187;
+  background:#edf7f1;
+  color:#2e684a;
+  box-shadow:inset 0 0 0 1px #75a187;
+}
+.cal-completion-dialog textarea{
+  width:100%;
+  min-height:92px;
+  resize:vertical;
+  border:1px solid #dfe3df;
+  border-radius:9px;
+  padding:10px 11px;
+  outline:0;
+  font:inherit;
+  font-size:12px;
+  line-height:1.6;
+  background:#fbfcfb;
+}
+.cal-completion-dialog textarea:focus{
+  border-color:#78a58a;
+  background:#fff;
+}
+.cal-completion-help{
+  margin:6px 0 0!important;
+  color:#989d99!important;
+  font-size:10px!important;
+}
+
+@media(max-width:620px){
+  .cal-result-options{grid-template-columns:1fr}
+  .cal-result-options span{
+    min-height:39px;
+    justify-content:flex-start;
+    padding:0 12px;
+  }
+  .cal-completion-dialog{
+    max-height:calc(100vh - 24px);
+    overflow:auto;
+  }
+  .cal-time-actions .cal-check-btn,
+  .cal-time-actions .cal-undo-btn{font-size:8px!important}
+}
+
+
+/* ===== r31.2 fix1: TimeTable fold/layout correction ===== */
+.cal-fold{
+  position:relative;
+  z-index:3;
+  display:block;
+  clear:both;
+}
+.cal-fold-early{
+  border-top:0;
+  border-bottom:1px solid #e5e8e5;
+}
+.cal-fold-late{
+  border-top:1px solid #e5e8e5;
+  border-bottom:0;
+}
+.cal-timetable-panel{
+  overflow:hidden;
+}
+.cal-time-grid{
+  overflow:hidden;
+}
+.cal-time-block-main:has(> strong:only-child){
+  justify-content:center;
+}
+@media(max-width:620px){
+  .cal-timetable-head{top:auto}
+}
+
+
+/* ======================================================
+   r31.3 — Day label / Monthly / Weekly
+   ====================================================== */
+
+.cal-day-label-body{padding:10px 12px 12px}
+.cal-day-label-body input{
+  width:100%;
+  height:36px;
+  border:1px solid #e0e4e0;
+  border-radius:8px;
+  padding:7px 10px;
+  font:inherit;
+  font-size:12px;
+  outline:0;
+  background:#fbfcfb;
+}
+.cal-day-label-body input:focus{border-color:#7da88d;background:#fff}
+.cal-color-palette{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:9px;
+  flex-wrap:wrap;
+}
+.cal-color-swatch{
+  position:relative;
+  width:19px;
+  height:19px;
+  padding:0;
+  border-radius:5px;
+  border:1px solid #d8ddd9;
+  cursor:pointer;
+  background:var(--day-tone,#f2f4f2);
+}
+.cal-color-swatch.active{
+  box-shadow:0 0 0 2px #fff,0 0 0 4px currentColor;
+}
+.cal-tone-default{--day-tone:#eef1ee;--day-text:#4a504b;color:#4a504b}
+.cal-tone-red{--day-tone:#e55b5b;--day-text:#c43e3e;color:#c43e3e}
+.cal-tone-orange{--day-tone:#ea9147;--day-text:#cb6d23;color:#cb6d23}
+.cal-tone-yellow{--day-tone:#e2ba3f;--day-text:#a98217;color:#a98217}
+.cal-tone-green{--day-tone:#55a46f;--day-text:#347c4c;color:#347c4c}
+.cal-tone-blue{--day-tone:#4e87d9;--day-text:#316bbb;color:#316bbb}
+.cal-tone-indigo{--day-tone:#526bb0;--day-text:#3d5599;color:#3d5599}
+.cal-tone-purple{--day-tone:#8c63c7;--day-text:#7046aa;color:#7046aa}
+.cal-tone-black{--day-tone:#3f4340;--day-text:#303330;color:#303330}
+.cal-color-swatch.cal-tone-default{
+  background:linear-gradient(135deg,#fff 0 45%,#cfd5d0 46% 54%,#fff 55% 100%);
+}
+.cal-color-swatch:not(.cal-tone-default){background:var(--day-tone)}
+
+/* Monthly */
+.cal-month-weekdays .sun{color:#c94d4d}
+.cal-month-weekdays .sat{color:#4178c0}
+.cal-month-day{
+  min-height:132px;
+  gap:4px;
+  overflow:hidden;
+}
+.cal-month-date-row{
+  display:flex;
+  width:100%;
+  align-items:center;
+  min-width:0;
+  gap:6px;
+  color:var(--day-text,#454945);
+}
+.cal-month-date-row>b{
+  flex:0 0 auto;
+  font-size:12px;
+}
+.cal-month-date-row>span{
+  min-width:0;
+  flex:1;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  color:inherit;
+  font-size:10px;
+  font-weight:700;
+}
+.cal-month-day.today .cal-month-date-row>b{
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:var(--day-tone,#2f7653);
+  color:#fff;
+}
+.cal-month-big3{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  margin-top:5px;
+  color:#404640;
+}
+.cal-month-big3>span{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  min-width:0;
+  width:100%;
+  font-size:10px;
+  line-height:1.35;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.cal-month-big3>span>i{
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  width:15px;height:15px;
+  border-radius:50%;
+  font-style:normal;
+  font-size:8px;
+  font-weight:800;
+  color:#6b4b9a;
+  background:#f0eafa;
+}
+.cal-month-count{
+  margin-top:auto;
+  color:#7c827d;
+  font-size:11px;
+  font-weight:800;
+}
+
+/* Weekly summary */
+.cal-week-summary{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  border-top:1px solid #e4e7e4;
+  border-left:1px solid #e4e7e4;
+}
+.cal-week-summary-day{
+  min-width:0;
+  min-height:132px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  padding:8px;
+  border:0;
+  border-right:1px solid #e4e7e4;
+  border-bottom:1px solid #e4e7e4;
+  background:#fff;
+  color:#404540;
+  cursor:pointer;
+  text-align:left;
+}
+.cal-week-summary-day:hover{background:#fafcfa}
+.cal-week-summary-day.today{box-shadow:inset 0 0 0 2px #7ea98f}
+.cal-week-summary-date{
+  display:flex;
+  align-items:baseline;
+  gap:5px;
+  color:var(--day-text,#535853);
+}
+.cal-week-summary-date b{font-size:12px}
+.cal-week-summary-date span{font-size:9px}
+.cal-week-summary-label{
+  width:100%;
+  height:17px;
+  margin-top:2px;
+  color:var(--day-text,#535853);
+  font-size:9px;
+  font-weight:750;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.cal-week-summary-big3{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  margin-top:6px;
+}
+.cal-week-summary-big3 span{
+  display:flex;
+  gap:4px;
+  min-width:0;
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-size:9px;
+}
+.cal-week-summary-big3 span b{
+  color:#7655a4;
+  flex:0 0 auto;
+}
+.cal-week-count{
+  margin-top:auto;
+  font-size:10px;
+  color:#777d78;
+}
+
+/* Weekly 30-minute read-only timetable */
+.cal-week-timetable-wrap{
+  width:100%;
+  overflow:auto;
+  border-left:1px solid #e1e4e1;
+  border-right:1px solid #e1e4e1;
+  border-bottom:1px solid #e1e4e1;
+  background:#fff;
+}
+.cal-week-timetable{
+  position:relative;
+  display:grid;
+  grid-template-columns:54px repeat(7,minmax(105px,1fr));
+  grid-template-rows:repeat(var(--cal-week-slots),32px);
+  min-width:var(--cal-week-min-width);
+}
+.cal-week-time-label{
+  z-index:1;
+  padding:3px 6px 0 0;
+  border-top:1px solid #eceeec;
+  color:#8b908b;
+  font-size:8px;
+  text-align:right;
+  background:#fff;
+}
+.cal-week-time-cell{
+  border-top:1px solid #eceeec;
+  border-left:1px solid #eceeec;
+  background:#fff;
+  cursor:pointer;
+}
+.cal-week-time-cell:hover{background:#fafcfa}
+.cal-week-time-block{
+  z-index:3;
+  min-width:0;
+  margin:2px;
+  padding:4px 5px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  border:1px solid #cddfd4;
+  border-left:3px solid #4d8d68;
+  border-radius:6px;
+  background:#f3faf5;
+  color:#354039;
+  font:inherit;
+  font-size:9px;
+  font-weight:700;
+  text-align:left;
+  cursor:pointer;
+}
+.cal-week-time-block.completed{
+  border-color:#d9dcda;
+  border-left-color:#9da19e;
+  background:#f2f3f2;
+  color:#858a86;
+  text-decoration:line-through;
+}
+
+@media(max-width:900px){
+  .cal-week-summary{min-width:760px}
+  .cal-month-day{min-height:116px}
+}
+@media(max-width:620px){
+  .cal-color-palette{gap:8px}
+  .cal-color-swatch{width:22px;height:22px}
+  .cal-month-day{min-height:92px;padding:5px}
+  .cal-month-big3>span{font-size:8px}
+  .cal-month-big3>span>i{display:none}
+  .cal-month-date-row>span{font-size:8px}
+  .cal-month-count{font-size:9px}
+  .cal-week-summary{min-width:760px}
+  .cal-week-timetable{min-width:900px}
+}
+
+
+/* ======================================================
+   r31.4 — Monthly legibility
+   ====================================================== */
+.cal-month-day{
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  text-align:left!important;
+  padding:9px 10px!important;
+}
+.cal-month-date-row{
+  justify-content:flex-start!important;
+  gap:9px!important;
+  text-align:left!important;
+}
+.cal-month-date-row>b{
+  font-size:15px!important;
+  line-height:1.4;
+}
+.cal-month-date-row>span{
+  font-size:13px!important;
+  line-height:1.4;
+  font-weight:800!important;
+  text-align:left!important;
+}
+.cal-month-big3{
+  margin-top:8px!important;
+  gap:5px!important;
+}
+.cal-month-big3>span{
+  font-size:11.5px!important;
+  line-height:1.35!important;
+  text-align:left!important;
+}
+.cal-month-big3>span>i{
+  width:17px!important;
+  height:17px!important;
+  font-size:9px!important;
+}
+.cal-month-count{
+  font-size:12px!important;
+}
+
+/* ======================================================
+   r31.4 — Daily BIG3 red theme
+   ====================================================== */
+.cal-time-block.big3{
+  border-color:#e6c4c4!important;
+  border-left-color:#cf4c4c!important;
+  background:#fff5f5!important;
+}
+.cal-time-block.big3 .cal-time-block-main strong{color:#7b3030}
+.cal-block-big3-badge{
+  flex:0 0 auto;
+  align-self:flex-start;
+  margin-left:auto;
+  padding:2px 6px;
+  border-radius:999px;
+  background:#cf4c4c;
+  color:#fff;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+
+/* ======================================================
+   r31.4 — Weekly exact column alignment
+   ====================================================== */
+.cal-week-scroll{
+  width:100%;
+  overflow:auto;
+  border:1px solid #e3e6e3;
+  background:#fff;
+}
+.cal-week-layout{min-width:900px}
+.cal-week-weekdays,
+.cal-week-dates,
+.cal-week-timetable{
+  display:grid;
+  grid-template-columns:54px repeat(7,minmax(105px,1fr));
+}
+.cal-week-weekdays{
+  border-bottom:1px solid #e3e6e3;
+  background:#fafbfa;
+}
+.cal-week-weekdays>i,
+.cal-week-dates>i{
+  display:block;
+  border-right:1px solid #e5e7e5;
+}
+.cal-week-weekdays>span{
+  min-width:0;
+  padding:7px 6px;
+  border-right:1px solid #e5e7e5;
+  color:#686e69;
+  font-size:12px;
+  font-weight:800;
+  text-align:left;
+}
+.cal-week-weekdays>span.sat{color:#3e73bb}
+.cal-week-weekdays>span.sun{color:#c34848}
+.cal-week-dates{
+  min-height:54px;
+  border-bottom:1px solid #e3e6e3;
+}
+.cal-week-date-cell{
+  min-width:0;
+  display:flex;
+  align-items:flex-start;
+  gap:7px;
+  padding:8px 8px;
+  border:0;
+  border-right:1px solid #e5e7e5;
+  background:#fff;
+  color:var(--day-text,#414641);
+  text-align:left;
+  cursor:pointer;
+}
+.cal-week-date-cell:hover{background:#fafcfa}
+.cal-week-date-cell.today{box-shadow:inset 0 0 0 2px #7da88d}
+.cal-week-date-cell>b{
+  flex:0 0 auto;
+  font-size:15px;
+  line-height:1.45;
+}
+.cal-week-date-cell>span{
+  min-width:0;
+  flex:1;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-size:13px;
+  line-height:1.45;
+  font-weight:800;
+  color:inherit;
+}
+.cal-week-timetable{
+  position:relative;
+  grid-template-rows:repeat(var(--cal-week-slots),32px);
+}
+.cal-week-time-block{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:5px;
+}
+.cal-week-time-block>span{
+  min-width:0;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.cal-week-time-block>b{
+  flex:0 0 auto;
+  margin-left:auto;
+  font-size:7px;
+  font-weight:900;
+}
+.cal-week-time-block.big3{
+  border-color:#e6c4c4!important;
+  border-left-color:#cf4c4c!important;
+  background:#fff3f3!important;
+  color:#793131!important;
+}
+.cal-week-time-block.big3>b{
+  padding:1px 4px;
+  border-radius:999px;
+  background:#cf4c4c;
+  color:#fff;
+}
+.cal-week-time-block.routine{
+  border-color:#d8d1e5!important;
+  border-left-color:#8269a7!important;
+  background:#faf7ff!important;
+  color:#655379!important;
+}
+.cal-week-time-block.routine>b{color:#8269a7}
+
+/* Old summary structures are superseded in r31.4 */
+.cal-week-summary{display:none!important}
+
+/* ======================================================
+   r31.4 — Routine Soft Schedule
+   ====================================================== */
+.cal-routine-soft-block{
+  border:1px dashed #cfc4df!important;
+  border-left:4px solid #8269a7!important;
+  background:#faf7ff!important;
+  color:#655379!important;
+  cursor:pointer;
+}
+.cal-routine-badge{
+  flex:0 0 auto;
+  margin-left:auto;
+  padding:2px 6px;
+  border-radius:999px;
+  background:#eee7f7;
+  color:#755c97;
+  font-size:8px;
+  font-weight:900;
+}
+.cal-routine-unplaced-list{padding:6px}
+.cal-routine-unplaced-list button{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  padding:8px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  text-align:left;
+  cursor:pointer;
+}
+.cal-routine-unplaced-list button:hover{background:#faf7ff}
+.cal-routine-unplaced-list b{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:11px;
+}
+.cal-routine-unplaced-list span{
+  flex:0 0 auto;
+  color:#927aa9;
+  font-size:9px;
+}
+
+/* Routine editor schedule fields */
+.routine-schedule-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.routine-schedule-row label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+}
+.routine-schedule-row input{
+  min-width:0;
+  width:100%;
+}
+
+/* Calendar Routine dashboard */
+.cal-routine-dashboard-dialog{
+  width:min(820px,100%);
+  max-height:calc(100vh - 30px);
+  overflow:auto;
+  position:relative;
+}
+.cal-routine-close{
+  position:absolute;
+  top:12px;
+  right:13px;
+  width:32px;height:32px;
+  border:0;
+  border-radius:50%;
+  background:#f3f4f3;
+  color:#5f655f;
+  font-size:20px;
+  cursor:pointer;
+}
+.cal-routine-dashboard-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+  padding-right:38px;
+}
+.cal-routine-dashboard-head h2{margin:0;font-size:20px}
+.cal-routine-dashboard-head p{margin:5px 0 0;color:#8a8f8a;font-size:11px}
+.cal-routine-dashboard-head .primary{
+  border:0;
+  border-radius:8px;
+  background:#2f7653;
+  color:#fff;
+  padding:8px 11px;
+  font:inherit;
+  cursor:pointer;
+}
+.cal-routine-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:17px 0;
+}
+.cal-routine-stats>div{
+  padding:13px;
+  border:1px solid #e7e9e7;
+  border-radius:10px;
+  background:#fbfcfb;
+}
+.cal-routine-stats b{display:block;font-size:20px;color:#374039}
+.cal-routine-stats span{display:block;margin-top:3px;color:#8a8f8a;font-size:10px}
+.cal-routine-heat-wrap{
+  padding:13px;
+  border:1px solid #e7e9e7;
+  border-radius:10px;
+}
+.cal-routine-heat-wrap>strong{font-size:11px}
+.cal-routine-heatmap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-top:9px;
+}
+.cal-routine-heat{
+  width:14px;height:14px;
+  border-radius:3px;
+  background:#eceeec;
+}
+.cal-routine-heat.full{background:#3c8a5d}
+.cal-routine-heat.partial{background:#e4ba52}
+.cal-routine-heat.miss{background:#e7c2c2}
+.cal-routine-list-head{
+  display:flex;
+  justify-content:space-between;
+  margin:18px 0 7px;
+  font-size:11px;
+}
+.cal-routine-manage-list{
+  border-top:1px solid #eceeec;
+}
+.cal-routine-manage-list>button{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px;
+  padding:11px 5px;
+  border:0;
+  border-bottom:1px solid #eceeec;
+  background:#fff;
+  text-align:left;
+  cursor:pointer;
+}
+.cal-routine-manage-list>button:hover{background:#fafbfa}
+.cal-routine-manage-list>button>span{display:flex;flex-direction:column;min-width:0}
+.cal-routine-manage-list b{
+  min-width:0;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-size:11px;
+}
+.cal-routine-manage-list small{margin-top:3px;color:#909590;font-size:9px}
+.cal-routine-manage-list>button>span:last-child{text-align:right}
+.cal-routine-empty{
+  padding:24px;
+  color:#949994;
+  text-align:center;
+  font-size:11px;
+}
+
+@media(max-width:620px){
+  .cal-month-date-row>b{font-size:13px!important}
+  .cal-month-date-row>span{font-size:11px!important}
+  .cal-month-big3>span{font-size:9px!important}
+
+  .cal-week-layout{min-width:820px}
+  .cal-week-weekdays,
+  .cal-week-dates,
+  .cal-week-timetable{
+    grid-template-columns:48px repeat(7,minmax(105px,1fr));
+  }
+  .cal-week-date-cell>b{font-size:13px}
+  .cal-week-date-cell>span{font-size:11px}
+
+  .cal-routine-stats{grid-template-columns:repeat(2,1fr)}
+  .routine-schedule-row{grid-template-columns:1fr}
+}
+
+
+/* ======================================================
+   r31.5 — Weekly drag & drop
+   ====================================================== */
+.cal-week-workspace{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 0;
+  gap:0;
+  align-items:stretch;
+  transition:grid-template-columns .15s ease,gap .15s ease;
+}
+body.cal-week-dragging .cal-week-workspace{
+  grid-template-columns:minmax(0,1fr) 150px;
+  gap:8px;
+}
+.cal-week-time-block[draggable="true"]{
+  cursor:grab;
+}
+.cal-week-time-block[draggable="true"]:active{
+  cursor:grabbing;
+}
+.cal-week-time-cell.cal-week-drop-hover{
+  background:#eaf5ee!important;
+  box-shadow:inset 0 0 0 2px #63a37c;
+}
+.cal-next-week-drop{
+  min-width:0;
+  overflow:hidden;
+  opacity:0;
+  pointer-events:none;
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  border:2px dashed #d0d6d1;
+  border-radius:10px;
+  background:#fafbfa;
+  color:#707771;
+  text-align:center;
+  transition:opacity .15s ease,background .15s ease,border-color .15s ease;
+}
+.cal-next-week-drop.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.cal-next-week-drop.active{
+  border-color:#4e966b;
+  background:#eef8f2;
+  color:#2f6f4d;
+}
+.cal-next-week-drop span{
+  font-size:11px;
+  font-weight:850;
+  line-height:1.35;
+}
+.cal-next-week-drop b{
+  font-size:24px;
+}
+.cal-next-week-drop small{
+  font-size:9px;
+  color:#919691;
+}
+
+/* Routine placement */
+.cal-routine-placement-dialog{
+  width:min(420px,100%);
+}
+.cal-routine-placement-dialog>label{
+  margin-top:14px;
+}
+.cal-routine-placement-dialog select{
+  width:160px;
+}
+
+@media(max-width:820px){
+  body.cal-week-dragging .cal-week-workspace{
+    grid-template-columns:minmax(0,1fr);
+  }
+  .cal-next-week-drop{
+    display:none!important;
+  }
+}
+
+
+/* ======================================================
+   r31.6 — hide legacy Routine main mode
+   ====================================================== */
+#routineNav{display:none!important}
+
+/* ======================================================
+   r31.6 — Weekly previous / next week overlay drop zones
+   Grid width never shrinks while dragging.
+   ====================================================== */
+.cal-week-workspace{
+  display:block!important;
+  position:relative!important;
+}
+body.cal-week-dragging .cal-week-workspace{
+  display:block!important;
+}
+.cal-adjacent-week-drop{
+  position:absolute;
+  top:0;
+  bottom:0;
+  z-index:30;
+  width:92px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:8px;
+  opacity:0;
+  pointer-events:none;
+  border:2px dashed #cbd2cc;
+  background:rgba(250,251,250,.94);
+  color:#69716a;
+  text-align:center;
+  transition:opacity .13s ease,background .13s ease,border-color .13s ease;
+}
+.cal-adjacent-week-drop.previous{
+  left:0;
+  border-radius:0 10px 10px 0;
+}
+.cal-adjacent-week-drop.next{
+  right:0;
+  border-radius:10px 0 0 10px;
+}
+body.cal-week-dragging .cal-adjacent-week-drop{
+  opacity:.78;
+  pointer-events:auto;
+}
+.cal-adjacent-week-drop.active{
+  opacity:1!important;
+  border-color:#4f966b;
+  background:#edf8f1;
+  color:#2f6e4c;
+}
+.cal-adjacent-week-drop b{font-size:23px}
+.cal-adjacent-week-drop span{
+  font-size:10px;
+  line-height:1.35;
+  font-weight:850;
+}
+.cal-adjacent-week-drop small{
+  font-size:8px;
+  color:#8e948f;
+}
+
+/* old r31.5 side panel no longer used */
+.cal-next-week-drop{display:none!important}
+
+/* ======================================================
+   r31.6 — Daily drag & resize
+   ====================================================== */
+.cal-time-block.editable{
+  cursor:grab;
+}
+.cal-time-block.editable:active{
+  cursor:grabbing;
+}
+.cal-slot.cal-day-drop-hover>i{
+  background:#eaf5ee;
+  box-shadow:inset 0 0 0 2px #62a17a;
+}
+.cal-resize-handle{
+  position:absolute;
+  left:10px;
+  right:10px;
+  z-index:12;
+  height:8px;
+  cursor:ns-resize;
+  opacity:0;
+  transition:opacity .1s ease;
+}
+.cal-resize-top{top:-2px}
+.cal-resize-bottom{bottom:-2px}
+.cal-resize-handle::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  width:34px;
+  height:3px;
+  transform:translateX(-50%);
+  border-radius:999px;
+  background:#6a9a7c;
+}
+.cal-resize-top::after{top:2px}
+.cal-resize-bottom::after{bottom:2px}
+.cal-time-block.editable:hover .cal-resize-handle{
+  opacity:.72;
+}
+.cal-time-block.resize-invalid{
+  border-color:#d45b5b!important;
+  border-left-color:#d45b5b!important;
+  background:#fff0f0!important;
+}
+body.cal-day-resizing,
+body.cal-day-resizing *{
+  user-select:none!important;
+}
+body.cal-day-resizing .cal-time-block{
+  cursor:ns-resize!important;
+}
+
+/* PC: body drag replaces arrow step controls.
+   Mobile keeps arrow buttons because touch drag is intentionally deferred. */
+@media(min-width:621px){
+  .cal-time-actions .cal-move-step{
+    display:none!important;
+  }
+}
+
+@media(max-width:820px){
+  .cal-adjacent-week-drop{
+    display:none!important;
+  }
+}
+
+@media(max-width:620px){
+  .cal-resize-handle{
+    display:none!important;
+  }
+  .cal-time-block.editable{
+    cursor:default;
+  }
+}
+
+
+/* ======================================================
+   r31.7 — Routine editor must be above Calendar dashboard
+   ====================================================== */
+#routineModal{
+  z-index:95!important;
+}
+
+/* ======================================================
+   r31.7 — Daily drag source
+   Own occupied slots remain valid drop targets because the source
+   stops intercepting pointer/drag hit testing.
+   ====================================================== */
+.cal-time-block.cal-drag-source{
+  opacity:.38!important;
+  pointer-events:auto!important;
+}
+.cal-routine-unplaced-item.cal-drag-source{
+  opacity:.4;
+}
+.cal-time-grid.cal-day-drop-active{
+  outline:1px solid #8cb49a;
+}
+
+/* ======================================================
+   r31.7 — Routine execution blocks
+   ====================================================== */
+.cal-routine-soft-block{
+  display:flex!important;
+  cursor:grab;
+}
+.cal-routine-soft-block.completed{
+  border-color:#d7d4dc!important;
+  border-left-color:#9993a0!important;
+  background:#f2f1f4!important;
+  color:#858189!important;
+  cursor:default!important;
+}
+.cal-routine-soft-block.completed .cal-time-block-main strong{
+  text-decoration:line-through;
+}
+.cal-routine-actions{
+  display:flex;
+  margin-left:4px;
+}
+.cal-routine-actions button{
+  white-space:nowrap;
+}
+.cal-routine-soft-block:hover .cal-time-actions{
+  opacity:1;
+}
+
+.cal-routine-unplaced-item{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:5px;
+  padding:2px 0;
+}
+.cal-routine-unplaced-item[draggable="true"]{
+  cursor:grab;
+}
+.cal-routine-unplaced-item>button:first-child{
+  min-width:0;
+}
+.cal-routine-unplaced-item>button:last-child{
+  border:1px solid #d8dcd8;
+  border-radius:6px;
+  background:#fff;
+  padding:5px 7px;
+  color:#717771;
+  font:inherit;
+  font-size:9px;
+  cursor:pointer;
+}
+.cal-routine-unplaced-item>button.cal-check-btn{
+  background:#2f7653;
+  border-color:#2f7653;
+  color:#fff;
+}
+
+@media(max-width:620px){
+  .cal-routine-soft-block{
+    cursor:default;
+  }
+  .cal-routine-actions{
+    opacity:1!important;
+  }
+}
+
+
+/* ===== r31.7 fix1 — robust native drag hit testing ===== */
+.cal-week-time-block.cal-week-drag-source{
+  opacity:.38!important;
+  pointer-events:auto!important;
+}
+.cal-time-block.cal-drag-source{
+  pointer-events:auto!important;
+}
+
+
+/* ======================================================
+   r31.8 — Calendar Item editor / first-line title
+   ====================================================== */
+.cal-time-block-main[data-cal-item-open],
+.cal-brain-title[data-cal-item-open],
+.cal-big3-item[data-cal-item-open],
+.cal-week-block-copy[data-cal-item-open]{cursor:pointer}
+
+.cal-time-block-body{
+  margin:2px 0 0;
+  max-width:100%;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  white-space:pre-line;
+  text-overflow:ellipsis;
+  color:#737a74;
+  font-size:9px;
+  line-height:1.25;
+  font-weight:500;
+}
+.cal-week-block-copy{
+  min-width:0;
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  align-items:flex-start;
+  overflow:hidden;
+}
+.cal-week-block-copy strong,
+.cal-week-block-copy small{
+  display:block;
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.cal-week-block-copy strong{font-size:9px}
+.cal-week-block-copy small{
+  margin-top:2px;
+  color:#788078;
+  font-size:8px;
+  font-weight:500;
+}
+.cal-item-dialog{
+  width:min(680px,100%);
+  max-height:calc(100vh - 28px);
+  overflow:auto;
+}
+.cal-item-dialog-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.cal-item-dialog-head h2{margin:0;font-size:18px}
+.cal-item-dialog-head small{
+  display:block;
+  margin-top:3px;
+  color:#969b96;
+  font-size:9px;
+}
+.cal-item-dialog-head>button{
+  width:31px;height:31px;
+  border:0;border-radius:50%;
+  background:#f1f3f1;
+  font-size:18px;
+  cursor:pointer;
+}
+.cal-item-content-field{display:block;margin-top:14px}
+.cal-item-content-field>span{
+  display:block;
+  margin-bottom:6px;
+  color:#5d635e;
+  font-size:10px;
+  font-weight:800;
+}
+#calItemContent{
+  width:100%;
+  min-height:170px;
+  resize:vertical;
+  border:1px solid #dfe3df;
+  border-radius:9px;
+  padding:10px 11px;
+  font:inherit;
+  font-size:12px;
+  line-height:1.55;
+  outline:0;
+}
+#calItemContent:focus{border-color:#78a188}
+.cal-item-check-section{
+  margin-top:16px;
+  padding-top:13px;
+  border-top:1px solid #eceeec;
+}
+.cal-item-check-head{margin-bottom:7px;font-size:11px}
+.cal-item-check-list{display:flex;flex-direction:column;gap:5px}
+.cal-item-check-row{
+  display:grid;
+  grid-template-columns:20px minmax(0,1fr) 28px;
+  align-items:center;
+  gap:6px;
+}
+.cal-item-check-row>input[type="text"]{
+  width:100%;min-width:0;
+  border:1px solid #e1e4e1;
+  border-radius:7px;
+  padding:7px 8px;
+  font:inherit;font-size:11px;
+}
+.cal-item-check-row>button{
+  height:28px;border:0;border-radius:6px;
+  background:#f2f3f2;color:#7d827d;
+  cursor:pointer;
+}
+.cal-item-check-empty{padding:10px 0;color:#9ba09b;font-size:10px}
+.cal-item-check-add{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:6px;
+  margin-top:8px;
+}
+.cal-item-check-add input{
+  min-width:0;border:1px solid #dfe3df;border-radius:7px;
+  padding:7px 9px;font:inherit;font-size:11px;
+}
+.cal-item-check-add button{
+  border:0;border-radius:7px;
+  background:#edf4ef;color:#376a4b;
+  padding:0 11px;font:inherit;font-size:10px;font-weight:800;
+  cursor:pointer;
+}
+@media(max-width:620px){
+  .cal-item-dialog{width:100%;max-height:92vh}
+  #calItemContent{min-height:140px}
+  .cal-time-block-body{-webkit-line-clamp:1}
+}
+
+
+/* ======================================================
+   r31.9 — TimeTable density / typography / work hours
+   ====================================================== */
+
+/* 30분 가이드선은 유지하되 시간 텍스트는 정시에만 표시 */
+.cal-slot>span{
+  font-size:11px!important;
+  font-weight:700;
+  color:#707671;
+}
+.cal-week-time-label{
+  font-size:10px!important;
+  font-weight:700;
+  color:#747a75!important;
+}
+.cal-week-time-label:not(.hour){
+  color:transparent!important;
+}
+
+/* TimeBlock 글자 확대 */
+.cal-time-block-main{
+  flex:1;
+  min-width:0;
+}
+.cal-time-block-main strong{
+  font-size:12px!important;
+  line-height:1.3!important;
+}
+.cal-time-block-main small{
+  display:none!important;
+}
+.cal-time-block-body{
+  margin:3px 0 0!important;
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:var(--cal-body-lines,1)!important;
+  overflow:hidden!important;
+  white-space:pre-line!important;
+  text-overflow:ellipsis!important;
+  font-size:10px!important;
+  line-height:1.28!important;
+  color:#6d756e!important;
+}
+
+/* Weekly도 블럭 높이에 맞춰 본문을 채움 */
+.cal-week-time-block{
+  font-size:10.5px!important;
+  white-space:normal!important;
+}
+.cal-week-block-copy{
+  min-width:0;
+  flex:1;
+}
+.cal-week-block-copy strong{
+  font-size:10.5px!important;
+  line-height:1.25!important;
+}
+.cal-week-block-copy small{
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:var(--cal-body-lines,1)!important;
+  white-space:pre-line!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  color:#747c75!important;
+  font-size:9px!important;
+  line-height:1.2!important;
+}
+
+/* 업무시간 팔레트 */
+.cal-work-gray .work-hour>i,
+.cal-work-gray.cal-week-timetable .work-hour{background:#eef0ef!important}
+.cal-work-red .work-hour>i,
+.cal-work-red.cal-week-timetable .work-hour{background:#fff0f0!important}
+.cal-work-orange .work-hour>i,
+.cal-work-orange.cal-week-timetable .work-hour{background:#fff3e8!important}
+.cal-work-yellow .work-hour>i,
+.cal-work-yellow.cal-week-timetable .work-hour{background:#fff8dc!important}
+.cal-work-green .work-hour>i,
+.cal-work-green.cal-week-timetable .work-hour{background:#eef7f0!important}
+.cal-work-blue .work-hour>i,
+.cal-work-blue.cal-week-timetable .work-hour{background:#eef5ff!important}
+.cal-work-indigo .work-hour>i,
+.cal-work-indigo.cal-week-timetable .work-hour{background:#f0f1fb!important}
+.cal-work-purple .work-hour>i,
+.cal-work-purple.cal-week-timetable .work-hour{background:#f6f0fb!important}
+
+/* Settings */
+.cal-settings-dialog{width:min(520px,100%)}
+.cal-settings-section{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid #eceeec;
+}
+.cal-settings-section>strong{
+  display:block;
+  margin-bottom:7px;
+  font-size:11px;
+}
+.cal-work-time-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.cal-work-time-row label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.cal-work-color-label{
+  margin-top:10px;
+  color:#7a817b;
+  font-size:10px;
+}
+.cal-work-color-palette{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:6px;
+}
+.cal-work-color{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  padding:4px 6px;
+  border:1px solid #e1e4e1;
+  border-radius:7px;
+  background:#fff;
+  color:#666d67;
+  font:inherit;
+  font-size:9px;
+  cursor:pointer;
+}
+.cal-work-color i{
+  display:block;
+  width:15px;
+  height:15px;
+  border-radius:4px;
+  border:1px solid #dfe2df;
+}
+.cal-work-color.cal-work-gray i{background:#eef0ef}
+.cal-work-color.cal-work-red i{background:#fff0f0}
+.cal-work-color.cal-work-orange i{background:#fff3e8}
+.cal-work-color.cal-work-yellow i{background:#fff8dc}
+.cal-work-color.cal-work-green i{background:#eef7f0}
+.cal-work-color.cal-work-blue i{background:#eef5ff}
+.cal-work-color.cal-work-indigo i{background:#f0f1fb}
+.cal-work-color.cal-work-purple i{background:#f6f0fb}
+.cal-work-color.active{
+  border-color:#5f9270;
+  box-shadow:0 0 0 1px #5f9270 inset;
+  color:#356447;
+  font-weight:800;
+}
+
+/* 전체 TimeBlock에서 컨트롤을 제외한 영역 클릭 가능 */
+.cal-time-block[data-cal-item-open]{cursor:pointer}
+.cal-time-block[data-cal-item-open] .cal-time-actions,
+.cal-time-block[data-cal-item-open] .cal-resize-handle{
+  cursor:default;
+}
+
+/* Routine dashboard: 한 Routine의 모든 기록을 같은 화면에서 스크롤 */
+.cal-routine-dashboard-columns{
+  display:grid;
+  grid-template-columns:minmax(250px,.85fr) minmax(320px,1.15fr);
+  gap:14px;
+  margin-top:16px;
+}
+.cal-routine-manage-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:stretch;
+  border-bottom:1px solid #eceeec;
+}
+.cal-routine-manage-row.selected{
+  background:#f2f8f4;
+  box-shadow:inset 3px 0 0 #55906b;
+}
+.cal-routine-manage-row>button:first-child{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  padding:10px 7px;
+  border:0;
+  background:transparent;
+  text-align:left;
+  cursor:pointer;
+}
+.cal-routine-manage-row>button:first-child>span{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.cal-routine-manage-row>button:first-child b{
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-size:11px;
+}
+.cal-routine-manage-row>button:first-child small{
+  margin-top:3px;
+  color:#8b918c;
+  font-size:9px;
+}
+.cal-routine-edit-mini{
+  align-self:center;
+  margin-right:6px;
+  padding:5px 7px;
+  border:1px solid #dde2de;
+  border-radius:6px;
+  background:#fff;
+  color:#667068;
+  font:inherit;
+  font-size:9px;
+  cursor:pointer;
+}
+.cal-routine-history{
+  min-width:0;
+  border:1px solid #e7e9e7;
+  border-radius:10px;
+  overflow:hidden;
+}
+.cal-routine-history-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 12px;
+  border-bottom:1px solid #e7e9e7;
+  background:#fafbfa;
+}
+.cal-routine-history-head>div{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+.cal-routine-history-head strong{
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-size:12px;
+}
+.cal-routine-history-head small,
+.cal-routine-history-head>span{
+  margin-top:2px;
+  color:#8a908b;
+  font-size:9px;
+}
+.cal-routine-history-scroll{
+  max-height:440px;
+  overflow:auto;
+  padding:8px;
+}
+.cal-routine-record{
+  padding:10px;
+  border:1px solid #e7eae7;
+  border-radius:9px;
+  background:#fff;
+  margin-bottom:7px;
+}
+.cal-routine-record.revoked{opacity:.7}
+.cal-routine-record-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:#747b75;
+  font-size:9px;
+}
+.cal-routine-record-head strong{
+  color:#3e4941;
+  font-size:11px;
+}
+.cal-routine-record-result{
+  display:block;
+  margin-top:6px;
+  font-size:10px;
+}
+.cal-routine-record>div:not(.cal-routine-record-head){
+  margin-top:8px;
+}
+.cal-routine-record small{
+  color:#8c928d;
+  font-size:9px;
+}
+.cal-routine-record p{
+  margin:2px 0 0;
+  white-space:pre-wrap;
+  color:#4e554f;
+  font-size:10px;
+  line-height:1.45;
+}
+
+/* Legacy standalone Routine page is retired */
+#routinePage{display:none!important}
+
+@media(max-width:760px){
+  .cal-routine-dashboard-columns{grid-template-columns:1fr}
+  .cal-routine-history-scroll{max-height:360px}
+}
+@media(max-width:620px){
+  .cal-slot>span{font-size:10px!important}
+  .cal-time-block-main strong{font-size:11px!important}
+  .cal-time-block-body{font-size:9px!important}
+  .cal-work-time-row{grid-template-columns:1fr}
+}
+
+
+/* ======================================================
+   r32.0 — Calendar readability + Brain Dump interaction
+   ====================================================== */
+
+/* Daily: free title width by overlaying action controls */
+.cal-time-block{
+  padding:5px 8px 5px 10px!important;
+}
+.cal-time-block-main{
+  min-width:0;
+  flex:1 1 auto!important;
+  padding-right:6px;
+}
+.cal-time-block-main strong{
+  font-size:14px!important;
+  line-height:1.25!important;
+  font-weight:800!important;
+}
+.cal-time-block-preview{
+  margin:2px 0 0!important;
+  max-width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  color:#727a73;
+  font-size:10.5px;
+  line-height:1.2;
+  font-weight:500;
+}
+.cal-time-block-body{display:none!important}
+
+.cal-time-actions{
+  position:absolute!important;
+  top:4px;
+  right:5px;
+  z-index:15;
+  margin:0!important;
+  padding:2px;
+  border-radius:7px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+  opacity:0!important;
+}
+.cal-time-block:hover .cal-time-actions,
+.cal-time-actions:focus-within{
+  opacity:1!important;
+}
+.cal-time-actions button{
+  font-size:10px!important;
+}
+
+/* Badges remain visible but compact */
+.cal-block-big3-badge,
+.cal-routine-badge{
+  margin-left:auto;
+  margin-right:1px;
+}
+
+/* Time labels a little larger */
+.cal-slot>span{
+  font-size:12px!important;
+}
+.cal-week-time-label{
+  font-size:11px!important;
+}
+
+/* Weekly gets real horizontal room instead of squeezing text */
+.cal-week-layout{min-width:1120px!important}
+.cal-week-weekdays,
+.cal-week-dates,
+.cal-week-timetable{
+  grid-template-columns:58px repeat(7,minmax(145px,1fr))!important;
+}
+.cal-week-timetable{
+  grid-template-rows:repeat(var(--cal-week-slots),36px)!important;
+}
+.cal-week-weekdays>span{
+  font-size:13px!important;
+}
+.cal-week-date-cell>b{
+  font-size:16px!important;
+}
+.cal-week-date-cell>span{
+  font-size:13px!important;
+}
+.cal-week-time-block{
+  padding:5px 6px!important;
+  font-size:12px!important;
+}
+.cal-week-block-copy strong{
+  font-size:12.5px!important;
+  line-height:1.2!important;
+}
+.cal-week-block-copy small{
+  display:block!important;
+  margin-top:2px!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  text-overflow:ellipsis!important;
+  color:#737b74!important;
+  font-size:10.5px!important;
+  line-height:1.15!important;
+}
+
+/* Brain Dump cards */
+.cal-brain-list{
+  padding:7px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.cal-brain-item{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:7px;
+  padding:10px 9px!important;
+  border:1px solid #e5e9e6!important;
+  border-radius:10px!important;
+  background:#fff;
+  cursor:grab;
+  transition:border-color .12s ease,background .12s ease,box-shadow .12s ease;
+}
+.cal-brain-item+.cal-brain-item{
+  border-top:1px solid #e5e9e6!important;
+}
+.cal-brain-item:hover{
+  border-color:#cdd9d0!important;
+  background:#fbfcfb;
+  box-shadow:0 1px 4px rgba(0,0,0,.035);
+}
+.cal-brain-item:active{cursor:grabbing}
+.cal-brain-title{
+  min-width:0;
+  cursor:pointer;
+}
+.cal-brain-title strong{
+  display:block;
+  min-width:0;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-size:14px!important;
+  line-height:1.3;
+}
+.cal-brain-actions{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  align-items:center;
+  gap:2px!important;
+  margin:0!important;
+}
+.cal-brain-actions .cal-brain-icon{
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  padding:0!important;
+  border:0!important;
+  border-radius:7px!important;
+  background:transparent!important;
+  color:#748078;
+  font-size:17px!important;
+  line-height:1;
+}
+.cal-brain-actions .cal-brain-icon:hover{
+  background:#f0f4f1!important;
+}
+.cal-brain-actions .cal-brain-checkin{
+  color:#3d8058;
+  font-size:20px!important;
+}
+.cal-brain-actions .cal-brain-flag{
+  color:#877c8f;
+}
+.cal-brain-actions .cal-brain-flag.active{
+  color:#b23b3b!important;
+  background:#fff0f0!important;
+  font-size:20px!important;
+}
+.cal-brain-actions .cal-brain-delete{
+  color:#c34d4d!important;
+  font-size:16px!important;
+}
+.cal-brain-item.big3{
+  border-color:#e7bcbc!important;
+  background:#fff7f7;
+  box-shadow:inset 3px 0 0 #ca5454;
+}
+.cal-brain-item.big3 .cal-brain-title strong{
+  color:#7b3131;
+  font-size:15px!important;
+  font-weight:850;
+}
+
+/* Floating add is viewport-fixed, not inside the timetable flow */
+.cal-floating-add{
+  position:fixed!important;
+  right:24px!important;
+  bottom:24px!important;
+  z-index:40!important;
+  width:54px!important;
+  height:54px!important;
+  margin:0!important;
+  border-radius:50%!important;
+  background:#2d7752!important;
+  box-shadow:0 8px 24px rgba(37,91,64,.28)!important;
+}
+.cal-floating-add:hover{
+  transform:translateY(-1px);
+  background:#256846!important;
+}
+
+/* Brain drag feedback */
+.cal-brain-item.cal-drag-source{
+  opacity:.4;
+}
+
+/* Long Workspace memo toggle */
+.memo-long-collapsed{
+  max-height:31em!important;
+}
+
+/* Hide old Brain Dump inline add style when legacy markup is absent */
+.cal-brain-panel .cal-add-secondary{display:none!important}
+
+@media(max-width:900px){
+  .cal-week-layout{min-width:1060px!important}
+  .cal-week-weekdays,
+  .cal-week-dates,
+  .cal-week-timetable{
+    grid-template-columns:56px repeat(7,minmax(136px,1fr))!important;
+  }
+}
+
+@media(max-width:620px){
+  .cal-time-block-main strong{font-size:12px!important}
+  .cal-time-block-preview{font-size:9.5px}
+  .cal-slot>span{font-size:10.5px!important}
+  .cal-brain-title strong{font-size:13px!important}
+  .cal-brain-item.big3 .cal-brain-title strong{font-size:14px!important}
+  .cal-floating-add{
+    right:16px!important;
+    bottom:16px!important;
+    width:50px!important;
+    height:50px!important;
+  }
+}
+
+
+/* ======================================================
+   r32.0 fix1 — tags/projects, reverse drag, shortcut hint
+   ====================================================== */
+
+/* Workspace convention mirrored into Calendar */
+.cal-inline-tag{
+  color:#237247!important;
+  font-weight:800!important;
+}
+.cal-inline-project{
+  color:#d58a00!important;
+  font-weight:850!important;
+}
+
+/* Drop a scheduled Daily block back into Brain Dump */
+.cal-brain-panel{
+  transition:border-color .12s ease,background .12s ease,box-shadow .12s ease;
+}
+.cal-brain-panel.cal-brain-drop-active{
+  border-color:#6d9d7d!important;
+  background:#f3faf5!important;
+  box-shadow:inset 0 0 0 2px rgba(77,141,104,.14)!important;
+}
+.cal-brain-panel.cal-brain-drop-active .cal-panel-head strong::after{
+  content:'  ← 여기에 놓으면 Brain Dump';
+  color:#4d8d68;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* Floating shortcut hint */
+.cal-floating-shortcut{
+  position:fixed;
+  right:88px;
+  bottom:40px;
+  z-index:39;
+  padding:3px 6px;
+  border-radius:5px;
+  background:rgba(255,255,255,.88);
+  color:#879087;
+  font-size:9px;
+  font-weight:700;
+  line-height:1;
+  pointer-events:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+
+@media(max-width:620px){
+  .cal-floating-shortcut{
+    right:76px;
+    bottom:34px;
+    font-size:8px;
+  }
+}
+
+
+/* ======================================================
+   r32.0 fix3 — final desktop/mobile preflight
+   ====================================================== */
+
+/* Checklist: pending row uses same columns as saved rows */
+.cal-item-check-add{
+  grid-template-columns:20px minmax(0,1fr) auto!important;
+  align-items:center!important;
+}
+.cal-item-check-pending-box{
+  width:18px!important;
+  height:18px!important;
+  margin:0!important;
+  opacity:.72;
+  accent-color:#739680;
+}
+.cal-item-check-row>input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  margin:0;
+}
+
+/* Explicit Today button */
+.cal-date-title{
+  display:inline-flex!important;
+  align-items:center;
+  min-height:31px;
+  padding:0 6px!important;
+  color:#333a34!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  cursor:default!important;
+}
+.cal-today-button{
+  min-height:30px;
+  margin-left:5px;
+  padding:4px 9px;
+  border:1px solid #cddbd1;
+  border-radius:7px;
+  background:#fff;
+  color:#397553;
+  font:inherit;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+.cal-today-button:hover{
+  background:#edf6f0;
+  border-color:#91b29d;
+}
+
+/* Today is ALWAYS visible in Month and Week */
+.cal-month-day.today{
+  box-shadow:inset 0 0 0 3px #397b58!important;
+  position:relative;
+  z-index:2;
+}
+.cal-week-date-cell.today{
+  box-shadow:inset 0 0 0 3px #397b58!important;
+  position:relative;
+  z-index:4;
+}
+
+/* Current time line: over blocks, but never intercepts mouse/touch */
+.cal-current-time-line{
+  position:absolute;
+  left:61px;
+  right:8px;
+  top:calc((var(--cal-now) - var(--segment-from)) / 30 * 34px);
+  z-index:30;
+  height:0;
+  border-top:3px solid #268353;
+  pointer-events:none;
+}
+.cal-current-time-line>i{
+  position:absolute;
+  left:-5px;
+  top:-5px;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#268353;
+  box-shadow:0 0 0 2px #fff;
+}
+
+/* Virtual #Plan is metadata-derived, never printed into memo text */
+.virtual-plan-hidden{
+  display:none!important;
+}
+#tags .tag[data-tag="Plan"],
+.tag-option[data-popup-tag="Plan"]{
+  color:#397553!important;
+  font-weight:850!important;
+}
+
+/* Workspace Calendar shortcut is icon-only */
+.card .go-timetable{
+  display:inline-grid!important;
+  place-items:center!important;
+  min-width:28px!important;
+  width:28px!important;
+  height:28px!important;
+  padding:0!important;
+  font-size:15px!important;
+  line-height:1!important;
+}
+
+/* Keep all Workspace tools inside the card */
+#list .card{
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+#list .card>.right{
+  flex:0 0 220px!important;
+  width:220px!important;
+  min-width:0!important;
+  max-width:220px!important;
+  box-sizing:border-box!important;
+  white-space:normal!important;
+  overflow:visible!important;
+}
+#list .card .card-tools{
+  display:flex!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:3px!important;
+  overflow:visible!important;
+}
+#list .card .card-tools>*{
+  flex:0 0 auto!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+#list .card .card-tools .icon,
+#list .card .card-tools .work-chip{
+  margin-left:0!important;
+}
+
+@media(max-width:760px){
+  #list .card>.right{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    flex:1 1 auto!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+  }
+  #list .card .card-tools{
+    justify-content:flex-start!important;
+    flex-wrap:wrap!important;
+    overflow:hidden!important;
+    padding-right:2px!important;
+  }
+}
+
+@media(max-width:620px){
+  .cal-date-nav{
+    flex-wrap:wrap;
+  }
+  .cal-today-button{
+    font-size:9px;
+    padding-inline:7px;
+  }
+  .cal-current-time-line{
+    left:61px;
+    right:5px;
+    border-top-width:2px;
+  }
+
+  #list .card{
+    width:100%!important;
+    max-width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    box-sizing:border-box!important;
+  }
+  #list .card>.right{
+    grid-column:2!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin-top:7px!important;
+    display:flex!important;
+    flex-wrap:wrap!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:5px!important;
+    overflow:hidden!important;
+  }
+  #list .card .card-tools{
+    width:auto!important;
+    max-width:100%!important;
+    min-width:0!important;
+    flex:1 1 100%!important;
+    justify-content:flex-start!important;
+    gap:2px!important;
+    overflow:hidden!important;
+  }
+  #list .card .card-tools .icon,
+  #list .card .card-tools .work-chip{
+    min-width:26px!important;
+    max-width:34px!important;
+    padding:3px!important;
+    overflow:hidden!important;
+  }
+}
+
+</style><style>
 :root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--muted:#92918d;--blue:#2383e2;--line:#e9e8e4;--r:7px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Segoe UI","Pretendard",sans-serif}.app{display:flex;height:100vh;overflow:hidden}.side{width:244px;background:var(--side);border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column}.brand{padding:4px 8px 12px;font-size:15px;font-weight:720}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400}.search{width:100%;border:1px solid transparent;background:#e9e9e7;border-radius:6px;padding:7px 9px;outline:0;color:var(--ink);font:inherit;font-size:13px}.search:focus{background:#fff;border-color:var(--blue)}.views{display:flex;gap:3px;margin:12px 0}.views button,.tag,.plain{border:0;background:transparent;border-radius:6px;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:5px 8px}.views button{flex:1}.views button.active,.tag.active{background:#e8e8e5;color:var(--ink);font-weight:650}.tags{display:flex;flex:1;flex-direction:column;gap:2px;overflow:auto}.tag{text-align:left}.bottom{border-top:1px solid var(--line);padding-top:9px}.plain{display:block;width:100%;text-align:left}.plain:hover{background:#ededeb;color:var(--ink)}.sync-state{padding:0 8px 5px;color:var(--muted);font-size:11px}.main{flex:1;overflow:auto;padding:28px 56px}.wrap{max-width:730px;margin:auto}.compose{display:flex;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:10px}.compose textarea{width:100%;min-height:28px;resize:none;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;line-height:1.65}.compose textarea::placeholder{color:#c3c2bf}.button{border:0;background:#e9e9e7;border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--ink);font:inherit;font-size:12px}.button:hover{background:#dededb}.hint{display:block;color:var(--muted);font-size:10px;text-align:center;margin-top:3px}.card{display:flex;gap:14px;margin:0 -14px;padding:9px 14px;border-radius:var(--r)}.card:hover{background:#fafafa}.left{flex:1;min-width:0}.right{width:64px;text-align:right;color:var(--muted);font-size:11px}.memo{white-space:pre-wrap;outline:0;line-height:1.65;min-height:22px}.hashtag{color:#c97832;cursor:pointer}.tasks{margin-top:4px}.task{display:flex;gap:8px;align-items:flex-start;padding:2px 0}.task input{margin:6px 0 0;accent-color:var(--blue)}.tasktext{flex:1;min-width:0;outline:0;line-height:1.6;min-height:22px}.tasktext.done{text-decoration:line-through;color:var(--muted)}.tasktext:empty:before{content:'할 일 입력…';color:#c9c8c5}.task-remove{border:0;background:transparent;color:var(--muted);cursor:pointer;visibility:hidden}.task:hover .task-remove{visibility:visible}.actions{opacity:0;margin-top:4px}.card:hover .actions{opacity:1}.icon{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;padding:3px}.icon:hover{color:var(--ink);background:#ededeb;border-radius:4px}.datehead{margin:26px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--line);color:var(--blue);font-size:15px;font-weight:700}.empty{padding:32px;color:var(--muted);text-align:center}.modal{position:fixed;inset:0;z-index:10;background:#0004;display:grid;place-items:center;padding:16px}.dialog{width:min(430px,100%);background:#fff;border-radius:12px;padding:22px;box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 5px;font-size:18px}.dialog p{color:var(--muted);font-size:12px}.dialog input{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px;margin:4px 0;font:inherit}.dialog .row{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}.primary{background:var(--blue);color:#fff}.hidden{display:none}@media(max-width:620px){.app{display:block;height:auto;overflow:auto}.side{width:100%;border-right:0;border-bottom:1px solid var(--line)}.tags{display:none}.main{padding:16px}.card{margin:0 -7px;padding:9px 7px}.actions{opacity:1}}
 </style><style>
 /* r30.3 notice archive navigation */
@@ -2339,7 +4982,7 @@ routineNav.onclick=()=>false;
 routinePage?.remove();
 calendarNav.onclick=()=>{
   if(!window.RTCalendar&&!document.querySelector('#calendarPage')){
-    alert('Calendar 모듈을 불러오지 못했습니다.\n\nindex.html, calendar_r32.0_fix3.js, calendar_r32.0_fix3.css 세 파일을 같은 폴더에 두고 다시 실행해주세요.');
+    alert('Calendar 초기화에 실패했습니다.\n\n이 버전은 Calendar 코드가 HTML 안에 포함되어 있습니다. 페이지를 강력 새로고침(Ctrl+Shift+R)한 뒤 다시 시도해주세요.');
     return
   }
   appMode='calendar';
@@ -2822,7 +5465,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix3';
+if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix4';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -3294,7 +5937,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix3';
+if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix4';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -5278,7 +7921,7 @@ render();
 
 
 /* =========================================================
-   Rev. r32.0_260929_fix3 - Calendar / Completion metadata sync
+   Rev. r32.0_260929_fix4 - Calendar / Completion metadata sync
    기존 Supabase blocks 스키마를 변경하지 않고 Item child comment에
    예약 prefix를 사용하여 Calendar 일정과 완료 회고를 동기화합니다.
    ========================================================= */
@@ -5759,7 +8402,7 @@ syncNow=async force=>{
 
 
 /* =========================================================
-   Rev. r32.0_260929_fix3 - Unified Item Core API
+   Rev. r32.0_260929_fix4 - Unified Item Core API
    Calendar/Routine의 다음 세대 코드는 memos 배열을 직접 만지지 않고
    이 API를 통해 현재 Review & Todo Item/Checklist를 사용합니다.
 
@@ -6221,7 +8864,7 @@ const r317UndoRoutine=(routineId,date)=>{
 
 window.RTCore=Object.freeze({
   schemaVersion:R31_SCHEMA_VERSION,
-  appVersion:'r32.0_260929_fix3',
+  appVersion:'r32.0_260929_fix4',
   routineGeneration:2,
 
   getItems:()=>r31Clone(memos),
@@ -6381,7 +9024,7 @@ document.addEventListener('click',e=>{
   if(!itemId)return;
 
   if(!window.RTCalendar?.planItem){
-    alert('Calendar 모듈을 불러오지 못했습니다.');
+    alert('Calendar 초기화가 아직 완료되지 않았습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.');
     return
   }
 
@@ -6438,6 +9081,3080 @@ r312WorkspaceStyle.textContent=`
 document.head.append(r312WorkspaceStyle);
 
 
+window.RTCalendarBuild={
+  version:'r32.0_260929_fix4',
+  selfContained:true
+};
 window.dispatchEvent(new CustomEvent('rtcore:ready',{detail:window.RTCore}));
 
-</script><script src="./calendar_r32.0_fix3.js"></script></body></html>
+</script><script id="rt-calendar-embedded-script">
+/* Review & Todo Calendar
+   Rev. r31.2_260928 / Calendar Phase 3
+   Daily planning engine:
+   - Big3
+   - Brain Dump
+   - 30-minute TimeTable
+   - ↑ / ↓ relocation
+   - + / - duration
+   - create Item modal
+   - 00:00~24:00 with configurable folded hours
+   - daily memo/review
+   - basic Week / Month overview
+
+   Calendar data is intentionally isolated from index.html.
+   Completion/Review sync is added in the next phase.
+*/
+window.RTCalendarScriptLoaded=true;
+const CAL_KEY='review_todo_calendar_v2';
+const CAL_SCHEMA=2;
+const SLOT=30;
+const DAY_MINUTES=1440;
+
+const $=(s,root=document)=>root.querySelector(s);
+const $$=(s,root=document)=>[...root.querySelectorAll(s)];
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[ch]));
+
+const clone=value=>{
+  if(value===undefined)return undefined;
+  if(typeof structuredClone==='function'){
+    try{return structuredClone(value)}catch{}
+  }
+  return JSON.parse(JSON.stringify(value));
+};
+
+const uuid=()=>{
+  if(globalThis.crypto?.randomUUID)return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
+    const r=Math.random()*16|0,v=c==='x'?r:(r&3|8);
+    return v.toString(16)
+  })
+};
+
+const nowIso=()=>new Date().toISOString();
+
+const localDateKey=(d=new Date())=>{
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`
+};
+
+const parseDate=s=>{
+  const [y,m,d]=String(s).split('-').map(Number);
+  return new Date(y,m-1,d)
+};
+
+const shiftDate=(s,days)=>{
+  const d=parseDate(s);
+  d.setDate(d.getDate()+days);
+  return localDateKey(d)
+};
+
+const minuteLabel=minute=>{
+  if(minute===1440)return '24:00';
+  const h=Math.floor(minute/60);
+  const m=minute%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`
+};
+
+const prettyDate=s=>{
+  const d=parseDate(s);
+  const w=['일','월','화','수','목','금','토'];
+  return `${d.getFullYear()}. ${String(d.getMonth()+1).padStart(2,'0')}. ${String(d.getDate()).padStart(2,'0')} (${w[d.getDay()]})`
+};
+
+const DAY_COLORS=['default','red','orange','yellow','green','blue','indigo','purple','black'];
+const WORK_COLORS=['gray','red','orange','yellow','green','blue','indigo','purple'];
+const WORK_COLOR_LABELS={
+  gray:'회색',red:'빨강',orange:'주황',yellow:'노랑',
+  green:'초록',blue:'파랑',indigo:'남색',purple:'보라'
+};
+
+const defaultState=()=>({
+  schemaVersion:CAL_SCHEMA,
+  entries:[],
+  dayMeta:{},
+  settings:{
+    collapseBeforeMinute:360,
+    collapseAfterMinute:1320,
+    workStartMinute:510,
+    workEndMinute:1050,
+    workColor:'gray'
+  }
+});
+
+const normalizeDayMeta=(date,value={})=>({
+  date,
+  label:String(value.label||''),
+  color:DAY_COLORS.includes(value.color)?value.color:'default',
+  memo:String(value.memo||''),
+  review:String(value.review||''),
+  routineOverrides:Array.isArray(value.routineOverrides)
+    ?value.routineOverrides
+      .filter(x=>x&&x.routineId)
+      .map(x=>({
+        routineId:String(x.routineId),
+        startMinute:Number.isFinite(Number(x.startMinute))?Number(x.startMinute):null,
+        plannedDurationMinutes:Math.max(SLOT,Number(x.plannedDurationMinutes)||SLOT),
+        deletedAt:x.deletedAt||null,
+        updatedAt:x.updatedAt||null
+      }))
+    :[],
+  routineSuppressions:Array.isArray(value.routineSuppressions)
+    ?value.routineSuppressions
+      .filter(x=>x&&x.routineId)
+      .map(x=>({
+        routineId:String(x.routineId),
+        suppressed:x.suppressed!==false,
+        updatedAt:x.updatedAt||null
+      }))
+    :[],
+  createdAt:value.createdAt||null,
+  updatedAt:value.updatedAt||null
+});
+
+const normalizeState=raw=>{
+  const base=defaultState();
+  if(!raw||typeof raw!=='object')return base;
+
+  const dayMeta={};
+  if(raw.dayMeta&&typeof raw.dayMeta==='object'){
+    Object.entries(raw.dayMeta).forEach(([date,value])=>{
+      dayMeta[date]=normalizeDayMeta(date,value||{})
+    })
+  }
+
+  /* r31.1/r31.2의 dayNotes를 신규 Daily Meta로 자동 이전 */
+  if(raw.dayNotes&&typeof raw.dayNotes==='object'){
+    Object.entries(raw.dayNotes).forEach(([date,value])=>{
+      if(!dayMeta[date]){
+        dayMeta[date]=normalizeDayMeta(date,{
+          memo:value?.memo||'',
+          review:value?.review||''
+        })
+      }else{
+        if(!dayMeta[date].memo)dayMeta[date].memo=String(value?.memo||'');
+        if(!dayMeta[date].review)dayMeta[date].review=String(value?.review||'')
+      }
+    })
+  }
+
+  return{
+    schemaVersion:CAL_SCHEMA,
+    entries:Array.isArray(raw.entries)?raw.entries.filter(Boolean):[],
+    dayMeta,
+    settings:{
+      collapseBeforeMinute:Number.isFinite(Number(raw.settings?.collapseBeforeMinute))
+        ?Math.max(0,Math.min(720,Number(raw.settings.collapseBeforeMinute)))
+        :360,
+      collapseAfterMinute:Number.isFinite(Number(raw.settings?.collapseAfterMinute))
+        ?Math.max(720,Math.min(1440,Number(raw.settings.collapseAfterMinute)))
+        :1320,
+      workStartMinute:Number.isFinite(Number(raw.settings?.workStartMinute))
+        ?Math.max(0,Math.min(1410,Number(raw.settings.workStartMinute)))
+        :510,
+      workEndMinute:Number.isFinite(Number(raw.settings?.workEndMinute))
+        ?Math.max(30,Math.min(1440,Number(raw.settings.workEndMinute)))
+        :1050,
+      workColor:WORK_COLORS.includes(raw.settings?.workColor)
+        ?raw.settings.workColor:'gray'
+    }
+  }
+};
+
+let state=(()=>{
+  try{return normalizeState(JSON.parse(localStorage.getItem(CAL_KEY)||'null'))}
+  catch{return defaultState()}
+})();
+
+let selectedDate=localDateKey();
+let viewMode='day';
+let expandedEarly=false;
+let expandedLate=false;
+let core=null;
+
+let calendarDirty=false;
+let completionEditingEntryId=null;
+let completionRoutineContext=null;
+
+const scheduleRemoteSync=()=>{
+  /* r31.6:
+     Calendar 변경은 localStorage/RTCore 메모리에 즉시 저장하지만
+     서버 동기화는 여기서 실행하지 않습니다.
+     기존 앱의 5분 자동 sync 또는 사용자의 수동 Sync 버튼만 서버에 접근합니다. */
+  calendarDirty=true
+};
+
+const refreshEntriesFromCore=()=>{
+  if(!core?.getCalendarEntries)return;
+  try{
+    state.entries=core.getCalendarEntries()||[];
+    save()
+  }catch(e){
+    console.warn('Calendar core refresh failed',e)
+  }
+};
+
+const mergeRoutineOverrides=(left=[],right=[])=>{
+  const map=new Map();
+  [...(left||[]),...(right||[])].forEach(value=>{
+    if(!value?.routineId)return;
+    const old=map.get(value.routineId);
+    if(!old){
+      map.set(value.routineId,{...value});
+      return
+    }
+    const oldTime=Date.parse(old.updatedAt||0)||0;
+    const newTime=Date.parse(value.updatedAt||0)||0;
+    if(newTime>=oldTime)map.set(value.routineId,{...value})
+  });
+  return [...map.values()]
+};
+
+const mergeRoutineSuppressions=(left=[],right=[])=>{
+  const map=new Map();
+  [...(left||[]),...(right||[])].forEach(value=>{
+    if(!value?.routineId)return;
+    const old=map.get(value.routineId);
+    if(!old){
+      map.set(value.routineId,{...value});
+      return
+    }
+    const oldTime=Date.parse(old.updatedAt||0)||0;
+    const newTime=Date.parse(value.updatedAt||0)||0;
+    if(newTime>=oldTime)map.set(value.routineId,{...value})
+  });
+  return [...map.values()]
+};
+
+const mergeDailyMetaValue=(left,right)=>{
+  if(!left)return right?{...right}:null;
+  if(!right)return{...left};
+  const lt=Date.parse(left.updatedAt||left.createdAt||0)||0;
+  const rt=Date.parse(right.updatedAt||right.createdAt||0)||0;
+  const winner=rt>=lt?{...right}:{...left};
+  winner.routineOverrides=mergeRoutineOverrides(
+    left.routineOverrides,
+    right.routineOverrides
+  );
+  winner.routineSuppressions=mergeRoutineSuppressions(
+    left.routineSuppressions,
+    right.routineSuppressions
+  );
+  return winner
+};
+
+const refreshDailyMetaFromCore=()=>{
+  if(!core?.getDailyMetaMap)return;
+  try{
+    const remote=core.getDailyMetaMap()||{};
+    Object.entries(remote).forEach(([date,value])=>{
+      const incoming=normalizeDayMeta(date,value||{});
+      state.dayMeta[date]=mergeDailyMetaValue(state.dayMeta[date],incoming)
+    });
+    save()
+  }catch(e){
+    console.warn('Daily Meta core refresh failed',e)
+  }
+};
+
+const persistDailyMeta=(date,{sync=true}={})=>{
+  const meta=ensureDayMeta(date);
+  if(!meta.createdAt)meta.createdAt=nowIso();
+  meta.updatedAt=nowIso();
+  save();
+
+  try{
+    const stored=core?.upsertDailyMeta?.(date,meta);
+    if(stored)state.dayMeta[date]=normalizeDayMeta(date,stored)
+  }catch(e){
+    console.error(e);
+    toast(e?.message||'날짜 메모를 저장하지 못했습니다.','warn')
+  }
+
+  save();
+  if(sync)scheduleRemoteSync()
+};
+
+
+const persistEntry=(entry,{sync=true}={})=>{
+  save();
+  try{
+    core?.upsertCalendarEntry?.(entry)
+  }catch(e){
+    console.error(e);
+    toast(e?.message||'일정을 저장하지 못했습니다.','warn')
+  }
+  if(sync)scheduleRemoteSync()
+};
+
+
+
+const save=()=>{
+  localStorage.setItem(CAL_KEY,JSON.stringify(state));
+};
+
+const activeItems=()=>{
+  const list=core?.getItems?.()||[];
+  return list.filter(item=>item&&item.status!=='deleted')
+};
+
+const itemMap=()=>new Map(activeItems().map(item=>[item.id,item]));
+
+const itemTitle=item=>{
+  const raw=String(item?.content||'').replace(/\r/g,'');
+  const firstLine=(raw.split('\n')[0]||'').trim();
+  if(firstLine)return firstLine;
+  const firstTask=(item?.tasks||[]).find(t=>!t.deletedAt&&String(t.text||'').trim());
+  return firstTask?.text?.trim()||'제목 없는 항목'
+};
+
+const itemBody=item=>{
+  const raw=String(item?.content||'').replace(/\r/g,'');
+  const lines=raw.split('\n');
+  if(lines.length<=1)return'';
+  return lines.slice(1).join('\n').trim()
+};
+
+const itemPreview=(item,max=20)=>{
+  const body=itemBody(item).replace(/\s+/g,' ').trim();
+  if(!body)return'';
+  return body.length>max?`${body.slice(0,max)}…`:body
+};
+
+const calendarTokenHtml=text=>{
+  const source=String(text||'');
+  const tokenRe=/([#@][가-힣A-Za-z0-9_-]+)/g;
+  let out='',last=0;
+
+  source.replace(tokenRe,(match,_token,offset)=>{
+    out+=esc(source.slice(last,offset));
+    if(match.startsWith('#')){
+      out+=`<span class="cal-inline-tag">${esc(match)}</span>`
+    }else{
+      out+=`<span class="cal-inline-project">${esc(match)}</span>`
+    }
+    last=offset+match.length;
+    return match
+  });
+
+  out+=esc(source.slice(last));
+  return out
+};
+
+
+
+const durationSlots=duration=>Math.max(1,Math.ceil(Math.max(SLOT,Number(duration)||SLOT)/SLOT));
+const bodyLinesForDuration=duration=>Math.max(0,Math.min(7,durationSlots(duration)-1));
+const isWorkMinute=minute=>
+  Number(minute)>=Number(state.settings.workStartMinute)&&
+  Number(minute)<Number(state.settings.workEndMinute);
+const workToneClass=()=>`cal-work-${state.settings.workColor||'gray'}`;
+
+
+const entriesForDate=date=>state.entries
+  .filter(e=>e.date===date&&e.status!=='deleted')
+  .sort((a,b)=>{
+    const am=a.startMinute==null?-1:Number(a.startMinute);
+    const bm=b.startMinute==null?-1:Number(b.startMinute);
+    return am-bm||Date.parse(a.createdAt||0)-Date.parse(b.createdAt||0)
+  });
+
+const visibleEntriesForDate=date=>{
+  const items=itemMap();
+  return entriesForDate(date).filter(e=>items.has(e.itemId)&&e.status!=='obsolete')
+};
+
+const getEntry=id=>state.entries.find(e=>e.id===id&&e.status!=='deleted');
+
+const ensureDayMeta=date=>{
+  if(!state.dayMeta[date])state.dayMeta[date]=normalizeDayMeta(date,{});
+  return state.dayMeta[date]
+};
+
+const dayToneClass=(date,meta=ensureDayMeta(date))=>{
+  if(meta.color&&meta.color!=='default')return `cal-tone-${meta.color}`;
+  const day=parseDate(date).getDay();
+  if(day===0)return'cal-tone-red';
+  if(day===6)return'cal-tone-blue';
+  return'cal-tone-default'
+};
+
+const daySummary=(date,items=itemMap())=>{
+  const entries=visibleEntriesForDate(date).filter(e=>e.status!=='obsolete');
+  const big3=entries.filter(e=>e.isBig3).slice(0,3);
+  const scheduledOther=entries.filter(e=>e.startMinute!=null&&!e.isBig3);
+  return{
+    entries,
+    big3,
+    otherCount:scheduledOther.length,
+    meta:ensureDayMeta(date),
+    big3Titles:big3.map(e=>itemTitle(items.get(e.itemId)))
+  }
+};
+
+const effectiveEnd=(entry,start=entry.startMinute)=>{
+  if(start==null)return null;
+  return Math.min(DAY_MINUTES,start+Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT))
+};
+
+const overlaps=(start,end,other)=>{
+  if(other.startMinute==null)return false;
+  const os=Number(other.startMinute);
+  const oe=effectiveEnd(other,os);
+  return start<oe&&end>os
+};
+
+const hasCollision=(entry,candidateStart,candidateDuration=entry.plannedDurationMinutes)=>{
+  const end=Math.min(DAY_MINUTES,candidateStart+Math.max(SLOT,Number(candidateDuration)||SLOT));
+  return visibleEntriesForDate(entry.date)
+    .filter(other=>other.id!==entry.id&&other.startMinute!=null&&other.status!=='obsolete')
+    .some(other=>overlaps(candidateStart,end,other))
+};
+
+const findMoveSlot=(entry,direction)=>{
+  const dir=direction==='up'?-1:1;
+  let candidate=Number(entry.startMinute)+dir*SLOT;
+
+  while(candidate>=0&&candidate<DAY_MINUTES){
+    if(!hasCollision(entry,candidate))return candidate;
+    candidate+=dir*SLOT
+  }
+  return null
+};
+
+const firstOpenSlot=(date,duration=SLOT)=>{
+  const settings=state.settings;
+  const entry={id:'__probe__',date,plannedDurationMinutes:duration,startMinute:null};
+  const starts=[];
+  for(let m=settings.collapseBeforeMinute;m<DAY_MINUTES;m+=SLOT)starts.push(m);
+  for(let m=0;m<settings.collapseBeforeMinute;m+=SLOT)starts.push(m);
+
+  for(const candidate of starts){
+    const end=Math.min(DAY_MINUTES,candidate+duration);
+    if(end<=candidate)continue;
+    if(!hasCollision(entry,candidate,duration))return candidate
+  }
+  return null
+};
+
+
+const calendarRangeFits=(entry,date,startMinute,duration,ignoreEntryId=entry.id)=>{
+  startMinute=Number(startMinute);
+  duration=Math.max(SLOT,Number(duration)||SLOT);
+  if(!Number.isFinite(startMinute)||startMinute<0||startMinute>=DAY_MINUTES)return false;
+
+  const end=Math.min(DAY_MINUTES,startMinute+duration);
+  return !visibleEntriesForDate(date)
+    .filter(other=>
+      other.id!==ignoreEntryId &&
+      other.startMinute!=null &&
+      other.status!=='obsolete' &&
+      other.entryType!=='routine' &&
+      other.entryType!=='routine_override'
+    )
+    .some(other=>overlaps(startMinute,end,other))
+};
+
+const calendarEntryFits=(entry,date,startMinute,ignoreEntryId=entry.id)=>
+  calendarRangeFits(
+    entry,
+    date,
+    startMinute,
+    Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT),
+    ignoreEntryId
+  );
+
+const moveEntryTo=(entry,date,startMinute)=>{
+  startMinute=Math.max(0,Math.min(DAY_MINUTES-SLOT,Math.round(Number(startMinute)/SLOT)*SLOT));
+
+  if(!calendarEntryFits(entry,date,startMinute,entry.id)){
+    toast('다른 일정과 겹쳐 이 위치로 옮길 수 없습니다.','warn');
+    return false
+  }
+
+  const oldDate=entry.date;
+  entry.date=date;
+  entry.startMinute=startMinute;
+
+  if(entry.isBig3&&oldDate!==date){
+    const targetCount=visibleEntriesForDate(date)
+      .filter(e=>e.id!==entry.id&&e.isBig3).length;
+    if(targetCount>=3){
+      entry.isBig3=false;
+      toast('대상 날짜의 Big3가 이미 3개라 Big3는 해제하고 이동했습니다.','warn')
+    }
+  }
+
+  entry.updatedAt=nowIso();
+  persistEntry(entry);
+  render();
+  return true
+};
+
+const deferEntryToAdjacentMonday=(entry,direction)=>{
+  const monday=direction==='previous'
+    ?previousMondayFromWeek(entry.date)
+    :nextMondayFromWeek(entry.date);
+
+  entry.date=monday;
+  entry.startMinute=null;
+  entry.isBig3=false;
+  entry.status='planned';
+  entry.obsoleteReason=null;
+  entry.updatedAt=nowIso();
+  persistEntry(entry);
+  selectedDate=monday;
+  toast(direction==='previous'
+    ?'이전 주 월요일 브레인 덤프로 넘겼습니다.'
+    :'다음 주 월요일 브레인 덤프로 넘겼습니다.');
+  render()
+};
+
+
+let dailyDragState=null;
+let dailyRoutineDragState=null;
+let dailyResizeState=null;
+let lastCalendarDragAt=0;
+
+const clearDailyDrag=()=>{
+  if(dailyDragState||dailyRoutineDragState)lastCalendarDragAt=Date.now();
+  dailyDragState=null;
+  dailyRoutineDragState=null;
+  document.body.classList.remove('cal-day-dragging');
+  $$('.cal-drag-source').forEach(el=>el.classList.remove('cal-drag-source'));
+  $$('.cal-day-drop-hover').forEach(el=>el.classList.remove('cal-day-drop-hover'))
+};
+
+const finishDailyResize=valid=>{
+  const stateValue=dailyResizeState;
+  if(!stateValue)return;
+
+  dailyResizeState=null;
+  document.body.classList.remove('cal-day-resizing');
+
+  const entry=getEntry(stateValue.entryId);
+  if(!entry){
+    render();
+    return
+  }
+
+  if(!valid||!stateValue.valid){
+    toast('다른 일정과 겹쳐 시간 범위를 변경하지 않았습니다.','warn');
+    render();
+    return
+  }
+
+  entry.startMinute=stateValue.previewStart;
+  entry.plannedDurationMinutes=stateValue.previewDuration;
+  entry.updatedAt=nowIso();
+  persistEntry(entry);
+  render()
+};
+
+const onDailyResizeMove=e=>{
+  const rs=dailyResizeState;
+  if(!rs)return;
+
+  const deltaSlots=Math.round((e.clientY-rs.originY)/rs.slotHeight);
+  const delta=deltaSlots*SLOT;
+
+  let nextStart=rs.originalStart;
+  let nextDuration=rs.originalDuration;
+
+  if(rs.edge==='top'){
+    const originalEnd=rs.originalStart+rs.originalDuration;
+    nextStart=Math.max(
+      rs.gridFrom,
+      Math.min(rs.originalStart+delta, Math.min(rs.gridTo-SLOT,originalEnd-SLOT))
+    );
+    nextDuration=Math.max(SLOT,originalEnd-nextStart)
+  }else{
+    const maxDuration=Math.max(SLOT,rs.gridTo-rs.originalStart);
+    nextDuration=Math.max(
+      SLOT,
+      Math.min(rs.originalDuration+delta,maxDuration)
+    )
+  }
+
+  nextStart=Math.round(nextStart/SLOT)*SLOT;
+  nextDuration=Math.max(SLOT,Math.round(nextDuration/SLOT)*SLOT);
+
+  const entry=getEntry(rs.entryId);
+  if(!entry)return;
+
+  const valid=calendarRangeFits(
+    entry,
+    entry.date,
+    nextStart,
+    nextDuration,
+    entry.id
+  );
+
+  rs.previewStart=nextStart;
+  rs.previewDuration=nextDuration;
+  rs.valid=valid;
+
+  const previewEnd=Math.min(DAY_MINUTES,nextStart+nextDuration);
+  rs.block.style.setProperty('--cal-start',String(nextStart));
+  rs.block.style.setProperty('--cal-end',String(previewEnd));
+  rs.block.classList.toggle('resize-invalid',!valid)
+};
+
+const onDailyResizeUp=()=>{
+  if(!dailyResizeState)return;
+  const valid=dailyResizeState.valid;
+  finishDailyResize(valid)
+};
+
+const startDailyResize=(entry,block,edge,event)=>{
+  if(!entry||entry.status==='completed')return;
+  const grid=block.closest('.cal-time-grid');
+  const slot=grid?.querySelector('.cal-slot');
+  if(!grid||!slot)return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const originalStart=Number(entry.startMinute);
+  const originalDuration=Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT);
+
+  dailyResizeState={
+    entryId:entry.id,
+    block,
+    edge,
+    originY:event.clientY,
+    slotHeight:slot.getBoundingClientRect().height||34,
+    gridFrom:Number(grid.dataset.gridFrom)||0,
+    gridTo:Number(grid.dataset.gridTo)||DAY_MINUTES,
+    originalStart,
+    originalDuration,
+    previewStart:originalStart,
+    previewDuration:originalDuration,
+    valid:true
+  };
+
+  document.body.classList.add('cal-day-resizing')
+};
+
+window.addEventListener('pointermove',onDailyResizeMove);
+window.addEventListener('pointerup',onDailyResizeUp);
+window.addEventListener('pointercancel',()=>finishDailyResize(false));
+
+let weeklyDragState=null;
+
+const clearWeeklyDrag=()=>{
+  if(weeklyDragState)lastCalendarDragAt=Date.now();
+  weeklyDragState=null;
+  document.body.classList.remove('cal-week-dragging');
+  $$('.cal-week-drag-source').forEach(el=>el.classList.remove('cal-week-drag-source'));
+  $$('.cal-week-drop-hover').forEach(el=>el.classList.remove('cal-week-drop-hover'));
+  $('#calPreviousWeekDropZone')?.classList.remove('show','active');
+  $('#calNextWeekDropZone')?.classList.remove('show','active')
+};
+
+const toast=(message,type='info')=>{
+  let el=$('#calToast');
+  if(!el){
+    el=document.createElement('div');
+    el.id='calToast';
+    el.className='cal-toast';
+    document.body.appendChild(el)
+  }
+  el.textContent=message;
+  el.className=`cal-toast show ${type}`;
+  clearTimeout(toast._timer);
+  toast._timer=setTimeout(()=>el.classList.remove('show'),2400)
+};
+
+const markUpdated=entry=>{
+  entry.updatedAt=nowIso();
+  persistEntry(entry);
+};
+
+const big3Count=date=>visibleEntriesForDate(date).filter(e=>e.isBig3).length;
+
+const toggleBig3=entry=>{
+  if(entry.isBig3){
+    entry.isBig3=false;
+    markUpdated(entry);
+    render();
+    return
+  }
+  if(big3Count(entry.date)>=3){
+    toast('Big3는 하루 최대 3개까지 지정할 수 있습니다.','warn');
+    return
+  }
+  entry.isBig3=true;
+  markUpdated(entry);
+  render()
+};
+
+const moveEntry=(entry,direction)=>{
+  if(entry.startMinute==null)return;
+  const target=findMoveSlot(entry,direction);
+  if(target==null){
+    toast(direction==='up'
+      ?'위쪽에 이 일정이 들어갈 빈 시간이 없습니다.'
+      :'아래쪽에 이 일정이 들어갈 빈 시간이 없습니다.','warn');
+    return
+  }
+  entry.startMinute=target;
+  markUpdated(entry);
+  render()
+};
+
+const growEntry=entry=>{
+  const next=Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT)+SLOT;
+
+  if(entry.startMinute!=null){
+    const currentEnd=effectiveEnd(entry);
+    const nextEnd=Math.min(DAY_MINUTES,Number(entry.startMinute)+next);
+
+    // 자정을 넘는 예상시간 증가는 허용한다.
+    // 실제 오늘 점유 영역이 늘어나는 경우에만 충돌을 검사한다.
+    if(nextEnd>currentEnd&&hasCollision(entry,Number(entry.startMinute),next)){
+      toast('다음 일정과 겹쳐 시간을 늘릴 수 없습니다. 다음 일정을 조정한 후 다시 시도해주세요.','warn');
+      return
+    }
+  }
+
+  entry.plannedDurationMinutes=next;
+  markUpdated(entry);
+  render()
+};
+
+const shrinkEntry=entry=>{
+  const duration=Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT);
+  if(duration>SLOT){
+    entry.plannedDurationMinutes=duration-SLOT;
+  }else{
+    entry.startMinute=null;
+  }
+  markUpdated(entry);
+  render()
+};
+
+const checkIn=entry=>{
+  if(entry.startMinute!=null)return;
+  const slot=firstOpenSlot(entry.date,Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT));
+  if(slot==null){
+    toast('오늘 일정에 들어갈 수 있는 빈 시간이 없습니다.','warn');
+    return
+  }
+  entry.startMinute=slot;
+  markUpdated(entry);
+  render()
+};
+
+const removeEntryAndTrashItem=entry=>{
+  if(!confirm('이 항목을 삭제하여 휴지통으로 이동하시겠습니까?'))return;
+  try{
+    core.updateItem(entry.itemId,{status:'deleted'});
+    state.entries.forEach(e=>{
+      if(e.itemId===entry.itemId&&e.status!=='deleted'){
+        e.status='deleted';
+        e.updatedAt=nowIso();
+        try{core?.upsertCalendarEntry?.(e)}catch{}
+      }
+    });
+    save();
+    scheduleRemoteSync();
+    render();
+    toast('휴지통으로 이동했습니다.')
+  }catch(err){
+    console.error(err);
+    toast(err?.message||'삭제하지 못했습니다.','warn')
+  }
+};
+
+const openItemInWorkspace=itemId=>{
+  core?.setMode?.('memo');
+  setTimeout(()=>{
+    const card=document.querySelector(`.card[data-id="${CSS.escape(itemId)}"]`);
+    if(card){
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+      card.classList.add('calendar-jump-highlight');
+      setTimeout(()=>card.classList.remove('calendar-jump-highlight'),1600)
+    }
+  },80)
+};
+
+const createEntryForItem=(itemId,date=selectedDate)=>{
+  let existing=state.entries.find(e=>
+    e.itemId===itemId&&e.date===date&&e.status!=='deleted'
+  );
+  if(existing)return existing;
+
+  const stamp=nowIso();
+  const entry={
+    id:uuid(),
+    itemId,
+    date,
+    startMinute:null,
+    plannedDurationMinutes:SLOT,
+    isBig3:false,
+    entryType:'normal',
+    routineId:null,
+    status:'planned',
+    obsoleteReason:null,
+    createdAt:stamp,
+    updatedAt:stamp
+  };
+  state.entries.push(entry);
+  persistEntry(entry);
+  return entry
+};
+
+
+const closeCompletionModal=()=>{
+  completionEditingEntryId=null;
+  completionRoutineContext=null;
+  $('#calCompletionModal')?.classList.add('hidden')
+};
+
+const openCompletionModal=entry=>{
+  const item=core?.getItem?.(entry.itemId);
+  if(!item)return;
+
+  completionRoutineContext=null;
+  completionEditingEntryId=entry.id;
+  $('#calCompletionTitle').textContent=itemTitle(item);
+
+  const history=(core?.getCompletionHistory?.(entry.itemId)||[])
+    .filter(r=>r?.revokedAt)
+    .sort((a,b)=>Date.parse(b.completedAt||0)-Date.parse(a.completedAt||0));
+
+  const previous=
+    history.find(r=>r.calendarEntryId===entry.id)||
+    history[0]||
+    null;
+
+  $$('input[name="calPlanResult"]').forEach(input=>{
+    input.checked=!!previous&&input.value===previous.planResult
+  });
+  $('#calGapCause').value=previous?.gapCause||'';
+  $('#calImprovement').value=previous?.improvement||'';
+  $('#calCompletionModal')?.classList.remove('hidden')
+};
+
+
+const openRoutineCompletionModal=(routineId,date)=>{
+  const routine=core?.getRoutineById?.(routineId);
+  if(!routine)return;
+
+  completionEditingEntryId=null;
+  completionRoutineContext={routineId,date};
+  $('#calCompletionTitle').textContent=routine.title||'Routine';
+
+  const previous=core?.getRoutineLog?.(routineId,date)||null;
+  $$('input[name="calPlanResult"]').forEach(input=>{
+    input.checked=!!previous&&input.value===previous.planResult
+  });
+  $('#calGapCause').value=previous?.gapCause||'';
+  $('#calImprovement').value=previous?.improvement||'';
+  $('#calCompletionModal')?.classList.remove('hidden')
+};
+
+const undoRoutineCompletion=(routineId,date)=>{
+  if(!confirm('Routine 완료를 취소하고 다시 진행 중 상태로 되돌리시겠습니까?'))return;
+  try{
+    core?.undoRoutine?.(routineId,date);
+    render();
+    scheduleRemoteSync();
+    toast('Routine 완료를 취소했습니다.')
+  }catch(e){
+    console.error(e);
+    toast(e?.message||'Routine 완료를 취소하지 못했습니다.','warn')
+  }
+};
+
+const submitCompletion=()=>{
+  const selected=$('input[name="calPlanResult"]:checked');
+  if(!selected){
+    toast('계획 대비 결과를 선택해주세요.','warn');
+    return
+  }
+
+  try{
+    if(completionRoutineContext){
+      core?.completeRoutine?.(
+        completionRoutineContext.routineId,
+        completionRoutineContext.date,
+        {
+          planResult:selected.value,
+          gapCause:$('#calGapCause')?.value||'',
+          improvement:$('#calImprovement')?.value||''
+        }
+      );
+
+      closeCompletionModal();
+      render();
+      scheduleRemoteSync();
+      toast('수고하셨습니다. Routine 완료로 기록했습니다.');
+      return
+    }
+
+    const entry=getEntry(completionEditingEntryId);
+    if(!entry){
+      closeCompletionModal();
+      return
+    }
+
+    core.completeItem(entry.itemId,{
+      calendarEntryId:entry.id,
+      planResult:selected.value,
+      gapCause:$('#calGapCause')?.value||'',
+      improvement:$('#calImprovement')?.value||''
+    });
+
+    refreshEntriesFromCore();
+    closeCompletionModal();
+    render();
+    scheduleRemoteSync();
+    toast('수고하셨습니다. 완료로 기록했습니다.')
+  }catch(e){
+    console.error(e);
+    toast(e?.message||'완료 처리하지 못했습니다.','warn')
+  }
+};
+
+const undoCompletion=entry=>{
+  if(!confirm('완료를 취소하고 다시 진행 중 상태로 되돌리시겠습니까?'))return;
+
+  try{
+    core.undoCompleteItem(entry.itemId);
+    refreshEntriesFromCore();
+    render();
+    scheduleRemoteSync();
+    toast('완료를 취소했습니다.')
+  }catch(e){
+    console.error(e);
+    toast(e?.message||'완료를 취소하지 못했습니다.','warn')
+  }
+};
+
+
+
+let calendarItemEditingId=null;
+
+const calendarItemTasks=item=>
+  (item?.tasks||[]).filter(task=>task&&!task.deletedAt);
+
+const closeCalendarItemModal=()=>{
+  calendarItemEditingId=null;
+  $('#calItemModal')?.classList.add('hidden')
+};
+
+const renderCalendarItemChecklist=()=>{
+  const list=$('#calItemChecklist');
+  const item=core?.getItem?.(calendarItemEditingId);
+  if(!list||!item)return;
+
+  const tasks=calendarItemTasks(item);
+  list.innerHTML=tasks.length
+    ?tasks.map(task=>`<div class="cal-item-check-row" data-task-id="${task.id}">
+        <input type="checkbox" data-item-check ${task.done?'checked':''}>
+        <input type="text" data-item-check-text value="${esc(task.text||'')}" maxlength="300">
+        <button type="button" data-item-check-delete title="체크리스트 삭제">×</button>
+      </div>`).join('')
+    :'<div class="cal-item-check-empty">체크리스트가 없습니다.</div>';
+
+  $$('[data-task-id]',list).forEach(row=>{
+    const taskId=row.dataset.taskId;
+
+    $('[data-item-check]',row)?.addEventListener('change',e=>{
+      core?.updateChecklistItem?.(calendarItemEditingId,taskId,{done:e.target.checked});
+      scheduleRemoteSync()
+    });
+
+    $('[data-item-check-text]',row)?.addEventListener('change',e=>{
+      const text=String(e.target.value||'').trim();
+      if(!text){
+        const fresh=core?.getItem?.(calendarItemEditingId);
+        const task=(fresh?.tasks||[]).find(t=>t.id===taskId);
+        e.target.value=task?.text||'';
+        return
+      }
+      core?.updateChecklistItem?.(calendarItemEditingId,taskId,{text});
+      scheduleRemoteSync()
+    });
+
+    $('[data-item-check-delete]',row)?.addEventListener('click',()=>{
+      core?.removeChecklistItem?.(calendarItemEditingId,taskId);
+      renderCalendarItemChecklist();
+      scheduleRemoteSync()
+    })
+  })
+};
+
+const openCalendarItemModal=itemId=>{
+  const item=core?.getItem?.(itemId);
+  if(!item)return;
+
+  calendarItemEditingId=itemId;
+  $('#calItemContent').value=String(item.content||'');
+  $('#calItemCreatedAt').textContent=item.createdAt
+    ?`생성 ${String(item.createdAt).replace('T',' ').slice(0,16)}`
+    :'';
+  renderCalendarItemChecklist();
+  $('#calItemModal')?.classList.remove('hidden')
+};
+
+const saveCalendarItemContent=()=>{
+  if(!calendarItemEditingId)return;
+  const input=$('#calItemContent');
+  if(!input)return;
+
+  const content=String(input.value||'');
+  const item=core?.getItem?.(calendarItemEditingId);
+  if(!item||String(item.content||'')===content)return;
+
+  core?.updateItem?.(calendarItemEditingId,{content});
+  scheduleRemoteSync()
+};
+
+const addCalendarItemChecklist=()=>{
+  if(!calendarItemEditingId)return;
+  const input=$('#calItemChecklistNew');
+  const text=String(input?.value||'').trim();
+  if(!text)return;
+
+  core?.addChecklistItem?.(calendarItemEditingId,text);
+  if(input)input.value='';
+  renderCalendarItemChecklist();
+  scheduleRemoteSync()
+};
+
+const openCreateModal=()=>{
+  $('#calCreateModal')?.classList.remove('hidden');
+  const input=$('#calCreateTitle');
+  if(input){
+    input.value='';
+    setTimeout(()=>input.focus(),20)
+  }
+};
+
+const closeCreateModal=()=>{
+  $('#calCreateModal')?.classList.add('hidden')
+};
+
+const submitCreate=()=>{
+  const input=$('#calCreateTitle');
+  const title=String(input?.value||'').trim();
+  if(!title){
+    toast('할 일 제목을 입력해주세요.','warn');
+    input?.focus();
+    return
+  }
+  try{
+    const item=core.createItem({content:title});
+    createEntryForItem(item.id,selectedDate);
+    closeCreateModal();
+    render();
+    toast('브레인 덤프에 추가했습니다.')
+  }catch(err){
+    console.error(err);
+    toast(err?.message||'추가하지 못했습니다.','warn')
+  }
+};
+
+const timeOptions=(selected,min,max)=>{
+  const rows=[];
+  for(let m=min;m<=max;m+=SLOT){
+    rows.push(`<option value="${m}" ${m===selected?'selected':''}>${minuteLabel(m)}</option>`)
+  }
+  return rows.join('')
+};
+
+let pendingWorkColor='gray';
+
+const renderWorkColorPalette=()=>{
+  const root=$('#calWorkColorPalette');
+  if(!root)return;
+  root.innerHTML=WORK_COLORS.map(color=>`
+    <button type="button"
+      class="cal-work-color cal-work-${color} ${pendingWorkColor===color?'active':''}"
+      data-work-color="${color}"
+      title="${WORK_COLOR_LABELS[color]||color}">
+      <i></i><span>${WORK_COLOR_LABELS[color]||color}</span>
+    </button>`).join('');
+
+  $$('[data-work-color]',root).forEach(button=>button.onclick=()=>{
+    pendingWorkColor=button.dataset.workColor;
+    renderWorkColorPalette()
+  })
+};
+
+const openSettings=()=>{
+  const modal=$('#calSettingsModal');
+  if(!modal)return;
+  $('#calCollapseBefore').innerHTML=timeOptions(
+    state.settings.collapseBeforeMinute,0,720
+  );
+  $('#calCollapseAfter').innerHTML=timeOptions(
+    state.settings.collapseAfterMinute,720,1440
+  );
+  $('#calWorkStart').innerHTML=timeOptions(
+    state.settings.workStartMinute,0,1410
+  );
+  $('#calWorkEnd').innerHTML=timeOptions(
+    state.settings.workEndMinute,30,1440
+  );
+  pendingWorkColor=state.settings.workColor||'gray';
+  renderWorkColorPalette();
+  modal.classList.remove('hidden')
+};
+
+const closeSettings=()=>$('#calSettingsModal')?.classList.add('hidden');
+
+const saveSettings=()=>{
+  const before=Number($('#calCollapseBefore')?.value);
+  const after=Number($('#calCollapseAfter')?.value);
+  const workStart=Number($('#calWorkStart')?.value);
+  const workEnd=Number($('#calWorkEnd')?.value);
+
+  if(!Number.isFinite(before)||!Number.isFinite(after)||before>=after){
+    toast('접는 시간 범위를 확인해주세요.','warn');
+    return
+  }
+  if(!Number.isFinite(workStart)||!Number.isFinite(workEnd)||workStart>=workEnd){
+    toast('업무시간 범위를 확인해주세요.','warn');
+    return
+  }
+
+  state.settings.collapseBeforeMinute=before;
+  state.settings.collapseAfterMinute=after;
+  state.settings.workStartMinute=workStart;
+  state.settings.workEndMinute=workEnd;
+  state.settings.workColor=WORK_COLORS.includes(pendingWorkColor)?pendingWorkColor:'gray';
+
+  expandedEarly=false;
+  expandedLate=false;
+  save();
+  closeSettings();
+  render()
+};
+
+const blockHtml=(entry,item,displayStart=null,displayEnd=null)=>{
+  const duration=Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT);
+  const start=Number(entry.startMinute);
+  const end=effectiveEnd(entry,start);
+  const drawStart=displayStart==null?start:Number(displayStart);
+  const drawEnd=displayEnd==null?end:Number(displayEnd);
+  const preview=duration>=60?itemPreview(item,20):'';
+  const completed=!!item.completedAt||entry.status==='completed';
+  const editable=!completed&&entry.entryType==='normal';
+
+  return `<article
+    class="cal-time-block ${completed?'completed':''} ${entry.isBig3?'big3':''} ${editable?'editable':''}"
+    data-entry-id="${entry.id}"
+    data-cal-item-open="${entry.itemId}"
+    ${editable?`data-daily-entry="${entry.id}" draggable="true"`:''}
+    style="--cal-start:${drawStart};--cal-end:${drawEnd}">
+    ${editable?'<span class="cal-resize-handle cal-resize-top" data-cal-resize="top" title="시작시간 조절"></span>':''}
+    <div class="cal-time-block-main">
+      <strong>${calendarTokenHtml(itemTitle(item))}</strong>
+      ${preview?`<p class="cal-time-block-preview">${calendarTokenHtml(preview)}</p>`:''}
+    </div>
+    ${entry.isBig3?'<span class="cal-block-big3-badge">BIG3</span>':''}
+    <div class="cal-time-actions">
+      <button type="button" class="cal-move-step" data-cal-act="up" title="30분 위로">↑</button>
+      <button type="button" class="cal-move-step" data-cal-act="down" title="30분 아래로">↓</button>
+      <button type="button" data-cal-act="shrink" title="30분 줄이기">−</button>
+      <button type="button" data-cal-act="grow" title="30분 늘리기">＋</button>
+      <button type="button" class="${entry.isBig3?'active':''}" data-cal-act="big3">Big3</button>
+      ${completed
+        ?'<button type="button" class="cal-undo-btn" data-cal-act="undo">완료 취소</button>'
+        :'<button type="button" class="cal-check-btn" data-cal-act="check">Check!</button>'}
+    </div>
+    ${editable?'<span class="cal-resize-handle cal-resize-bottom" data-cal-resize="bottom" title="종료시간 조절"></span>':''}
+  </article>`
+};
+
+const currentMinuteOfDay=()=>{
+  const d=new Date();
+  return d.getHours()*60+d.getMinutes()
+};
+
+const currentTimeLineHtml=(from,to)=>{
+  if(selectedDate!==localDateKey())return'';
+  const minute=currentMinuteOfDay();
+  const visible=minute>=from&&minute<to;
+  return `<div class="cal-current-time-line ${visible?'':'hidden'}"
+    data-current-time-line
+    style="--cal-now:${minute}">
+    <i></i>
+  </div>`
+};
+
+const updateCurrentTimeIndicator=()=>{
+  const minute=currentMinuteOfDay();
+  $$('[data-current-time-line]').forEach(line=>{
+    const grid=line.closest('.cal-time-grid');
+    if(!grid)return;
+    const from=Number(grid.dataset.gridFrom)||0;
+    const to=Number(grid.dataset.gridTo)||DAY_MINUTES;
+    line.style.setProperty('--cal-now',String(minute));
+    line.classList.toggle(
+      'hidden',
+      selectedDate!==localDateKey()||viewMode!=='day'||minute<from||minute>=to
+    )
+  })
+};
+
+const renderTimeGrid=(from,to,entries,items)=>{
+  const rows=[];
+  for(let m=from;m<to;m+=SLOT){
+    rows.push(`<div class="cal-slot ${m%60===0?'hour':''} ${isWorkMinute(m)?'work-hour':''}" data-minute="${m}">
+      <span>${m%60===0?minuteLabel(m):''}</span><i></i>
+    </div>`)
+  }
+
+  const blocks=entries.filter(e=>{
+    if(e.startMinute==null)return false;
+    const s=Number(e.startMinute),en=effectiveEnd(e,s);
+    return s<to&&en>from
+  }).map(e=>{
+    const item=items.get(e.itemId);
+    if(!item)return '';
+    const s=Number(e.startMinute),en=effectiveEnd(e,s);
+    const displayStart=Math.max(s,from);
+    const displayEnd=Math.min(en,to);
+    return (e.entryType==='routine'||e.entryType==='routine_override')
+      ?routineBlockHtml(e,item,displayStart,displayEnd)
+      :blockHtml(e,item,displayStart,displayEnd)
+  }).join('');
+
+  return `<div class="cal-time-grid ${workToneClass()}"
+    data-grid-from="${from}" data-grid-to="${to}"
+    style="--segment-from:${from};--segment-to:${to}">
+    <div class="cal-slot-list">${rows.join('')}</div>
+    <div class="cal-block-layer">${blocks}</div>
+    ${currentTimeLineHtml(from,to)}
+  </div>`
+};
+
+const collapsedCount=(from,to,entries)=>{
+  return entries.filter(e=>{
+    if(e.startMinute==null)return false;
+    const s=Number(e.startMinute),en=effectiveEnd(e,s);
+    return s<to&&en>from
+  }).length
+};
+
+
+const routineSuppressionState=(date,routineId)=>{
+  const meta=ensureDayMeta(date);
+  const rows=Array.isArray(meta.routineSuppressions)?meta.routineSuppressions:[];
+  const row=rows
+    .filter(x=>x?.routineId===routineId)
+    .sort((a,b)=>(Date.parse(b.updatedAt||0)||0)-(Date.parse(a.updatedAt||0)||0))[0];
+  return row?.suppressed===true
+};
+
+const activeRoutineOverride=(date,routineId)=>{
+  const meta=ensureDayMeta(date);
+  return (meta.routineOverrides||[])
+    .filter(x=>x?.routineId===routineId&&!x.deletedAt)
+    .sort((a,b)=>(Date.parse(b.updatedAt||0)||0)-(Date.parse(a.updatedAt||0)||0))[0]||null
+};
+
+const templateRoutineScheduled=(routineId,date)=>
+  (core?.getRoutinesForDate?.(date)||[]).some(r=>r.id===routineId);
+
+const routineOccurrenceExists=(routineId,date)=>{
+  if(activeRoutineOverride(date,routineId))return true;
+  if(routineSuppressionState(date,routineId))return false;
+  return templateRoutineScheduled(routineId,date)
+};
+
+const routineSoftEntriesForDate=(date,hardEntries)=>{
+  const template=core?.getRoutinesForDate?.(date)||[];
+  const meta=ensureDayMeta(date);
+  const activeOverrides=(meta.routineOverrides||[]).filter(x=>x?.routineId&&!x.deletedAt);
+  const map=new Map(template.map(r=>[r.id,r]));
+
+  activeOverrides.forEach(override=>{
+    if(map.has(override.routineId))return;
+    const routine=core?.getRoutineById?.(override.routineId);
+    if(routine)map.set(routine.id,routine)
+  });
+
+  const routines=[...map.values()];
+  const placed=[],unplaced=[];
+
+  routines.forEach(routine=>{
+    const override=activeRoutineOverride(date,routine.id);
+    const suppressed=routineSuppressionState(date,routine.id);
+
+    if(suppressed&&!override)return;
+
+    const start=override
+      ?Number(override.startMinute)
+      :Number(routine.defaultStartMinute);
+    const duration=override
+      ?Math.max(SLOT,Number(override.plannedDurationMinutes)||SLOT)
+      :Math.max(SLOT,Number(routine.defaultDurationMinutes)||SLOT);
+
+    if(!Number.isFinite(start)){
+      unplaced.push({...routine,unplacedReason:'시간 미설정'});
+      return
+    }
+
+    const virtual={
+      id:`routine:${routine.id}:${date}`,
+      itemId:`routine-item:${routine.id}`,
+      date,
+      startMinute:start,
+      plannedDurationMinutes:duration,
+      isBig3:false,
+      entryType:override?'routine_override':'routine',
+      routineId:routine.id,
+      status:'planned',
+      routineCompleted:!!core?.getRoutineLog?.(routine.id,date)?.done
+    };
+
+    const end=Math.min(DAY_MINUTES,start+duration);
+    const collision=hardEntries
+      .filter(e=>
+        e.startMinute!=null &&
+        e.status!=='obsolete' &&
+        e.entryType!=='routine' &&
+        e.entryType!=='routine_override'
+      )
+      .some(e=>overlaps(start,end,e));
+
+    if(collision)unplaced.push({...routine,unplacedReason:'일반 일정과 겹침'});
+    else placed.push(virtual)
+  });
+
+  return{placed,unplaced,routines}
+};
+
+const upsertRoutineOverride=(routineId,date,startMinute,duration)=>{
+  const meta=ensureDayMeta(date);
+  meta.routineOverrides=Array.isArray(meta.routineOverrides)?meta.routineOverrides:[];
+  const stamp=nowIso();
+  const next={
+    routineId,
+    startMinute:Math.max(0,Math.min(DAY_MINUTES-SLOT,Math.round(Number(startMinute)/SLOT)*SLOT)),
+    plannedDurationMinutes:Math.max(SLOT,Number(duration)||SLOT),
+    deletedAt:null,
+    updatedAt:stamp
+  };
+  const idx=meta.routineOverrides.findIndex(x=>x.routineId===routineId);
+  if(idx>=0)meta.routineOverrides[idx]=next;
+  else meta.routineOverrides.push(next);
+  return next
+};
+
+const tombstoneRoutineOverride=(routineId,date)=>{
+  const meta=ensureDayMeta(date);
+  meta.routineOverrides=Array.isArray(meta.routineOverrides)?meta.routineOverrides:[];
+  const old=activeRoutineOverride(date,routineId);
+  if(!old)return;
+  const next={...old,deletedAt:nowIso(),updatedAt:nowIso()};
+  const idx=meta.routineOverrides.findIndex(x=>x.routineId===routineId);
+  if(idx>=0)meta.routineOverrides[idx]=next;
+  else meta.routineOverrides.push(next)
+};
+
+const setRoutineSuppressed=(routineId,date,suppressed)=>{
+  const meta=ensureDayMeta(date);
+  meta.routineSuppressions=Array.isArray(meta.routineSuppressions)?meta.routineSuppressions:[];
+  const next={routineId,suppressed:!!suppressed,updatedAt:nowIso()};
+  const idx=meta.routineSuppressions.findIndex(x=>x.routineId===routineId);
+  if(idx>=0)meta.routineSuppressions[idx]=next;
+  else meta.routineSuppressions.push(next)
+};
+
+const routineTargetFits=(routineId,date,startMinute)=>{
+  const routine=core?.getRoutineById?.(routineId);
+  if(!routine)return false;
+  const duration=Math.max(SLOT,Number(routine.defaultDurationMinutes)||SLOT);
+  const end=Math.min(DAY_MINUTES,Number(startMinute)+duration);
+
+  return !visibleEntriesForDate(date)
+    .filter(other=>other.startMinute!=null)
+    .some(other=>overlaps(Number(startMinute),end,other))
+};
+
+const placeRoutineOverride=(routineId,date,startMinute)=>{
+  const routine=core?.getRoutineById?.(routineId);
+  if(!routine){
+    toast('Routine을 찾을 수 없습니다.','warn');
+    return false
+  }
+
+  if(!routineTargetFits(routineId,date,startMinute)){
+    toast('일반 일정과 겹쳐 이 시간에는 Routine을 배치할 수 없습니다.','warn');
+    return false
+  }
+
+  upsertRoutineOverride(
+    routineId,
+    date,
+    startMinute,
+    Math.max(SLOT,Number(routine.defaultDurationMinutes)||SLOT)
+  );
+  setRoutineSuppressed(routineId,date,false);
+  persistDailyMeta(date);
+  render();
+  return true
+};
+
+const moveRoutineOccurrence=(routineId,sourceDate,targetDate,startMinute)=>{
+  const routine=core?.getRoutineById?.(routineId);
+  if(!routine){
+    toast('Routine을 찾을 수 없습니다.','warn');
+    return false
+  }
+
+  if(sourceDate!==targetDate&&routineOccurrenceExists(routineId,targetDate)){
+    toast('대상 날짜에는 이미 같은 Routine이 있습니다. 같은 Routine은 하루에 한 번만 배치합니다.','warn');
+    return false
+  }
+
+  if(!routineTargetFits(routineId,targetDate,startMinute)){
+    toast('일반 일정과 겹쳐 이 위치로 Routine을 옮길 수 없습니다.','warn');
+    return false
+  }
+
+  const duration=Math.max(SLOT,Number(routine.defaultDurationMinutes)||SLOT);
+
+  if(sourceDate!==targetDate){
+    if(activeRoutineOverride(sourceDate,routineId))tombstoneRoutineOverride(routineId,sourceDate);
+    if(templateRoutineScheduled(routineId,sourceDate))setRoutineSuppressed(routineId,sourceDate,true);
+
+    setRoutineSuppressed(routineId,targetDate,false);
+    upsertRoutineOverride(routineId,targetDate,startMinute,duration);
+
+    persistDailyMeta(sourceDate,{sync:false});
+    persistDailyMeta(targetDate,{sync:false});
+    scheduleRemoteSync()
+  }else{
+    setRoutineSuppressed(routineId,targetDate,false);
+    upsertRoutineOverride(routineId,targetDate,startMinute,duration);
+    persistDailyMeta(targetDate)
+  }
+
+  render();
+  return true
+};
+
+const migrateLegacyRoutineOverrides=()=>{
+  const legacy=(state.entries||[]).filter(e=>e?.entryType==='routine_override'&&e.routineId);
+  if(!legacy.length)return 0;
+
+  legacy.forEach(entry=>{
+    const meta=ensureDayMeta(entry.date);
+    meta.routineOverrides=Array.isArray(meta.routineOverrides)?meta.routineOverrides:[];
+    const value={
+      routineId:entry.routineId,
+      startMinute:entry.startMinute,
+      plannedDurationMinutes:Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT),
+      deletedAt:null,
+      updatedAt:entry.updatedAt||entry.createdAt||nowIso()
+    };
+    const idx=meta.routineOverrides.findIndex(x=>x.routineId===entry.routineId);
+    if(idx<0)meta.routineOverrides.push(value);
+    else{
+      const old=meta.routineOverrides[idx];
+      if((Date.parse(value.updatedAt)||0)>=(Date.parse(old.updatedAt)||0)){
+        meta.routineOverrides[idx]=value
+      }
+    }
+  });
+
+  state.entries=state.entries.filter(e=>e?.entryType!=='routine_override');
+  save();
+  return legacy.length
+};
+
+const routineFakeItemMap=(items,routines)=>{
+  routines.forEach(r=>{
+    items.set(`routine-item:${r.id}`,{
+      id:`routine-item:${r.id}`,
+      content:[r.title||'Routine',r.goal||''].filter(Boolean).join('\n'),
+      tasks:[],
+      routineSoft:true
+    })
+  });
+  return items
+};
+
+const routineBlockHtml=(entry,item,displayStart=null,displayEnd=null)=>{
+  const duration=Math.max(SLOT,Number(entry.plannedDurationMinutes)||SLOT);
+  const start=Number(entry.startMinute);
+  const end=Math.min(DAY_MINUTES,start+duration);
+  const drawStart=displayStart==null?start:Number(displayStart);
+  const drawEnd=displayEnd==null?end:Number(displayEnd);
+  const completed=!!core?.getRoutineLog?.(entry.routineId,entry.date)?.done;
+  const preview=duration>=60?itemPreview(item,20):'';
+
+  return `<article
+    class="cal-time-block cal-routine-soft-block ${completed?'completed':''} ${completed?'':'editable'}"
+    data-routine-block="${entry.routineId}"
+    data-routine-date="${entry.date}"
+    ${completed?'':`data-daily-routine="${entry.routineId}" draggable="true"`}
+    style="--cal-start:${drawStart};--cal-end:${drawEnd}">
+    <div class="cal-time-block-main">
+      <strong>${calendarTokenHtml(itemTitle(item))}</strong>
+      ${preview?`<p class="cal-time-block-preview">${calendarTokenHtml(preview)}</p>`:''}
+    </div>
+    <span class="cal-routine-badge">ROUTINE</span>
+    <div class="cal-time-actions cal-routine-actions">
+      ${completed
+        ?'<button type="button" data-routine-act="undo">완료 취소</button>'
+        :'<button type="button" class="cal-check-btn" data-routine-act="check">Check!</button>'}
+      <button type="button" data-routine-act="dashboard">관리</button>
+    </div>
+  </article>`
+};
+
+const renderDaily=()=>{
+  const items=itemMap();
+  const entries=visibleEntriesForDate(selectedDate);
+  const brain=entries.filter(e=>e.startMinute==null);
+  const hardTimed=entries.filter(e=>e.startMinute!=null);
+  const routineSoft=routineSoftEntriesForDate(selectedDate,hardTimed);
+  routineFakeItemMap(items,routineSoft.routines);
+  const timed=[...hardTimed,...routineSoft.placed];
+  const big3=entries.filter(e=>e.isBig3).slice(0,3);
+  const note=ensureDayMeta(selectedDate);
+  const before=state.settings.collapseBeforeMinute;
+  const after=state.settings.collapseAfterMinute;
+
+  const big3Html=big3.length?big3.map((entry,i)=>{
+    const item=items.get(entry.itemId);
+    return `<button type="button" class="cal-big3-item" data-cal-item-open="${entry.itemId}">
+      <b>${i+1}</b><span>${esc(itemTitle(item))}</span>
+    </button>`
+  }).join(''):'<div class="cal-empty-mini">오늘의 Big3를 지정하세요.</div>';
+
+  const brainHtml=brain.length?brain.map(entry=>{
+    const item=items.get(entry.itemId);
+    return `<article
+      class="cal-brain-item ${entry.isBig3?'big3':''}"
+      data-entry-id="${entry.id}"
+      data-cal-item-open="${entry.itemId}"
+      data-brain-entry="${entry.id}"
+      draggable="true">
+      <div class="cal-brain-title">
+        <strong>${esc(itemTitle(item))}</strong>
+      </div>
+      <div class="cal-brain-actions">
+        <button type="button" class="cal-brain-icon cal-brain-checkin"
+          data-cal-act="checkin" title="TimeTable에 배치" aria-label="TimeTable에 배치">➜</button>
+        <button type="button" class="cal-brain-icon cal-brain-flag ${entry.isBig3?'active':''}"
+          data-cal-act="big3" title="Big3" aria-label="Big3">${entry.isBig3?'⚑':'⚐'}</button>
+        <button type="button" class="cal-brain-icon cal-brain-delete"
+          data-cal-act="delete" title="삭제" aria-label="삭제">🗑</button>
+      </div>
+    </article>`
+  }).join(''):'<div class="cal-empty-mini">아직 브레인 덤프가 비어 있습니다.</div>';
+
+  const earlyCount=collapsedCount(0,before,timed);
+  const lateCount=collapsedCount(after,DAY_MINUTES,timed);
+
+  const dayPalette=DAY_COLORS.map(color=>{
+    const label={
+      default:'기본',red:'빨강',orange:'주황',yellow:'노랑',green:'초록',
+      blue:'파랑',indigo:'남색',purple:'보라',black:'검정'
+    }[color];
+    return `<button type="button" class="cal-color-swatch cal-tone-${color} ${note.color===color?'active':''}"
+      data-cal-day-color="${color}" title="${label}" aria-label="${label}"></button>`
+  }).join('');
+
+  return `<div class="cal-day-layout">
+    <aside class="cal-day-left">
+      <section class="cal-panel cal-day-label-panel">
+        <div class="cal-panel-head"><strong>오늘은 무슨 날?</strong><small>날짜 메모</small></div>
+        <div class="cal-day-label-body">
+          <div class="cal-color-palette">${dayPalette}</div>
+          <input id="calDayLabel" maxlength="80" value="${esc(note.label||'')}"
+            placeholder="예: 이삿날, 연차, 추석, 출장">
+        </div>
+      </section>
+
+      <section class="cal-panel cal-big3-panel">
+        <div class="cal-panel-head"><strong>Big3</strong><small>${big3.length}/3</small></div>
+        <div class="cal-big3-list">${big3Html}</div>
+      </section>
+
+      <section class="cal-panel cal-brain-panel">
+        <div class="cal-panel-head"><strong>브레인 덤프</strong><small>${brain.length}</small></div>
+        <div class="cal-brain-list">${brainHtml}</div>
+      </section>
+
+      ${routineSoft.unplaced.length?`<section class="cal-panel cal-routine-unplaced-panel">
+        <div class="cal-panel-head"><strong>미배치 Routine</strong><small>${routineSoft.unplaced.length}</small></div>
+        <div class="cal-routine-unplaced-list">
+          ${routineSoft.unplaced.map(r=>{
+            const done=!!core?.getRoutineLog?.(r.id,selectedDate)?.done;
+            return `<div class="cal-routine-unplaced-item"
+              data-unplaced-routine="${r.id}" ${done?'':`draggable="true"`}>
+              <button type="button" data-cal-routine-place="${r.id}">
+                <b>${esc(r.title||'Routine')}</b><span>${esc(r.unplacedReason||'미배치')}</span>
+              </button>
+              <button type="button" class="${done?'':'cal-check-btn'}"
+                data-unplaced-routine-action="${done?'undo':'check'}"
+                data-routine-id="${r.id}">
+                ${done?'완료 취소':'Check!'}
+              </button>
+            </div>`
+          }).join('')}
+        </div>
+      </section>`:''}
+
+      <section class="cal-panel cal-daily-text-panel">
+        <label><strong>오늘의 메모</strong>
+          <textarea id="calDailyMemo" placeholder="오늘 기억해둘 내용을 적으세요.">${esc(note.memo||'')}</textarea>
+        </label>
+        <label><strong>오늘의 리뷰</strong>
+          <textarea id="calDailyReview" placeholder="하루를 마치며 적어두고 싶은 내용을 남기세요.">${esc(note.review||'')}</textarea>
+        </label>
+      </section>
+    </aside>
+
+    <section class="cal-panel cal-timetable-panel">
+      <div class="cal-panel-head cal-timetable-head">
+        <div><strong>TimeTable</strong><small>30분 단위</small></div>
+      </div>
+
+      ${before>0?`<button type="button" class="cal-fold cal-fold-early" data-cal-fold="early">
+        ${expandedEarly?'▴ 접기':'▾ 펼치기'} · 00:00–${minuteLabel(before)}
+        ${earlyCount?`<b>${earlyCount}개 일정</b>`:''}
+      </button>`:''}
+
+      ${renderTimeGrid(expandedEarly?0:before,expandedLate?DAY_MINUTES:after,timed,items)}
+
+      ${after<DAY_MINUTES?`<button type="button" class="cal-fold cal-fold-late" data-cal-fold="late">
+        ${expandedLate?'▴ 접기':'▾ 펼치기'} · ${minuteLabel(after)}–24:00
+        ${lateCount?`<b>${lateCount}개 일정</b>`:''}
+      </button>`:''}
+
+      <span class="cal-floating-shortcut" aria-hidden="true">Ctrl+Enter</span>
+      <button type="button" class="cal-floating-add" data-cal-open-create aria-label="새 할 일 추가">＋</button>
+    </section>
+  </div>`
+};
+
+const startOfWeek=dateKey=>{
+  const d=parseDate(dateKey);
+  d.setDate(d.getDate()-d.getDay());
+  return localDateKey(d)
+};
+
+const previousMondayFromWeek=dateKey=>{
+  const sunday=startOfWeek(dateKey);
+  return shiftDate(sunday,-6)
+};
+
+const nextMondayFromWeek=dateKey=>{
+  const sunday=startOfWeek(dateKey);
+  return shiftDate(sunday,8)
+};
+
+const renderWeek=()=>{
+  const start=startOfWeek(selectedDate);
+  const items=itemMap();
+  const days=Array.from({length:7},(_,i)=>shiftDate(start,i));
+  const from=state.settings.collapseBeforeMinute;
+  const to=state.settings.collapseAfterMinute;
+  const slotCount=Math.max(1,Math.ceil((to-from)/SLOT));
+
+  const routineByDate=new Map();
+  days.forEach(date=>{
+    const hard=visibleEntriesForDate(date).filter(e=>e.startMinute!=null);
+    const soft=routineSoftEntriesForDate(date,hard);
+    routineFakeItemMap(items,soft.routines);
+    routineByDate.set(date,soft.placed)
+  });
+
+  const weekdayHtml=['일','월','화','수','목','금','토']
+    .map((label,i)=>`<span class="${i===0?'sun':i===6?'sat':''}">${label}</span>`).join('');
+
+  const dateHtml=days.map(date=>{
+    const d=parseDate(date);
+    const meta=ensureDayMeta(date);
+    const tone=dayToneClass(date,meta);
+    return `<button type="button"
+      class="cal-week-date-cell ${date===localDateKey()?'today':''} ${tone}"
+      data-cal-date="${date}">
+      <b>${d.getDate()}</b>
+      <span title="${esc(meta.label||'')}">${esc(meta.label||'')}</span>
+    </button>`
+  }).join('');
+
+  const cells=[];
+  for(let row=0;row<slotCount;row++){
+    const minute=from+row*SLOT;
+    const gridRow=row+1;
+    cells.push(`<div class="cal-week-time-label ${minute%60===0?'hour':''}"
+      style="grid-column:1;grid-row:${gridRow}">${minute%60===0?minuteLabel(minute):''}</div>`);
+
+    days.forEach((date,dayIndex)=>{
+      cells.push(`<div class="cal-week-time-cell ${isWorkMinute(minute)?'work-hour':''}"
+        style="grid-column:${dayIndex+2};grid-row:${gridRow}"
+        data-week-drop-date="${date}"
+        data-week-drop-minute="${minute}"></div>`)
+    })
+  }
+
+  const blocks=[];
+  days.forEach((date,dayIndex)=>{
+    const all=[
+      ...visibleEntriesForDate(date).filter(e=>e.startMinute!=null),
+      ...(routineByDate.get(date)||[])
+    ];
+
+    all.forEach(entry=>{
+      const item=items.get(entry.itemId);
+      if(!item)return;
+
+      const rawStart=Number(entry.startMinute);
+      const rawEnd=effectiveEnd(entry,rawStart);
+      if(rawStart>=to||rawEnd<=from)return;
+
+      const startMinute=Math.max(rawStart,from);
+      const endMinute=Math.min(rawEnd,to);
+      const rowStart=Math.floor((startMinute-from)/SLOT)+1;
+      const rowSpan=Math.max(1,Math.ceil((endMinute-startMinute)/SLOT));
+      const routine=entry.entryType==='routine'||entry.entryType==='routine_override';
+      const completed=routine
+        ?!!core?.getRoutineLog?.(entry.routineId,date)?.done
+        :!!item.completedAt||entry.status==='completed';
+      const preview=Number(entry.plannedDurationMinutes)>=60
+        ?itemPreview(item,20):'';
+
+      let attrs='';
+      if(routine){
+        attrs=`data-cal-routine-open data-week-routine="${entry.routineId}" data-routine-date="${date}"`;
+        if(!completed)attrs+=' draggable="true"'
+      }else{
+        attrs=`data-cal-item-open="${entry.itemId}" data-cal-date="${date}"`;
+        if(!completed)attrs+=` data-week-entry="${entry.id}" draggable="true"`
+      }
+
+      blocks.push(`<button type="button"
+        class="cal-week-time-block ${completed?'completed':''} ${entry.isBig3?'big3':''} ${routine?'routine':''}"
+        ${attrs}
+        title="${esc(itemTitle(item))}"
+        style="grid-column:${dayIndex+2};grid-row:${rowStart}/span ${rowSpan}">
+        <span class="cal-week-block-copy">
+          <strong>${calendarTokenHtml(itemTitle(item))}</strong>
+          ${preview?`<small>${calendarTokenHtml(preview)}</small>`:''}
+        </span>
+        ${entry.isBig3?'<b>BIG3</b>':routine?'<b>ROUTINE</b>':''}
+      </button>`)
+    })
+  });
+
+  return `<div class="cal-week-workspace">
+    <div class="cal-week-scroll">
+      <div class="cal-week-layout">
+        <div class="cal-week-weekdays">
+          <i></i>${weekdayHtml}
+        </div>
+        <div class="cal-week-dates">
+          <i></i>${dateHtml}
+        </div>
+        <div class="cal-week-timetable ${workToneClass()}" style="--cal-week-slots:${slotCount}">
+          ${cells.join('')}
+          ${blocks.join('')}
+        </div>
+      </div>
+    </div>
+
+    <div id="calPreviousWeekDropZone" class="cal-adjacent-week-drop previous">
+      <b>←</b>
+      <span>이전 주 월요일로 넘기기</span>
+      <small>Brain Dump로 이동</small>
+    </div>
+
+    <div id="calNextWeekDropZone" class="cal-adjacent-week-drop next">
+      <span>다음 주 월요일로 넘기기</span>
+      <b>→</b>
+      <small>Brain Dump로 이동</small>
+    </div>
+  </div>
+  <div class="cal-overview-note">
+    일반 일정과 Routine을 드래그해 이번 주 안에서 날짜·시간을 조정할 수 있습니다.
+    같은 Routine은 같은 날짜에 중복 배치되지 않습니다.
+  </div>`
+};
+
+const monthMatrix=dateKey=>{
+  const d=parseDate(dateKey);
+  const first=new Date(d.getFullYear(),d.getMonth(),1);
+  const last=new Date(d.getFullYear(),d.getMonth()+1,0);
+  const start=new Date(first);
+  start.setDate(first.getDate()-first.getDay());
+  const rows=[];
+  for(let i=0;i<42;i++){
+    const day=new Date(start);day.setDate(start.getDate()+i);
+    rows.push({
+      key:localDateKey(day),
+      day:day.getDate(),
+      inMonth:day.getMonth()===d.getMonth()
+    })
+  }
+  return rows
+};
+
+const renderMonth=()=>{
+  const cells=monthMatrix(selectedDate);
+  const items=itemMap();
+
+  return `<div class="cal-month-weekdays">
+    ${['일','월','화','수','목','금','토'].map((x,i)=>`<span class="${i===0?'sun':i===6?'sat':''}">${x}</span>`).join('')}
+  </div>
+  <div class="cal-month-grid">
+    ${cells.map(cell=>{
+      const summary=daySummary(cell.key,items);
+      const tone=dayToneClass(cell.key,summary.meta);
+
+      return `<button type="button"
+        class="cal-month-day ${cell.inMonth?'':'outside'} ${cell.key===localDateKey()?'today':''} ${tone}"
+        data-cal-date="${cell.key}">
+        <div class="cal-month-date-row">
+          <b>${cell.day}</b>
+          <span title="${esc(summary.meta.label||'')}">${esc(summary.meta.label||'')}</span>
+        </div>
+
+        <div class="cal-month-big3">
+          ${summary.big3Titles.map((title,i)=>`<span><i>${i+1}</i>${esc(title)}</span>`).join('')}
+        </div>
+
+        ${summary.otherCount?`<strong class="cal-month-count">+${summary.otherCount}</strong>`:''}
+      </button>`
+    }).join('')}
+  </div>
+  <div class="cal-overview-note">
+    날짜 셀은 ‘무슨 날인지 / Big3 / Big3를 제외한 실제 TimeTable 일정 수’를 보여줍니다.
+  </div>`
+};
+
+
+const routineWeekdayText=r=>{
+  const labels=['일','월','화','수','목','금','토'];
+  return (r.weekdays||[]).map(d=>labels[d]).join(' · ')
+};
+
+const routineTimeText=r=>{
+  if(!Number.isFinite(Number(r.defaultStartMinute)))return'시간 미설정';
+  const duration=Math.max(SLOT,Number(r.defaultDurationMinutes)||SLOT);
+  return `${minuteLabel(Number(r.defaultStartMinute))} · ${duration}분`
+};
+
+
+let routinePlacementId=null;
+
+const closeRoutinePlacementModal=()=>{
+  routinePlacementId=null;
+  $('#calRoutinePlacementModal')?.classList.add('hidden')
+};
+
+const openRoutinePlacementModal=routineId=>{
+  const routine=core?.getRoutineById?.(routineId);
+  if(!routine)return;
+
+  routinePlacementId=routineId;
+  $('#calRoutinePlacementTitle').textContent=routine.title||'Routine';
+  const select=$('#calRoutinePlacementTime');
+  if(select){
+    const from=state.settings.collapseBeforeMinute;
+    const to=state.settings.collapseAfterMinute;
+    select.innerHTML=timeOptions(
+      Number.isFinite(Number(routine.defaultStartMinute))
+        ?Number(routine.defaultStartMinute)
+        :from,
+      0,1410
+    )
+  }
+  $('#calRoutinePlacementModal')?.classList.remove('hidden')
+};
+
+const submitRoutinePlacement=()=>{
+  if(!routinePlacementId)return closeRoutinePlacementModal();
+  const start=Number($('#calRoutinePlacementTime')?.value);
+  const routine=core?.getRoutineById?.(routinePlacementId);
+  if(!routine)return closeRoutinePlacementModal();
+
+  const duration=Math.max(SLOT,Number(routine.defaultDurationMinutes)||SLOT);
+  const probe={
+    id:`routine-place-probe:${routine.id}`,
+    date:selectedDate,
+    startMinute:start,
+    plannedDurationMinutes:duration
+  };
+
+  const end=Math.min(DAY_MINUTES,start+duration);
+  const collision=visibleEntriesForDate(selectedDate)
+    .filter(e=>
+      e.startMinute!=null &&
+      e.entryType!=='routine' &&
+      e.entryType!=='routine_override'
+    )
+    .some(e=>overlaps(start,end,e));
+
+  if(collision){
+    toast('일반 일정과 겹쳐 이 시간에는 Routine을 배치할 수 없습니다.','warn');
+    return
+  }
+
+  placeRoutineOverride(routine.id,selectedDate,start);
+  closeRoutinePlacementModal();
+  toast('Routine을 오늘의 새 시간에 배치했습니다.')
+};
+
+let routineDashboardSelectedId=null;
+
+const routinePlanResultLabel=value=>({
+  on_plan:'😀 계획대로 됨',
+  partial:'🙂 일부만 됨',
+  below:'😕 기대에 못 미침'
+}[value]||'');
+
+const routineRecordHtml=log=>{
+  const status=log.done?'완료':log.revokedAt?'완료 취소':'기록';
+  const result=routinePlanResultLabel(log.planResult);
+  return `<article class="cal-routine-record ${log.done?'done':log.revokedAt?'revoked':''}">
+    <div class="cal-routine-record-head">
+      <strong>${esc(log.date||'')}</strong>
+      <span>${status}${log.completedAt?` · ${esc(String(log.completedAt).replace('T',' ').slice(0,16))}`:''}</span>
+    </div>
+    ${result?`<b class="cal-routine-record-result">${result}</b>`:''}
+    ${log.gapCause?`<div><small>계획 대비 갭 / 원인</small><p>${esc(log.gapCause)}</p></div>`:''}
+    ${log.improvement?`<div><small>다음 개선</small><p>${esc(log.improvement)}</p></div>`:''}
+    ${log.note?`<div><small>기존 메모</small><p>${esc(log.note)}</p></div>`:''}
+    ${log.value!==null&&log.value!==undefined?`<div><small>기록값</small><p>${esc(String(log.value))}</p></div>`:''}
+  </article>`
+};
+
+const renderCalendarRoutineDashboard=()=>{
+  const body=$('#calRoutineBody');
+  if(!body)return;
+
+  const routines=core?.getRoutines?.()||[];
+  const stats=core?.getRoutineStats?.(30)||{
+    rate:0,completedDays:0,totalDone:0,bestStreak:0,totalScheduled:0,dayRows:[]
+  };
+
+  if(!routines.some(r=>r.id===routineDashboardSelectedId)){
+    routineDashboardSelectedId=routines[0]?.id||null
+  }
+
+  const selected=routines.find(r=>r.id===routineDashboardSelectedId)||null;
+  const logs=selected?(core?.getRoutineLogs?.(selected.id)||[]):[];
+
+  const heat=(stats.dayRows||[]).map(day=>{
+    const cls=day.total===0?'none':day.ratio>=1?'full':day.ratio>0?'partial':'miss';
+    return `<i class="cal-routine-heat ${cls}" title="${day.key} · ${day.done}/${day.total}"></i>`
+  }).join('');
+
+  body.innerHTML=`
+    <div class="cal-routine-dashboard-head">
+      <div>
+        <h2>Routine</h2>
+        <p>반복 일정을 관리하고 실행 기록과 개선점을 한 화면에서 확인합니다.</p>
+      </div>
+      <button type="button" class="primary" data-cal-routine-add>+ 루틴 추가</button>
+    </div>
+
+    <div class="cal-routine-stats">
+      <div><b>${stats.rate||0}%</b><span>전체 달성률</span></div>
+      <div><b>${stats.completedDays||0}일</b><span>완료한 날</span></div>
+      <div><b>${stats.totalDone||0}회</b><span>총 수행</span></div>
+      <div><b>${stats.bestStreak||0}일</b><span>최고 연속</span></div>
+    </div>
+
+    <div class="cal-routine-heat-wrap">
+      <strong>최근 30일 달성 현황</strong>
+      <div class="cal-routine-heatmap">${heat||'<span>아직 기록이 없습니다.</span>'}</div>
+    </div>
+
+    <div class="cal-routine-dashboard-columns">
+      <section>
+        <div class="cal-routine-list-head"><strong>내 Routine</strong><span>${routines.length}개</span></div>
+        <div class="cal-routine-manage-list">
+          ${routines.length?routines.map(r=>`
+            <div class="cal-routine-manage-row ${r.id===routineDashboardSelectedId?'selected':''}">
+              <button type="button" data-cal-routine-select="${r.id}">
+                <span><b>${esc(r.title||'Routine')}</b><small>${esc(r.goal||routineWeekdayText(r))}</small></span>
+                <span>
+                  <b>${routineTimeText(r)}</b>
+                  <small>${routineWeekdayText(r)}</small>
+                </span>
+              </button>
+              <button type="button" class="cal-routine-edit-mini" data-cal-routine-edit="${r.id}">수정</button>
+            </div>`).join(''):'<div class="cal-routine-empty">새 Routine을 추가해보세요.</div>'}
+        </div>
+      </section>
+
+      <section class="cal-routine-history">
+        <div class="cal-routine-history-head">
+          <div>
+            <strong>${selected?esc(selected.title||'Routine'):'Routine 기록'}</strong>
+            ${selected?`<small>${esc(routineWeekdayText(selected))}</small>`:''}
+          </div>
+          <span>${logs.length}개 기록</span>
+        </div>
+        <div class="cal-routine-history-scroll">
+          ${selected
+            ?(logs.length?logs.map(routineRecordHtml).join(''):'<div class="cal-routine-empty">아직 실행 기록이 없습니다.</div>')
+            :'<div class="cal-routine-empty">왼쪽에서 Routine을 선택하세요.</div>'}
+        </div>
+      </section>
+    </div>
+  `;
+
+  $('[data-cal-routine-add]',body)?.addEventListener('click',()=>core?.openRoutineEditor?.(null));
+  $$('[data-cal-routine-edit]',body).forEach(btn=>btn.onclick=e=>{
+    e.stopPropagation();
+    core?.openRoutineEditor?.(btn.dataset.calRoutineEdit)
+  });
+  $$('[data-cal-routine-select]',body).forEach(btn=>btn.onclick=()=>{
+    routineDashboardSelectedId=btn.dataset.calRoutineSelect;
+    renderCalendarRoutineDashboard()
+  })
+};
+
+const openCalendarRoutineDashboard=()=>{
+  renderCalendarRoutineDashboard();
+  $('#calRoutineDashboardModal')?.classList.remove('hidden')
+};
+
+const closeCalendarRoutineDashboard=()=>{
+  $('#calRoutineDashboardModal')?.classList.add('hidden')
+};
+
+const renderHeader=()=>{
+  const d=parseDate(selectedDate);
+  const monthTitle=`${d.getFullYear()}년 ${d.getMonth()+1}월`;
+  const title=viewMode==='day'?prettyDate(selectedDate):monthTitle;
+  return `<header class="cal-header">
+    <div class="cal-date-nav">
+      <button type="button" data-cal-nav="-1" aria-label="이전">‹</button>
+      <span class="cal-date-title">${esc(title)}</span>
+      <button type="button" data-cal-nav="1" aria-label="다음">›</button>
+      <button type="button" class="cal-today-button" data-cal-today>Today</button>
+    </div>
+    <div class="cal-view-switch">
+      <button type="button" class="${viewMode==='month'?'active':''}" data-cal-view="month">Month</button>
+      <button type="button" class="${viewMode==='week'?'active':''}" data-cal-view="week">Week</button>
+      <button type="button" class="${viewMode==='day'?'active':''}" data-cal-view="day">Day</button>
+    </div>
+    <div class="cal-header-actions">
+      <button type="button" data-cal-routine>Routine</button>
+      <button type="button" data-cal-settings>⚙</button>
+    </div>
+  </header>`
+};
+
+const render=()=>{
+  const root=$('#calendarPage');
+  if(!root||!core)return;
+  refreshEntriesFromCore();
+  refreshDailyMetaFromCore();
+  root.innerHTML=`${renderHeader()}
+    <div class="cal-view-body">
+      ${viewMode==='day'?renderDaily():viewMode==='week'?renderWeek():renderMonth()}
+    </div>`;
+
+  bindRenderedEvents();
+  updateCurrentTimeIndicator()
+};
+
+const shiftCurrentView=direction=>{
+  if(viewMode==='day')selectedDate=shiftDate(selectedDate,direction);
+  else if(viewMode==='week')selectedDate=shiftDate(selectedDate,direction*7);
+  else{
+    const d=parseDate(selectedDate);
+    d.setMonth(d.getMonth()+direction);
+    selectedDate=localDateKey(d)
+  }
+  expandedEarly=false;
+  expandedLate=false;
+  render()
+};
+
+const bindRenderedEvents=()=>{
+  const root=$('#calendarPage');
+  if(!root)return;
+
+  $$('[data-cal-nav]',root).forEach(btn=>btn.onclick=()=>shiftCurrentView(Number(btn.dataset.calNav)));
+  $('[data-cal-today]',root)?.addEventListener('click',()=>{
+    selectedDate=localDateKey();
+    expandedEarly=false;expandedLate=false;
+    render()
+  });
+
+  $$('[data-cal-view]',root).forEach(btn=>btn.onclick=()=>{
+    viewMode=btn.dataset.calView;
+    render()
+  });
+
+  $$('[data-cal-date]',root).forEach(btn=>btn.onclick=e=>{
+    if(e?.target?.closest?.('[data-cal-item-open]'))return;
+    selectedDate=btn.dataset.calDate;
+    viewMode='day';
+    expandedEarly=false;expandedLate=false;
+    render()
+  });
+
+  $$('[data-week-entry]',root).forEach(block=>{
+    block.addEventListener('dragstart',e=>{
+      const entry=getEntry(block.dataset.weekEntry);
+      if(!entry){
+        e.preventDefault();
+        return
+      }
+
+      weeklyDragState={type:'item',entryId:entry.id};
+      block.classList.add('cal-week-drag-source');
+      document.body.classList.add('cal-week-dragging');
+      $('#calPreviousWeekDropZone')?.classList.add('show');
+      $('#calNextWeekDropZone')?.classList.add('show');
+
+      try{
+        e.dataTransfer.effectAllowed='move';
+        e.dataTransfer.setData('text/plain',entry.id)
+      }catch{}
+    });
+
+    block.addEventListener('dragend',clearWeeklyDrag)
+  });
+
+  $$('[data-week-routine][draggable="true"]',root).forEach(block=>{
+    block.addEventListener('dragstart',e=>{
+      const routineId=block.dataset.weekRoutine;
+      const sourceDate=block.dataset.routineDate;
+      if(!routineId||!sourceDate){
+        e.preventDefault();
+        return
+      }
+
+      weeklyDragState={type:'routine',routineId,sourceDate};
+      block.classList.add('cal-week-drag-source');
+      document.body.classList.add('cal-week-dragging');
+
+      try{
+        e.dataTransfer.effectAllowed='move';
+        e.dataTransfer.setData('text/plain',`routine:${routineId}:${sourceDate}`)
+      }catch{}
+    });
+
+    block.addEventListener('dragend',clearWeeklyDrag)
+  });
+
+  const weekGrid=$('.cal-week-timetable',root);
+  if(weekGrid){
+    const weekTargetFromPointer=e=>{
+      const rect=weekGrid.getBoundingClientRect();
+      const firstTimeLabel=weekGrid.querySelector('.cal-week-time-label');
+      const timeWidth=firstTimeLabel?.getBoundingClientRect().width||54;
+      const usableWidth=Math.max(1,rect.width-timeWidth);
+      const x=e.clientX-rect.left-timeWidth;
+
+      if(x<0||x>=usableWidth)return null;
+
+      const dayIndex=Math.max(0,Math.min(6,Math.floor(x/(usableWidth/7))));
+      const start=startOfWeek(selectedDate);
+      const date=shiftDate(start,dayIndex);
+
+      const firstCell=weekGrid.querySelector('.cal-week-time-cell');
+      const rowHeight=firstCell?.getBoundingClientRect().height||32;
+      const y=Math.max(0,Math.min(rect.height-1,e.clientY-rect.top));
+      const row=Math.max(0,Math.floor(y/rowHeight));
+      const minute=Math.min(
+        state.settings.collapseAfterMinute-SLOT,
+        state.settings.collapseBeforeMinute+row*SLOT
+      );
+
+      return{date,minute}
+    };
+
+    const markWeekTarget=target=>{
+      $$('.cal-week-drop-hover',weekGrid).forEach(el=>el.classList.remove('cal-week-drop-hover'));
+      if(!target)return;
+      const cell=weekGrid.querySelector(
+        `.cal-week-time-cell[data-week-drop-date="${target.date}"][data-week-drop-minute="${target.minute}"]`
+      );
+      cell?.classList.add('cal-week-drop-hover')
+    };
+
+    const weeklyTargetAllowed=target=>{
+      if(!target||!weeklyDragState)return false;
+
+      if(weeklyDragState.type==='item'){
+        const entry=getEntry(weeklyDragState.entryId);
+        return !!entry&&calendarEntryFits(entry,target.date,target.minute,entry.id)
+      }
+
+      if(weeklyDragState.type==='routine'){
+        const sameDate=weeklyDragState.sourceDate===target.date;
+        if(!sameDate&&routineOccurrenceExists(weeklyDragState.routineId,target.date)){
+          return false
+        }
+        return routineTargetFits(
+          weeklyDragState.routineId,
+          target.date,
+          target.minute
+        )
+      }
+
+      return false
+    };
+
+    weekGrid.addEventListener('dragover',e=>{
+      if(!weeklyDragState)return;
+      const target=weekTargetFromPointer(e);
+      if(!target)return;
+
+      if(weeklyTargetAllowed(target)){
+        e.preventDefault();
+        e.dataTransfer.dropEffect='move';
+        markWeekTarget(target)
+      }else{
+        markWeekTarget(null)
+      }
+    });
+
+    weekGrid.addEventListener('dragleave',e=>{
+      if(!weekGrid.contains(e.relatedTarget))markWeekTarget(null)
+    });
+
+    weekGrid.addEventListener('drop',e=>{
+      if(!weeklyDragState)return;
+      e.preventDefault();
+
+      const target=weekTargetFromPointer(e);
+      markWeekTarget(null);
+
+      if(target&&weeklyTargetAllowed(target)){
+        if(weeklyDragState.type==='item'){
+          const entry=getEntry(weeklyDragState.entryId);
+          if(entry)moveEntryTo(entry,target.date,target.minute)
+        }else if(weeklyDragState.type==='routine'){
+          moveRoutineOccurrence(
+            weeklyDragState.routineId,
+            weeklyDragState.sourceDate,
+            target.date,
+            target.minute
+          )
+        }
+      }
+
+      clearWeeklyDrag()
+    })
+  }
+
+  [
+    ['#calPreviousWeekDropZone','previous'],
+    ['#calNextWeekDropZone','next']
+  ].forEach(([selector,direction])=>{
+    const zone=$(selector,root);
+    if(!zone)return;
+
+    zone.addEventListener('dragover',e=>{
+      if(weeklyDragState?.type!=='item')return;
+      e.preventDefault();
+      zone.classList.add('active');
+      e.dataTransfer.dropEffect='move'
+    });
+
+    zone.addEventListener('dragleave',()=>zone.classList.remove('active'));
+
+    zone.addEventListener('drop',e=>{
+      if(weeklyDragState?.type!=='item')return;
+      e.preventDefault();
+      const entry=getEntry(weeklyDragState.entryId);
+      if(entry)deferEntryToAdjacentMonday(entry,direction);
+      clearWeeklyDrag()
+    })
+  });
+
+  $$('[data-cal-item-open]',root).forEach(el=>{
+    el.addEventListener('click',e=>{
+      if(Date.now()-lastCalendarDragAt<250)return;
+      if(weeklyDragState||dailyDragState||dailyRoutineDragState||dailyResizeState)return;
+      if(e.target.closest?.('.cal-time-actions,[data-cal-act],[data-routine-act],.cal-resize-handle'))return;
+      e.preventDefault();
+      e.stopPropagation();
+      openCalendarItemModal(el.dataset.calItemOpen)
+    })
+  });
+
+  $$('[data-cal-settings]',root).forEach(btn=>btn.onclick=openSettings);
+  $$('[data-cal-open-create]',root).forEach(btn=>btn.onclick=openCreateModal);
+
+  $('[data-cal-fold="early"]',root)?.addEventListener('click',()=>{
+    expandedEarly=!expandedEarly;render()
+  });
+  $('[data-cal-fold="late"]',root)?.addEventListener('click',()=>{
+    expandedLate=!expandedLate;render()
+  });
+
+
+
+  $$('[data-brain-entry][draggable="true"]',root).forEach(card=>{
+    card.addEventListener('dragstart',e=>{
+      if(e.target.closest?.('button')){
+        e.preventDefault();
+        return
+      }
+
+      const entry=getEntry(card.dataset.brainEntry);
+      if(!entry){
+        e.preventDefault();
+        return
+      }
+
+      dailyDragState={entryId:entry.id};
+      dailyRoutineDragState=null;
+      card.classList.add('cal-drag-source');
+      document.body.classList.add('cal-day-dragging');
+
+      try{
+        e.dataTransfer.effectAllowed='move';
+        e.dataTransfer.setData('text/plain',entry.id)
+      }catch{}
+    });
+
+    card.addEventListener('dragend',clearDailyDrag)
+  });
+
+  const brainDropZone=$('.cal-brain-panel',root);
+  if(brainDropZone){
+    brainDropZone.addEventListener('dragover',e=>{
+      if(!dailyDragState)return;
+      const entry=getEntry(dailyDragState.entryId);
+      if(!entry||entry.startMinute==null)return;
+
+      e.preventDefault();
+      e.dataTransfer.dropEffect='move';
+      brainDropZone.classList.add('cal-brain-drop-active')
+    });
+
+    brainDropZone.addEventListener('dragleave',e=>{
+      if(!brainDropZone.contains(e.relatedTarget)){
+        brainDropZone.classList.remove('cal-brain-drop-active')
+      }
+    });
+
+    brainDropZone.addEventListener('drop',e=>{
+      if(!dailyDragState)return;
+      e.preventDefault();
+
+      const entry=getEntry(dailyDragState.entryId);
+      brainDropZone.classList.remove('cal-brain-drop-active');
+
+      if(entry&&entry.startMinute!=null){
+        entry.startMinute=null;
+        entry.updatedAt=nowIso();
+        persistEntry(entry);
+        toast('브레인 덤프로 되돌렸습니다.');
+        render()
+      }
+
+      clearDailyDrag()
+    })
+  }
+
+  $$('[data-daily-entry][draggable="true"]',root).forEach(block=>{
+    block.addEventListener('dragstart',e=>{
+      if(e.target.closest?.('.cal-time-actions,.cal-resize-handle')){
+        e.preventDefault();
+        return
+      }
+
+      const entry=getEntry(block.dataset.dailyEntry);
+      if(!entry||entry.status==='completed'){
+        e.preventDefault();
+        return
+      }
+
+      dailyDragState={entryId:entry.id};
+      dailyRoutineDragState=null;
+      block.classList.add('cal-drag-source');
+      document.body.classList.add('cal-day-dragging');
+
+      try{
+        e.dataTransfer.effectAllowed='move';
+        e.dataTransfer.setData('text/plain',entry.id)
+      }catch{}
+    });
+
+    block.addEventListener('dragend',clearDailyDrag);
+
+    block.querySelectorAll('[data-cal-resize]').forEach(handle=>{
+      handle.addEventListener('pointerdown',e=>{
+        const entry=getEntry(block.dataset.dailyEntry);
+        startDailyResize(entry,block,handle.dataset.calResize,e)
+      })
+    })
+  });
+
+  $$('[data-daily-routine][draggable="true"]',root).forEach(block=>{
+    block.addEventListener('dragstart',e=>{
+      if(e.target.closest?.('.cal-time-actions')){
+        e.preventDefault();
+        return
+      }
+
+      dailyDragState=null;
+      dailyRoutineDragState={
+        routineId:block.dataset.dailyRoutine,
+        date:block.dataset.routineDate||selectedDate
+      };
+      block.classList.add('cal-drag-source');
+      document.body.classList.add('cal-day-dragging');
+
+      try{
+        e.dataTransfer.effectAllowed='move';
+        e.dataTransfer.setData('text/plain',`routine:${block.dataset.dailyRoutine}`)
+      }catch{}
+    });
+    block.addEventListener('dragend',clearDailyDrag)
+  });
+
+  $$('[data-unplaced-routine][draggable="true"]',root).forEach(row=>{
+    row.addEventListener('dragstart',e=>{
+      const routineId=row.dataset.unplacedRoutine;
+      if(!routineId)return;
+      dailyDragState=null;
+      dailyRoutineDragState={routineId,date:selectedDate};
+      row.classList.add('cal-drag-source');
+      document.body.classList.add('cal-day-dragging');
+
+      try{
+        e.dataTransfer.effectAllowed='move';
+        e.dataTransfer.setData('text/plain',`routine:${routineId}`)
+      }catch{}
+    });
+    row.addEventListener('dragend',clearDailyDrag)
+  });
+
+  $$('.cal-time-grid',root).forEach(grid=>{
+    const minuteFromPointer=e=>{
+      const rect=grid.getBoundingClientRect();
+      const firstSlot=grid.querySelector('.cal-slot');
+      const slotHeight=firstSlot?.getBoundingClientRect().height||34;
+      const from=Number(grid.dataset.gridFrom)||0;
+      const to=Number(grid.dataset.gridTo)||DAY_MINUTES;
+      const y=Math.max(0,Math.min(rect.height-1,e.clientY-rect.top));
+      const offset=Math.floor(y/slotHeight)*SLOT;
+      return Math.max(from,Math.min(to-SLOT,from+offset))
+    };
+
+    const markTarget=minute=>{
+      $$('.cal-day-drop-hover',grid).forEach(el=>el.classList.remove('cal-day-drop-hover'));
+      const slot=grid.querySelector(`.cal-slot[data-minute="${minute}"]`);
+      slot?.classList.add('cal-day-drop-hover')
+    };
+
+    grid.addEventListener('dragover',e=>{
+      const minute=minuteFromPointer(e);
+
+      if(dailyDragState){
+        const entry=getEntry(dailyDragState.entryId);
+        if(!entry)return;
+
+        if(calendarEntryFits(entry,selectedDate,minute,entry.id)){
+          e.preventDefault();
+          e.dataTransfer.dropEffect='move';
+          markTarget(minute)
+        }else{
+          $$('.cal-day-drop-hover',grid).forEach(el=>el.classList.remove('cal-day-drop-hover'))
+        }
+        return
+      }
+
+      if(dailyRoutineDragState){
+        const routine=core?.getRoutineById?.(dailyRoutineDragState.routineId);
+        if(!routine)return;
+
+        const duration=Math.max(SLOT,Number(routine.defaultDurationMinutes)||SLOT);
+        const end=Math.min(DAY_MINUTES,minute+duration);
+        const collision=visibleEntriesForDate(selectedDate)
+          .filter(other=>other.startMinute!=null)
+          .some(other=>overlaps(minute,end,other));
+
+        if(!collision){
+          e.preventDefault();
+          e.dataTransfer.dropEffect='move';
+          markTarget(minute)
+        }
+      }
+    });
+
+    grid.addEventListener('dragleave',e=>{
+      if(!grid.contains(e.relatedTarget)){
+        $$('.cal-day-drop-hover',grid).forEach(el=>el.classList.remove('cal-day-drop-hover'))
+      }
+    });
+
+    grid.addEventListener('drop',e=>{
+      e.preventDefault();
+      const minute=minuteFromPointer(e);
+
+      if(dailyDragState){
+        const entry=getEntry(dailyDragState.entryId);
+        if(entry)moveEntryTo(entry,selectedDate,minute)
+      }else if(dailyRoutineDragState){
+        placeRoutineOverride(
+          dailyRoutineDragState.routineId,
+          selectedDate,
+          minute
+        )
+      }
+
+      clearDailyDrag()
+    })
+  });
+
+  $$('[data-routine-block]',root).forEach(block=>{
+    block.addEventListener('click',e=>{
+      const action=e.target.closest?.('[data-routine-act]');
+      if(!action)return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const routineId=block.dataset.routineBlock;
+      const date=block.dataset.routineDate||selectedDate;
+
+      if(action.dataset.routineAct==='check'){
+        openRoutineCompletionModal(routineId,date)
+      }else if(action.dataset.routineAct==='undo'){
+        undoRoutineCompletion(routineId,date)
+      }else if(action.dataset.routineAct==='dashboard'){
+        openCalendarRoutineDashboard()
+      }
+    })
+  });
+
+  $$('[data-unplaced-routine-action]',root).forEach(button=>{
+    button.onclick=e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const routineId=button.dataset.routineId;
+      if(button.dataset.unplacedRoutineAction==='check'){
+        openRoutineCompletionModal(routineId,selectedDate)
+      }else{
+        undoRoutineCompletion(routineId,selectedDate)
+      }
+    }
+  });
+
+  $$('[data-entry-id]',root).forEach(container=>{
+    container.addEventListener('click',e=>{
+      const button=e.target.closest?.('[data-cal-act]');
+      if(!button)return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const entry=getEntry(container.dataset.entryId);
+      if(!entry)return;
+
+      switch(button.dataset.calAct){
+        case 'checkin': checkIn(entry); break;
+        case 'big3': toggleBig3(entry); break;
+        case 'up': moveEntry(entry,'up'); break;
+        case 'down': moveEntry(entry,'down'); break;
+        case 'grow': growEntry(entry); break;
+        case 'shrink': shrinkEntry(entry); break;
+        case 'check': openCompletionModal(entry); break;
+        case 'undo': undoCompletion(entry); break;
+        case 'open': openCalendarItemModal(entry.itemId); break;
+        case 'delete': removeEntryAndTrashItem(entry); break;
+      }
+    })
+  });
+
+  const dayLabel=$('#calDayLabel',root);
+  if(dayLabel)dayLabel.oninput=()=>{
+    ensureDayMeta(selectedDate).label=dayLabel.value;
+    persistDailyMeta(selectedDate)
+  };
+
+  $$('[data-cal-day-color]',root).forEach(button=>button.onclick=()=>{
+    ensureDayMeta(selectedDate).color=button.dataset.calDayColor;
+    persistDailyMeta(selectedDate);
+    render()
+  });
+
+  const memo=$('#calDailyMemo',root);
+  if(memo)memo.oninput=()=>{
+    ensureDayMeta(selectedDate).memo=memo.value;
+    persistDailyMeta(selectedDate)
+  };
+  const review=$('#calDailyReview',root);
+  if(review)review.oninput=()=>{
+    ensureDayMeta(selectedDate).review=review.value;
+    persistDailyMeta(selectedDate)
+  };
+
+  $('[data-cal-routine]',root)?.addEventListener('click',openCalendarRoutineDashboard);
+  $$('[data-cal-routine-open]',root).forEach(btn=>btn.onclick=()=>{
+    if(Date.now()-lastCalendarDragAt<250)return;
+    openCalendarRoutineDashboard()
+  });
+  $$('[data-cal-routine-place]',root).forEach(btn=>btn.onclick=()=>openRoutinePlacementModal(btn.dataset.calRoutinePlace))
+};
+
+const installShell=()=>{
+  if($('#calendarPage'))return;
+
+  const wrap=$('.main .wrap');
+  if(!wrap)return;
+
+  const page=document.createElement('section');
+  page.id='calendarPage';
+  page.className='calendar-page hidden';
+  wrap.appendChild(page);
+
+  document.body.insertAdjacentHTML('beforeend',`
+    <div id="calCreateModal" class="cal-modal hidden" role="dialog" aria-modal="true">
+      <div class="cal-dialog cal-create-dialog">
+        <h2>새 할 일</h2>
+        <input id="calCreateTitle" maxlength="300" autocomplete="off" placeholder="할 일 제목">
+        <div class="cal-dialog-actions">
+          <button type="button" data-cal-create-cancel>취소</button>
+          <button type="button" class="primary" data-cal-create-confirm>확인</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="calSettingsModal" class="cal-modal hidden" role="dialog" aria-modal="true">
+      <div class="cal-dialog cal-settings-dialog">
+        <h2>Calendar 설정</h2>
+        <p>표시시간과 업무시간을 30분 단위로 설정합니다.</p>
+
+        <div class="cal-settings-section">
+          <strong>접어둘 시간</strong>
+          <label>아침 접기
+            <span><select id="calCollapseBefore"></select> 이전</span>
+          </label>
+          <label>저녁 접기
+            <span><select id="calCollapseAfter"></select> 이후</span>
+          </label>
+        </div>
+
+        <div class="cal-settings-section">
+          <strong>업무시간</strong>
+          <div class="cal-work-time-row">
+            <label>시작 <select id="calWorkStart"></select></label>
+            <label>종료 <select id="calWorkEnd"></select></label>
+          </div>
+          <div class="cal-work-color-label">업무시간 배경색</div>
+          <div id="calWorkColorPalette" class="cal-work-color-palette"></div>
+        </div>
+
+        <div class="cal-dialog-actions">
+          <button type="button" data-cal-settings-cancel>취소</button>
+          <button type="button" class="primary" data-cal-settings-save>저장</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="calRoutineDashboardModal" class="cal-modal hidden" role="dialog" aria-modal="true">
+      <div class="cal-dialog cal-routine-dashboard-dialog">
+        <button type="button" class="cal-routine-close" data-cal-routine-close>×</button>
+        <div id="calRoutineBody"></div>
+      </div>
+    </div>
+
+    <div id="calItemModal" class="cal-modal hidden" role="dialog" aria-modal="true">
+      <div class="cal-dialog cal-item-dialog">
+        <div class="cal-item-dialog-head">
+          <div>
+            <h2>일정</h2>
+            <small id="calItemCreatedAt"></small>
+          </div>
+          <button type="button" data-cal-item-close aria-label="닫기">×</button>
+        </div>
+
+        <label class="cal-item-content-field">
+          <span>메모 · 첫 줄이 일정 제목입니다</span>
+          <textarea id="calItemContent"
+            placeholder="첫 줄: 할 일 이름&#10;둘째 줄부터: 메모, 기록, 참고내용"></textarea>
+        </label>
+
+        <section class="cal-item-check-section">
+          <div class="cal-item-check-head"><strong>체크리스트</strong></div>
+          <div id="calItemChecklist" class="cal-item-check-list"></div>
+          <div class="cal-item-check-add">
+            <input class="cal-item-check-pending-box" type="checkbox" disabled aria-hidden="true" tabindex="-1">
+            <input id="calItemChecklistNew" type="text" maxlength="300" placeholder="체크리스트 추가">
+            <button type="button" data-cal-item-check-add>추가</button>
+          </div>
+        </section>
+
+        <div class="cal-dialog-actions">
+          <button type="button" data-cal-item-workspace>Workspace에서 열기</button>
+          <button type="button" class="primary" data-cal-item-close>확인</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="calRoutinePlacementModal" class="cal-modal hidden" role="dialog" aria-modal="true">
+      <div class="cal-dialog cal-routine-placement-dialog">
+        <h2 id="calRoutinePlacementTitle">Routine 배치</h2>
+        <p>오늘 이 Routine을 어느 시간에 배치할지 선택하세요.</p>
+        <label>시작 시간
+          <select id="calRoutinePlacementTime"></select>
+        </label>
+        <div class="cal-dialog-actions">
+          <button type="button" data-cal-routine-placement-cancel>취소</button>
+          <button type="button" class="primary" data-cal-routine-placement-confirm>배치</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="calCompletionModal" class="cal-modal hidden" role="dialog" aria-modal="true">
+      <div class="cal-dialog cal-completion-dialog">
+        <div class="cal-completion-kicker">Check!</div>
+        <h2 id="calCompletionTitle"></h2>
+        <p class="cal-completion-question">수고하셨습니다. 결과는 계획 대비 어땠습니까?</p>
+
+        <div class="cal-result-options">
+          <label><input type="radio" name="calPlanResult" value="on_plan"><span>😀 계획대로 됨</span></label>
+          <label><input type="radio" name="calPlanResult" value="partial"><span>🙂 일부만 됨</span></label>
+          <label><input type="radio" name="calPlanResult" value="below"><span>😕 기대에 못 미침</span></label>
+        </div>
+
+        <textarea id="calGapCause" rows="4" placeholder="계획 대비 갭차이가 발생한 부분과 그에 대한 원인을 적어보세요"></textarea>
+        <p class="cal-completion-help">계획 대비 갭차이가 발생한 부분과 그에 대한 원인을 적어보세요.</p>
+
+        <p class="cal-completion-question second">다음에 같은 일을 한다면 무엇을 개선하시겠습니까?</p>
+        <textarea id="calImprovement" rows="4" placeholder="다음번에 개선할 점을 적어보세요"></textarea>
+
+        <div class="cal-dialog-actions">
+          <button type="button" data-cal-completion-cancel>취소</button>
+          <button type="button" class="primary" data-cal-completion-confirm>확인</button>
+        </div>
+      </div>
+    </div>
+  `);
+
+  const createModal=$('#calCreateModal');
+  createModal?.addEventListener('pointerdown',e=>{
+    if(e.target===createModal)closeCreateModal()
+  });
+  $('[data-cal-create-cancel]')?.addEventListener('click',closeCreateModal);
+  $('[data-cal-create-confirm]')?.addEventListener('click',submitCreate);
+  $('#calCreateTitle')?.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      e.preventDefault();
+      submitCreate()
+    }
+  });
+
+  const settingsModal=$('#calSettingsModal');
+  settingsModal?.addEventListener('pointerdown',e=>{
+    if(e.target===settingsModal)closeSettings()
+  });
+  $('[data-cal-settings-cancel]')?.addEventListener('click',closeSettings);
+  $('[data-cal-settings-save]')?.addEventListener('click',saveSettings);
+
+  const itemModal=$('#calItemModal');
+  itemModal?.addEventListener('pointerdown',e=>{
+    if(e.target===itemModal){
+      saveCalendarItemContent();
+      closeCalendarItemModal();
+      render()
+    }
+  });
+  $$('[data-cal-item-close]').forEach(btn=>btn.addEventListener('click',()=>{
+    saveCalendarItemContent();
+    closeCalendarItemModal();
+    render()
+  }));
+  $('#calItemContent')?.addEventListener('input',saveCalendarItemContent);
+  $('[data-cal-item-check-add]')?.addEventListener('click',addCalendarItemChecklist);
+  $('#calItemChecklistNew')?.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      e.preventDefault();
+      addCalendarItemChecklist()
+    }
+  });
+  $('[data-cal-item-workspace]')?.addEventListener('click',()=>{
+    const itemId=calendarItemEditingId;
+    saveCalendarItemContent();
+    closeCalendarItemModal();
+    if(itemId)openItemInWorkspace(itemId)
+  });
+
+  const routinePlacementModal=$('#calRoutinePlacementModal');
+  routinePlacementModal?.addEventListener('pointerdown',e=>{
+    if(e.target===routinePlacementModal)closeRoutinePlacementModal()
+  });
+  $('[data-cal-routine-placement-cancel]')?.addEventListener('click',closeRoutinePlacementModal);
+  $('[data-cal-routine-placement-confirm]')?.addEventListener('click',submitRoutinePlacement);
+
+  const routineDashboardModal=$('#calRoutineDashboardModal');
+  routineDashboardModal?.addEventListener('pointerdown',e=>{
+    if(e.target===routineDashboardModal)closeCalendarRoutineDashboard()
+  });
+  $('[data-cal-routine-close]')?.addEventListener('click',closeCalendarRoutineDashboard);
+
+  const completionModal=$('#calCompletionModal');
+  completionModal?.addEventListener('pointerdown',e=>{
+    if(e.target===completionModal)closeCompletionModal()
+  });
+  $('[data-cal-completion-cancel]')?.addEventListener('click',closeCompletionModal);
+  $('[data-cal-completion-confirm]')?.addEventListener('click',submitCompletion);
+
+  render()
+};
+
+
+let calendarHotkeysInstalled=false;
+
+const isTypingTarget=target=>{
+  if(!target)return false;
+  if(target.matches?.('input,textarea,select'))return true;
+  if(target.isContentEditable)return true;
+  if(target.closest?.('[contenteditable="true"]'))return true;
+  return false
+};
+
+const closeTopCalendarModal=()=>{
+  const item=$('#calItemModal');
+  if(item&&!item.classList.contains('hidden')){
+    saveCalendarItemContent();
+    closeCalendarItemModal();
+    render();
+    return true
+  }
+
+  const completion=$('#calCompletionModal');
+  if(completion&&!completion.classList.contains('hidden')){
+    closeCompletionModal();
+    return true
+  }
+
+  const placement=$('#calRoutinePlacementModal');
+  if(placement&&!placement.classList.contains('hidden')){
+    closeRoutinePlacementModal();
+    return true
+  }
+
+  const settings=$('#calSettingsModal');
+  if(settings&&!settings.classList.contains('hidden')){
+    closeSettings();
+    return true
+  }
+
+  const dashboard=$('#calRoutineDashboardModal');
+  if(dashboard&&!dashboard.classList.contains('hidden')){
+    closeCalendarRoutineDashboard();
+    return true
+  }
+
+  const create=$('#calCreateModal');
+  if(create&&!create.classList.contains('hidden')){
+    closeCreateModal();
+    return true
+  }
+
+  return false
+};
+
+const installCalendarHotkeys=()=>{
+  if(calendarHotkeysInstalled)return;
+  calendarHotkeysInstalled=true;
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      if(closeTopCalendarModal()){
+        e.preventDefault();
+        e.stopPropagation()
+      }
+      return
+    }
+
+    if(isTypingTarget(e.target))return;
+
+    const routineDashboard=$('#calRoutineDashboardModal');
+    const routineDashboardOpen=!!routineDashboard&&!routineDashboard.classList.contains('hidden');
+    const otherModalOpen=[...document.querySelectorAll('.cal-modal:not(.hidden),.modal:not(.hidden)')]
+      .some(modal=>modal!==routineDashboard);
+
+    const navKey=
+      e.key==='1'||e.key==='2'||e.key==='3'||
+      e.key==='`'||e.code==='Backquote';
+
+    if(otherModalOpen)return;
+
+    if(navKey&&routineDashboardOpen){
+      closeCalendarRoutineDashboard()
+    }
+
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){
+      if(routineDashboardOpen)return;
+      if(core?.getMode?.()!=='calendar')return;
+      e.preventDefault();
+      openCreateModal();
+      return
+    }
+
+    if(e.key==='1'||e.key==='2'||e.key==='3'){
+      e.preventDefault();
+      viewMode=e.key==='1'?'month':e.key==='2'?'week':'day';
+      core?.setMode?.('calendar');
+      render();
+      return
+    }
+
+    if(e.key==='4'){
+      if(routineDashboardOpen)return;
+      e.preventDefault();
+      viewMode='week';
+      core?.setMode?.('calendar');
+      render();
+      setTimeout(openCalendarRoutineDashboard,0);
+      return
+    }
+
+    if(e.key==='`'||e.code==='Backquote'){
+      e.preventDefault();
+      core?.setMode?.('memo')
+    }
+  })
+};
+const boot=()=>{
+  core=window.RTCore||null;
+  if(!core)return false;
+
+  try{
+    const overrideMigrated=migrateLegacyRoutineOverrides();
+    if(overrideMigrated){
+      console.info(`[Calendar] migrated ${overrideMigrated} Routine overrides to Daily Meta`)
+    }
+
+    const imported=core.importCalendarEntries?.(state.entries||[])||0;
+    if(imported)console.info(`[Calendar] migrated ${imported} local entries to RTCore`);
+
+    const metaImported=core.importDailyMeta?.(state.dayMeta||{})||0;
+    if(metaImported)console.info(`[Calendar] migrated ${metaImported} Daily Meta records to RTCore`);
+  }catch(e){
+    console.warn('Calendar migration failed',e)
+  }
+
+  refreshEntriesFromCore();
+  refreshDailyMetaFromCore();
+  installShell();
+  installCalendarHotkeys();
+
+  if(!window.__rtCurrentTimeTimer){
+    window.__rtCurrentTimeTimer=setInterval(updateCurrentTimeIndicator,60000)
+  }
+
+  // Workspace "Go to TimeTable" / external integration.
+  window.RTCalendar=Object.freeze({
+    version:'r32.0_260929_fix4',
+    activate:(date=localDateKey())=>{
+      selectedDate=date;
+      viewMode='day';
+      core.setMode?.('calendar');
+      render()
+    },
+    planItem:(itemId,date=localDateKey())=>{
+      const item=core.getItem?.(itemId);
+      if(!item)throw new Error('Item을 찾을 수 없습니다.');
+      if(item.completedAt)throw new Error('이미 완료된 Item입니다. 완료 취소 후 다시 계획할 수 있습니다.');
+      selectedDate=date;
+      createEntryForItem(itemId,date);
+      core.setMode?.('calendar');
+      render();
+      return clone(state.entries.find(e=>e.itemId===itemId&&e.date===date&&e.status!=='deleted'))
+    },
+    getEntries:date=>clone(date?entriesForDate(date):state.entries),
+    getSettings:()=>clone(state.settings)
+  });
+
+  render();
+  return true
+};
+
+window.addEventListener('rtcalendar:activate',()=>{
+  if(!core)boot();
+  render()
+});
+
+window.addEventListener('rtcore:ready',()=>boot(),{once:true});
+
+if(!boot()){
+  let tries=0;
+  const timer=setInterval(()=>{
+    tries++;
+    if(boot()){
+      clearInterval(timer);
+      return
+    }
+    if(tries>80){
+      clearInterval(timer);
+      console.error('[Calendar] RTCore를 찾지 못했습니다. index와 calendar 파일의 버전/위치를 확인하세요.');
+    }
+  },50)
+}
+
+let pendingCoreRender=false;
+
+const calendarIsEditing=()=>{
+  const active=document.activeElement;
+  const page=$('#calendarPage');
+  if(!active||!page?.contains(active))return false;
+  return active.matches?.('input,textarea,select')||active.isContentEditable
+};
+
+window.addEventListener('rtcore:itemschanged',()=>{
+  if(!core)return;
+  refreshEntriesFromCore();
+  refreshDailyMetaFromCore();
+  calendarDirty=false;
+
+  if(calendarIsEditing()){
+    pendingCoreRender=true;
+    return
+  }
+
+  pendingCoreRender=false;
+  render()
+});
+
+document.addEventListener('focusout',()=>{
+  if(!pendingCoreRender)return;
+  setTimeout(()=>{
+    if(!calendarIsEditing()&&pendingCoreRender){
+      pendingCoreRender=false;
+      render()
+    }
+  },0)
+});
+
+window.addEventListener('rtroutine:changed',()=>{
+  if(!core)return;
+  render();
+  if(!$('#calRoutineDashboardModal')?.classList.contains('hidden')){
+    renderCalendarRoutineDashboard()
+  }
+});
+
+window.addEventListener('storage',e=>{
+  if(e.key!==CAL_KEY)return;
+  try{
+    state=normalizeState(JSON.parse(e.newValue||'null'));
+    render()
+  }catch{}
+});
+
+</script></body></html>
