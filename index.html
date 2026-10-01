@@ -2993,6 +2993,946 @@ body.cal-day-resizing .cal-time-block{
   }
 }
 </style>
+
+<style id="rt-r33-mobile-design">
+/* =========================================================
+   r33.0 MOBILE DESIGN SYSTEM
+   Soft blue + white surfaces / mobile-first
+   ========================================================= */
+:root{
+  --rt-bg:#eef4fd;
+  --rt-surface:#ffffff;
+  --rt-surface-soft:#f7faff;
+  --rt-primary:#2f80ed;
+  --rt-primary-600:#1f63d6;
+  --rt-primary-100:#e3eefd;
+  --rt-primary-050:#f2f7ff;
+  --rt-primary-grad:linear-gradient(160deg,#3b8cf5 0%,#1f63d6 100%);
+  --rt-text:#1b2430;
+  --rt-text-sub:#8a94a6;
+  --rt-text-soft:#aab4c3;
+  --rt-line:#e6edf7;
+  --rt-toggle-off:#d7e0ee;
+  --rt-focus:rgba(47,128,237,.18);
+  --rt-shadow-card:0 8px 24px rgba(47,100,190,.08);
+  --rt-shadow-hover:0 14px 32px rgba(47,100,190,.16);
+  --rt-shadow-primary:0 12px 28px rgba(47,128,237,.35);
+  --rt-shadow-soft:0 4px 18px rgba(47,100,190,.06);
+  --rt-r-card:24px;
+  --rt-r-input:16px;
+  --rt-r-pill:999px;
+  --rt-sp-1:8px;
+  --rt-sp-2:16px;
+  --rt-sp-3:24px;
+  --rt-sp-4:32px;
+  --rt-font:"Pretendard","Inter",system-ui,-apple-system,sans-serif;
+}
+.rt-r33-only{display:none}
+@media(max-width:760px){
+  html,body{
+    background:var(--rt-bg)!important;
+    color:var(--rt-text)!important;
+    font-family:var(--rt-font)!important;
+  }
+  body{
+    min-height:100dvh;
+    overflow:hidden;
+  }
+  *{box-sizing:border-box}
+  button,input,textarea,select{font-family:var(--rt-font)}
+  button{transition:transform .15s ease,box-shadow .2s ease,background .2s ease}
+  button:active{transform:scale(.97)}
+  :focus-visible{
+    outline:none!important;
+    box-shadow:0 0 0 4px var(--rt-focus)!important;
+  }
+
+  /* Hide the legacy desktop chrome, keep its data/UI engines alive */
+  .side,
+  .top-mode-switch,
+  .mode-help,
+  #projectPriorityRow,
+  .mobile-quick-row,
+  .views,
+  #tags,
+  .compose{
+    display:none!important;
+  }
+
+  .app{
+    display:block!important;
+    height:100dvh!important;
+    overflow:hidden!important;
+    background:var(--rt-bg)!important;
+  }
+  .main{
+    width:100%!important;
+    height:100dvh!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    padding:0 20px 116px!important;
+    background:var(--rt-bg)!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .main>.wrap{
+    width:100%!important;
+    max-width:430px!important;
+    margin:0 auto!important;
+    padding:0!important;
+  }
+
+  /* ---------- Mobile top shell ---------- */
+  .rt-mobile-top{
+    display:block!important;
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+    padding:24px 0 14px;
+  }
+  .rt-mobile-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+  }
+  .rt-mobile-header-copy{min-width:0}
+  .rt-mobile-header .sub{
+    color:var(--rt-text-sub);
+    font-size:13px;
+    font-weight:500;
+    line-height:1.35;
+  }
+  .rt-mobile-header .title{
+    margin-top:3px;
+    font-size:25px;
+    line-height:1.18;
+    font-weight:750;
+    letter-spacing:-.035em;
+    color:var(--rt-text);
+  }
+  .rt-mobile-header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:none;
+  }
+  .rt-round-button,
+  .rt-avatar{
+    width:44px;
+    height:44px;
+    border:0;
+    border-radius:50%;
+    background:var(--rt-surface);
+    box-shadow:var(--rt-shadow-card);
+    display:grid;
+    place-items:center;
+    color:var(--rt-primary);
+  }
+  .rt-round-button svg{width:20px;height:20px;stroke-width:1.6}
+  .rt-avatar{
+    color:var(--rt-primary-600);
+    font-size:15px;
+    font-weight:800;
+    background:linear-gradient(145deg,var(--rt-surface),var(--rt-primary-100));
+  }
+
+  /* ---------- Inbox controls ---------- */
+  .rt-inbox-controls{
+    display:block;
+    margin-top:18px;
+  }
+  body:not(.rt-screen-inbox) .rt-inbox-controls{display:none!important}
+  .rt-stats{
+    display:flex;
+    padding:14px 8px;
+    background:var(--rt-surface);
+    border-radius:20px;
+    box-shadow:var(--rt-shadow-card);
+  }
+  .rt-stat{
+    flex:1;
+    min-width:0;
+    text-align:center;
+    position:relative;
+  }
+  .rt-stat+.rt-stat:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:5px;
+    bottom:5px;
+    width:1px;
+    background:var(--rt-line);
+  }
+  .rt-stat-label{
+    display:block;
+    font-size:11px;
+    color:var(--rt-text-sub);
+  }
+  .rt-stat-value{
+    display:block;
+    margin-top:2px;
+    font-size:20px;
+    line-height:1;
+    font-weight:760;
+    color:var(--rt-text);
+  }
+  .rt-filter-scroll{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding:18px 1px 8px;
+    scrollbar-width:none;
+  }
+  .rt-filter-scroll::-webkit-scrollbar{display:none}
+  .rt-filter-pill{
+    flex:none;
+    border:1.5px solid transparent;
+    border-radius:var(--rt-r-pill);
+    background:var(--rt-surface);
+    color:var(--rt-text);
+    padding:10px 16px;
+    font-size:13px;
+    font-weight:600;
+    box-shadow:var(--rt-shadow-soft);
+  }
+  .rt-filter-pill.active{
+    border-color:color-mix(in srgb,var(--rt-primary) 34%,transparent);
+    background:var(--rt-primary-050);
+    color:var(--rt-primary-600);
+  }
+  .rt-inbox-toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:12px 0 12px;
+  }
+  .rt-inbox-count{
+    color:var(--rt-text-sub);
+    font-size:12px;
+    font-weight:600;
+  }
+  .rt-segmented{
+    display:inline-flex;
+    gap:4px;
+    padding:5px;
+    border-radius:var(--rt-r-pill);
+    background:var(--rt-primary-100);
+  }
+  .rt-segmented button{
+    border:0;
+    background:transparent;
+    color:var(--rt-text-sub);
+    padding:8px 12px;
+    border-radius:var(--rt-r-pill);
+    font-size:12px;
+    font-weight:650;
+  }
+  .rt-segmented button.active{
+    background:var(--rt-surface);
+    color:var(--rt-text);
+    box-shadow:var(--rt-shadow-card);
+  }
+
+  /* ---------- Inbox list ---------- */
+  #list{
+    display:flex!important;
+    flex-direction:column;
+    gap:12px!important;
+    width:100%;
+    margin:0!important;
+    padding:0 0 18px!important;
+  }
+  #list .datehead{display:none!important}
+  #list .card{
+    position:relative;
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:18px!important;
+    border:0!important;
+    border-radius:var(--rt-r-card)!important;
+    background:var(--rt-surface)!important;
+    box-shadow:var(--rt-shadow-card)!important;
+    transition:transform .2s ease,box-shadow .2s ease!important;
+    overflow:hidden!important;
+  }
+  #list .card:active{
+    transform:translateY(-1px);
+    box-shadow:var(--rt-shadow-hover)!important;
+  }
+  #list .card.rt-inbox-hidden{display:none!important}
+  #list .card.virtual-plan-hidden{display:none!important}
+  #list .card>.left{
+    width:100%!important;
+    min-width:0!important;
+    padding:0!important;
+  }
+  #list .card>.right{
+    position:absolute!important;
+    top:14px!important;
+    right:12px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:96px!important;
+    margin:0!important;
+    padding:0!important;
+    font-size:0!important;
+    overflow:visible!important;
+  }
+  #list .card .memo,
+  #list .card .tasks,
+  #list .card .review-block,
+  #list .card .item-completed-badge,
+  #list .card .memo-more-toggle,
+  #list .card .block-marker{
+    display:none!important;
+  }
+  .rt-inbox-card-content{
+    display:block;
+    padding-right:78px;
+    cursor:pointer;
+  }
+  .rt-inbox-card-title{
+    margin:0;
+    color:var(--rt-text);
+    font-size:16px;
+    font-weight:720;
+    line-height:1.35;
+    letter-spacing:-.02em;
+  }
+  .rt-inbox-card-preview{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+    margin:6px 0 0;
+    min-height:0;
+    color:var(--rt-text-sub);
+    font-size:12px;
+    line-height:1.55;
+  }
+  .rt-check-preview{
+    margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+  .rt-check-preview-row{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    min-width:0;
+    color:var(--rt-text-sub);
+    font-size:11px;
+  }
+  .rt-check-preview-row i{
+    width:14px;height:14px;border-radius:4px;
+    border:1.5px solid var(--rt-toggle-off);
+    flex:none;
+  }
+  .rt-check-preview-row.done i{
+    background:var(--rt-primary);
+    border-color:var(--rt-primary);
+    box-shadow:inset 0 0 0 3px var(--rt-surface);
+  }
+  .rt-check-preview-row span{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  .rt-card-meta{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:13px;
+  }
+  .rt-meta-chip{
+    display:inline-flex;
+    align-items:center;
+    min-height:24px;
+    padding:3px 9px;
+    border-radius:var(--rt-r-pill);
+    background:var(--rt-primary-050);
+    color:var(--rt-primary-600);
+    font-size:10px;
+    font-weight:650;
+  }
+  .rt-meta-chip.subtle{
+    background:var(--rt-surface-soft);
+    color:var(--rt-text-sub);
+  }
+  .rt-meta-chip.project{
+    background:var(--rt-primary-100);
+    color:var(--rt-primary-600);
+  }
+  .rt-meta-chip.count{
+    margin-left:auto;
+    color:var(--rt-text-sub);
+    background:transparent;
+    padding-right:0;
+  }
+
+  /* Legacy tools are reduced to Calendar + More */
+  #list .card .card-tools{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    justify-content:flex-end!important;
+    align-items:center!important;
+    gap:2px!important;
+    width:auto!important;
+    max-width:none!important;
+    overflow:visible!important;
+  }
+  #list .card .card-tools>*{display:none!important}
+  #list .card .card-tools .go-timetable,
+  #list .card .card-tools .rt-card-more{
+    display:grid!important;
+    place-items:center!important;
+    width:34px!important;
+    height:34px!important;
+    min-width:34px!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:50%!important;
+    background:transparent!important;
+    color:var(--rt-primary)!important;
+    font-size:17px!important;
+  }
+  #list .card .card-tools .rt-card-more{
+    color:var(--rt-text-sub)!important;
+    font-size:20px!important;
+  }
+  .rt-card-menu{
+    position:absolute;
+    z-index:60;
+    top:50px;
+    right:12px;
+    width:132px;
+    padding:7px;
+    border-radius:16px;
+    background:var(--rt-surface);
+    box-shadow:var(--rt-shadow-hover);
+  }
+  .rt-card-menu.hidden{display:none}
+  .rt-card-menu button{
+    display:block;
+    width:100%;
+    border:0;
+    border-radius:11px;
+    background:transparent;
+    padding:9px 10px;
+    text-align:left;
+    color:var(--rt-text);
+    font-size:12px;
+  }
+  .rt-card-menu button:active{background:var(--rt-primary-050)}
+
+  /* card-view mode */
+  body.rt-inbox-card-view #list{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:12px!important;
+  }
+  body.rt-inbox-card-view #list .card{
+    min-height:190px;
+    padding:16px!important;
+  }
+  body.rt-inbox-card-view .rt-inbox-card-content{padding-right:0;padding-top:35px}
+  body.rt-inbox-card-view #list .card>.right{top:10px;right:9px}
+  body.rt-inbox-card-view .rt-inbox-card-preview{-webkit-line-clamp:3}
+  body.rt-inbox-card-view .rt-card-meta{align-content:flex-end}
+  body.rt-inbox-card-view .rt-check-preview{display:none}
+
+  /* ---------- Global floating plus ---------- */
+  .rt-global-plus{
+    position:fixed;
+    z-index:120;
+    right:max(20px,calc((100vw - 430px)/2 + 20px));
+    bottom:94px;
+    width:58px;
+    height:58px;
+    border:0;
+    border-radius:50%;
+    background:var(--rt-primary-grad);
+    color:var(--rt-surface);
+    box-shadow:var(--rt-shadow-primary);
+    display:grid;
+    place-items:center;
+    font-size:31px;
+    font-weight:300;
+  }
+  body:not(.rt-screen-inbox) .rt-global-plus{display:none!important}
+
+  /* ---------- Bottom tabbar ---------- */
+  .rt-bottom-nav{
+    position:fixed;
+    z-index:200;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:min(430px,100%);
+    display:flex;
+    justify-content:space-around;
+    align-items:flex-start;
+    padding:11px 7px calc(18px + env(safe-area-inset-bottom));
+    border-radius:28px 28px 0 0;
+    background:color-mix(in srgb,var(--rt-surface-soft) 86%,transparent);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 -8px 30px rgba(47,100,190,.06);
+  }
+  .rt-bottom-nav button{
+    flex:1;
+    border:0;
+    background:transparent;
+    color:var(--rt-text-sub);
+    display:grid;
+    justify-items:center;
+    gap:4px;
+    padding:3px 2px;
+    font-size:10px;
+    font-weight:550;
+  }
+  .rt-bottom-nav svg{
+    width:21px;height:21px;
+    stroke:currentColor;fill:none;stroke-width:1.6;
+  }
+  .rt-bottom-nav button.active{
+    color:var(--rt-primary);
+    font-weight:700;
+  }
+
+  /* ---------- Mobile Inbox editor ---------- */
+  .rt-sheet{
+    position:fixed;
+    inset:0;
+    z-index:400;
+    display:flex;
+    justify-content:center;
+    align-items:stretch;
+    background:var(--rt-bg);
+  }
+  .rt-sheet.hidden{display:none}
+  .rt-sheet-inner{
+    width:min(430px,100%);
+    min-height:100dvh;
+    padding:18px 20px calc(110px + env(safe-area-inset-bottom));
+    overflow-y:auto;
+    background:var(--rt-bg);
+  }
+  .rt-editor-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:24px;
+  }
+  .rt-editor-head button{
+    border:0;
+    background:var(--rt-surface);
+    color:var(--rt-primary);
+    border-radius:var(--rt-r-pill);
+    padding:10px 15px;
+    box-shadow:var(--rt-shadow-card);
+    font-size:12px;
+    font-weight:700;
+  }
+  .rt-editor-title{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--rt-text);
+    font-size:27px;
+    font-weight:760;
+    letter-spacing:-.035em;
+  }
+  .rt-editor-card{
+    margin-top:16px;
+    padding:18px;
+    border-radius:var(--rt-r-card);
+    background:var(--rt-surface);
+    box-shadow:var(--rt-shadow-card);
+  }
+  .rt-editor-body{
+    width:100%;
+    min-height:230px;
+    resize:none;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--rt-text);
+    font-size:15px;
+    line-height:1.72;
+  }
+  .rt-editor-label{
+    display:block;
+    margin:18px 0 8px;
+    color:var(--rt-text-sub);
+    font-size:11px;
+    font-weight:700;
+  }
+  .rt-editor-field{
+    width:100%;
+    border:0;
+    outline:0;
+    padding:13px 14px;
+    border-radius:var(--rt-r-input);
+    background:var(--rt-surface);
+    box-shadow:var(--rt-shadow-card);
+    color:var(--rt-text);
+    font-size:13px;
+  }
+  .rt-editor-type{
+    display:inline-flex;
+    padding:5px;
+    gap:4px;
+    border-radius:var(--rt-r-pill);
+    background:var(--rt-primary-100);
+  }
+  .rt-editor-type button{
+    border:0;
+    border-radius:var(--rt-r-pill);
+    background:transparent;
+    color:var(--rt-text-sub);
+    padding:9px 18px;
+    font-size:12px;
+    font-weight:650;
+  }
+  .rt-editor-type button.active{
+    background:var(--rt-surface);
+    color:var(--rt-primary-600);
+    box-shadow:var(--rt-shadow-card);
+  }
+  .rt-editor-checks{display:flex;flex-direction:column;gap:8px}
+  .rt-editor-check-row{
+    display:grid;
+    grid-template-columns:18px minmax(0,1fr) 28px;
+    align-items:center;
+    gap:8px;
+  }
+  .rt-editor-check-row input[type=text]{
+    width:100%;
+    border:0;
+    outline:0;
+    padding:10px 12px;
+    border-radius:13px;
+    background:var(--rt-surface-soft);
+    color:var(--rt-text);
+  }
+  .rt-editor-check-row button{
+    border:0;background:transparent;color:var(--rt-text-sub);font-size:17px
+  }
+  .rt-editor-add-check{
+    margin-top:8px;
+    border:0;
+    background:transparent;
+    color:var(--rt-primary);
+    font-size:12px;
+    font-weight:700;
+    padding:8px 0;
+  }
+
+  /* ---------- Calendar send sheet ---------- */
+  .rt-calendar-sheet{
+    position:fixed;
+    inset:0;
+    z-index:420;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:18px;
+    background:rgba(27,36,48,.18);
+    backdrop-filter:blur(5px);
+  }
+  .rt-calendar-sheet.hidden{display:none}
+  .rt-calendar-sheet-card{
+    width:min(410px,100%);
+    padding:20px;
+    border-radius:28px;
+    background:var(--rt-surface);
+    box-shadow:var(--rt-shadow-hover);
+  }
+  .rt-calendar-sheet-card h3{margin:0;font-size:18px}
+  .rt-calendar-sheet-card p{margin:5px 0 16px;color:var(--rt-text-sub);font-size:12px}
+  .rt-date-shortcuts{display:flex;gap:8px;margin-bottom:12px}
+  .rt-date-shortcuts button{
+    flex:1;border:0;border-radius:var(--rt-r-pill);padding:10px;
+    background:var(--rt-primary-050);color:var(--rt-primary-600);font-weight:700
+  }
+  .rt-calendar-date{
+    width:100%;
+    border:0;
+    padding:13px 14px;
+    border-radius:var(--rt-r-input);
+    background:var(--rt-surface-soft);
+    color:var(--rt-text);
+  }
+  .rt-sheet-actions{display:flex;gap:8px;margin-top:14px}
+  .rt-sheet-actions button{
+    flex:1;border:0;border-radius:var(--rt-r-input);padding:13px;font-weight:750
+  }
+  .rt-sheet-actions .cancel{background:var(--rt-surface-soft);color:var(--rt-text-sub)}
+  .rt-sheet-actions .primary{background:var(--rt-primary);color:var(--rt-surface)}
+
+  /* ---------- Calendar restyle ---------- */
+  body.rt-screen-calendar .rt-mobile-top{padding-bottom:8px}
+  body.rt-screen-calendar .main>.wrap{padding-top:0!important}
+  .calendar-page{
+    width:100%!important;
+    margin:0!important;
+    padding:0 0 10px!important;
+    background:transparent!important;
+  }
+  .cal-header{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:8px!important;
+    margin:4px 0 14px!important;
+    padding:10px 12px!important;
+    border:0!important;
+    border-radius:20px!important;
+    background:var(--rt-surface)!important;
+    box-shadow:var(--rt-shadow-card)!important;
+  }
+  .cal-view-switch{display:none!important}
+  .cal-date-nav{display:flex!important;align-items:center!important;gap:4px!important;min-width:0}
+  .cal-date-nav>button:not(.cal-today-button){
+    width:32px!important;height:32px!important;border:0!important;border-radius:50%!important;
+    background:var(--rt-surface-soft)!important;color:var(--rt-primary)!important
+  }
+  .cal-date-title{
+    min-width:0!important;
+    max-width:160px!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    text-overflow:ellipsis!important;
+    color:var(--rt-text)!important;
+    font-size:12px!important;
+  }
+  .cal-today-button{
+    border:0!important;
+    border-radius:var(--rt-r-pill)!important;
+    background:var(--rt-primary-050)!important;
+    color:var(--rt-primary-600)!important;
+    box-shadow:none!important;
+  }
+  .cal-header-actions{display:flex!important;gap:4px!important}
+  .cal-header-actions button{
+    border:0!important;
+    background:var(--rt-surface-soft)!important;
+    color:var(--rt-text-sub)!important;
+    border-radius:var(--rt-r-pill)!important;
+    padding:8px 10px!important;
+    font-size:10px!important;
+  }
+
+  /* Month */
+  .cal-month-weekdays,
+  .cal-month-grid{
+    background:var(--rt-surface)!important;
+  }
+  .cal-month-weekdays{
+    padding:13px 8px 5px!important;
+    border-radius:var(--rt-r-card) var(--rt-r-card) 0 0!important;
+    box-shadow:var(--rt-shadow-card)!important;
+  }
+  .cal-month-grid{
+    padding:4px 7px 10px!important;
+    border-radius:0 0 var(--rt-r-card) var(--rt-r-card)!important;
+    box-shadow:var(--rt-shadow-card)!important;
+  }
+  .cal-month-day{
+    min-height:63px!important;
+    border:0!important;
+    border-radius:15px!important;
+    background:transparent!important;
+    padding:5px!important;
+  }
+  .cal-month-day.today{
+    background:var(--rt-primary)!important;
+    color:var(--rt-surface)!important;
+    box-shadow:var(--rt-shadow-primary)!important;
+  }
+  .cal-month-date-row b{font-size:12px!important}
+  .cal-month-date-row span{font-size:8px!important}
+  .cal-month-big3 span{
+    overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important;
+    color:var(--rt-text-sub)!important;font-size:7px!important
+  }
+  .cal-month-day.today .cal-month-big3 span,
+  .cal-month-day.today .cal-month-date-row span{color:rgba(255,255,255,.82)!important}
+  .cal-month-big3 i{display:none!important}
+  .cal-month-count{font-size:8px!important;color:var(--rt-primary)!important}
+  .cal-overview-note{display:none!important}
+
+  /* Week */
+  .cal-week-workspace{
+    border-radius:var(--rt-r-card)!important;
+    background:var(--rt-surface)!important;
+    box-shadow:var(--rt-shadow-card)!important;
+    overflow:hidden!important;
+  }
+  .cal-week-scroll{overflow-x:auto!important}
+  .cal-week-layout{min-width:900px!important;background:var(--rt-surface)!important}
+  .cal-week-weekdays,.cal-week-dates,.cal-week-timetable{
+    grid-template-columns:52px repeat(7,minmax(118px,1fr))!important;
+  }
+  .cal-week-timetable{grid-template-rows:repeat(var(--cal-week-slots),34px)!important}
+  .cal-week-time-cell{border-color:var(--rt-line)!important;background:transparent!important}
+  .cal-week-time-label{color:var(--rt-text-sub)!important}
+  .cal-week-date-cell{
+    border:0!important;background:transparent!important;color:var(--rt-text)!important
+  }
+  .cal-week-date-cell.today{
+    background:var(--rt-primary-100)!important;
+    color:var(--rt-primary-600)!important;
+    box-shadow:none!important;
+    border-radius:14px!important;
+  }
+  .cal-week-time-block{
+    border:0!important;
+    border-radius:13px!important;
+    background:var(--rt-primary-100)!important;
+    color:var(--rt-primary-600)!important;
+    box-shadow:0 4px 10px rgba(47,100,190,.08)!important;
+  }
+  .cal-week-time-block.big3,
+  .cal-week-time-block.routine{
+    background:var(--rt-primary-100)!important;
+    color:var(--rt-primary-600)!important;
+  }
+  .cal-week-time-block>b{color:var(--rt-primary)!important}
+  .cal-week-block-copy small{color:var(--rt-text-sub)!important}
+
+  /* Day */
+  .cal-day-layout{display:block!important}
+  .cal-day-left{display:block!important;width:100%!important}
+  .cal-panel{
+    border:0!important;
+    border-radius:var(--rt-r-card)!important;
+    background:var(--rt-surface)!important;
+    box-shadow:var(--rt-shadow-card)!important;
+  }
+  .cal-day-label-panel{display:none!important}
+  .cal-big3-panel,.cal-brain-panel,.cal-routine-unplaced-panel,.cal-daily-text-panel{
+    margin:0 0 12px!important;
+  }
+  .cal-panel-head{border:0!important;padding:14px 16px 8px!important}
+  .cal-big3-list,.cal-brain-list,.cal-routine-unplaced-list{
+    padding:6px 12px 14px!important
+  }
+  .cal-big3-item{
+    border:0!important;
+    border-radius:15px!important;
+    background:var(--rt-primary-050)!important;
+    color:var(--rt-text)!important;
+    padding:10px 12px!important;
+  }
+  .cal-big3-item b{
+    background:var(--rt-primary)!important;color:var(--rt-surface)!important
+  }
+  .cal-brain-item{
+    border:0!important;
+    border-radius:15px!important;
+    background:var(--rt-surface-soft)!important;
+    box-shadow:none!important;
+  }
+  .cal-brain-item.big3{background:var(--rt-primary-050)!important;box-shadow:none!important}
+  .cal-timetable-panel{
+    position:relative;
+    padding-bottom:16px!important;
+    overflow:visible!important;
+  }
+  .cal-time-grid{
+    border-radius:18px!important;
+    overflow:hidden!important;
+    background:var(--rt-surface)!important;
+  }
+  .cal-slot>i{background:var(--rt-line)!important}
+  .cal-time-block{
+    border:0!important;
+    border-radius:15px!important;
+    background:var(--rt-primary-100)!important;
+    color:var(--rt-text)!important;
+    box-shadow:0 5px 14px rgba(47,100,190,.10)!important;
+  }
+  .cal-time-block.big3,
+  .cal-routine-soft-block{
+    background:var(--rt-primary-100)!important;
+    border-left:3px solid var(--rt-primary)!important;
+  }
+  .cal-time-block-main strong{color:var(--rt-primary-600)!important}
+  .cal-time-block-preview{color:var(--rt-text-sub)!important}
+  .cal-block-big3-badge,.cal-routine-badge{
+    background:var(--rt-primary)!important;color:var(--rt-surface)!important
+  }
+  .cal-current-time-line{border-color:var(--rt-primary)!important}
+  .cal-current-time-line>i{background:var(--rt-primary)!important}
+  .cal-floating-add{
+    bottom:96px!important;
+    right:max(20px,calc((100vw - 430px)/2 + 20px))!important;
+    background:var(--rt-primary-grad)!important;
+    color:var(--rt-surface)!important;
+    box-shadow:var(--rt-shadow-primary)!important;
+  }
+  .cal-floating-shortcut{display:none!important}
+
+  /* ---------- Projects prototype ---------- */
+  .rt-projects-page{
+    display:none;
+    width:100%;
+    padding:4px 0 24px;
+  }
+  body.rt-screen-project .rt-projects-page{display:block}
+  .rt-project-intro{
+    padding:18px;
+    border-radius:var(--rt-r-card);
+    background:var(--rt-surface);
+    box-shadow:var(--rt-shadow-card);
+  }
+  .rt-project-intro h2{margin:0;font-size:20px}
+  .rt-project-intro p{margin:6px 0 0;color:var(--rt-text-sub);font-size:12px;line-height:1.55}
+  .rt-project-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+  .rt-project-card{
+    padding:17px;
+    border:0;
+    border-radius:var(--rt-r-card);
+    background:var(--rt-surface);
+    box-shadow:var(--rt-shadow-card);
+  }
+  .rt-project-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .rt-project-card h3{margin:0;font-size:15px}
+  .rt-project-card .count{
+    color:var(--rt-primary);
+    background:var(--rt-primary-050);
+    border-radius:var(--rt-r-pill);
+    padding:5px 9px;
+    font-size:10px;font-weight:700
+  }
+  .rt-project-metrics{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px
+  }
+  .rt-project-metric{
+    padding:10px;border-radius:14px;background:var(--rt-surface-soft)
+  }
+  .rt-project-metric b{display:block;font-size:16px;color:var(--rt-primary-600)}
+  .rt-project-metric span{font-size:9px;color:var(--rt-text-sub)}
+
+  /* Hide old memo content when project mode is active */
+  body.rt-screen-project #list,
+  body.rt-screen-project .calendar-page{display:none!important}
+  body.rt-screen-calendar #list{display:none!important}
+  body.rt-screen-inbox .calendar-page{display:none!important}
+}
+</style>
+
 </head><body><div class="app"><aside class="side"><div class="brand">Review &amp; Todo<small>생각을 빠르게 꺼내고 정리합니다</small></div><input id="search" class="search" placeholder="검색어 띄어쓰기 입력…"><div class="views"><button class="active" data-view="live">Live</button><button data-view="archive">Archive</button><button data-view="date">날짜별</button></div><div id="tags" class="tags"></div><div class="bottom"><div id="syncState" class="sync-state">로컬에 저장됨</div><button id="sync" class="plain">↻ 지금 동기화</button><button id="account" class="plain">계정</button><button id="backup" class="plain">JSON 내보내기</button><button id="restore" class="plain">JSON 불러오기(병합)</button><div id="revision" class="revision">Rev. r24_260827</div><input id="file" type="file" accept=".json" class="hidden"></div></aside><main class="main"><div class="wrap"><div class="compose"><div style="flex:1"><textarea id="newMemo" placeholder="빈 페이지… (Alt+Enter: 할 일 추가)"></textarea><div id="tempTasks" class="tasks"></div></div><div><button id="save" class="button">저장</button><span class="hint">Ctrl+Enter</span></div></div><div id="list"></div></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><button id="close" class="plain" style="float:right;width:auto">닫기</button><h2>Supabase 동기화</h2><p>현재 프로젝트의 Project URL과 Publishable key를 입력하고 로그인하세요. 설정값은 이 브라우저에만 저장됩니다.</p><input id="url" placeholder="https://xxxxx.supabase.co"><input id="key" placeholder="Publishable / anon key"><input id="email" type="email" placeholder="이메일"><input id="password" type="password" placeholder="비밀번호"><div class="row"><button id="signup" class="button">가입</button><button id="signin" class="button primary">로그인</button></div><p id="message"></p></div></div>
 <script type="module">import{createClient}from'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -5465,7 +6405,7 @@ applyAppMode();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix5';
+if($('#revision'))$('#revision').textContent='Rev. r33.0_261001_mobile_ui1';
 
 /* ---------- Notice ---------- */
 const NOTICE_SEEN_KEY='review_todo_notice_seen_v1';
@@ -5937,7 +6877,7 @@ render();
    ========================================================= */
 
 /* ---------- Revision ---------- */
-if($('#revision'))$('#revision').textContent='Rev. r32.0_260929_fix5';
+if($('#revision'))$('#revision').textContent='Rev. r33.0_261001_mobile_ui1';
 
 /* ---------- Projects ---------- */
 const PROJECTS_KEY='review_todo_projects_v1';
@@ -7925,7 +8865,7 @@ render();
 
 
 /* =========================================================
-   Rev. r32.0_260929_fix5 - Calendar / Completion metadata sync
+   Rev. r33.0_261001_mobile_ui1 - Calendar / Completion metadata sync
    기존 Supabase blocks 스키마를 변경하지 않고 Item child comment에
    예약 prefix를 사용하여 Calendar 일정과 완료 회고를 동기화합니다.
    ========================================================= */
@@ -8406,7 +9346,7 @@ syncNow=async force=>{
 
 
 /* =========================================================
-   Rev. r32.0_260929_fix5 - Unified Item Core API
+   Rev. r33.0_261001_mobile_ui1 - Unified Item Core API
    Calendar/Routine의 다음 세대 코드는 memos 배열을 직접 만지지 않고
    이 API를 통해 현재 Review & Todo Item/Checklist를 사용합니다.
 
@@ -8868,7 +9808,7 @@ const r317UndoRoutine=(routineId,date)=>{
 
 window.RTCore=Object.freeze({
   schemaVersion:R31_SCHEMA_VERSION,
-  appVersion:'r32.0_260929_fix5',
+  appVersion:'r33.0_261001_mobile_ui1',
   routineGeneration:2,
 
   getItems:()=>r31Clone(memos),
@@ -9086,7 +10026,7 @@ document.head.append(r312WorkspaceStyle);
 
 
 window.RTCalendarBuild={
-  version:'r32.0_260929_fix5',
+  version:'r33.0_261001_mobile_ui1',
   selfContained:true
 };
 window.dispatchEvent(new CustomEvent('rtcore:ready',{detail:window.RTCore}));
@@ -12064,7 +13004,7 @@ const boot=()=>{
 
   // Workspace "Go to TimeTable" / external integration.
   window.RTCalendar=Object.freeze({
-    version:'r32.0_260929_fix5',
+    version:'r33.0_261001_mobile_ui1',
     activate:(date=localDateKey())=>{
       selectedDate=date;
       viewMode='day';
@@ -12082,7 +13022,17 @@ const boot=()=>{
       return clone(state.entries.find(e=>e.itemId===itemId&&e.date===date&&e.status!=='deleted'))
     },
     getEntries:date=>clone(date?entriesForDate(date):state.entries),
-    getSettings:()=>clone(state.settings)
+    getSettings:()=>clone(state.settings),
+    setView:(mode,date=selectedDate)=>{
+      if(!['month','week','day'].includes(mode))return false;
+      selectedDate=date||selectedDate;
+      viewMode=mode;
+      core.setMode?.('calendar');
+      render();
+      return true
+    },
+    getView:()=>viewMode,
+    getSelectedDate:()=>selectedDate
   });
 
   render();
@@ -12161,4 +13111,613 @@ window.addEventListener('storage',e=>{
   }catch{}
 });
 
-</script></body></html>
+</script>
+<script id="rt-r33-mobile-ui">
+(()=>{
+  'use strict';
+
+  const mq=window.matchMedia('(max-width:760px)');
+  let core=null;
+  let currentScreen='inbox';
+  let inboxFilter='all';
+  let inboxView='list';
+  let editorItemId=null;
+  let editorWork=false;
+  let editorChecks=[];
+  let pendingCalendarItemId=null;
+
+  const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+
+  const icons={
+    bell:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>`,
+    inbox:`<svg viewBox="0 0 24 24"><path d="M4 4h16v13H4z"/><path d="M4 13h4l2 3h4l2-3h4"/></svg>`,
+    month:`<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>`,
+    week:`<svg viewBox="0 0 24 24"><path d="M4 4v16M10 4v16M16 4v16M22 4v16"/></svg>`,
+    day:`<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`,
+    project:`<svg viewBox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3z"/></svg>`
+  };
+
+  const parseProjects=text=>[...new Set(
+    [...String(text||'').matchAll(/@([^\s@#]+)/gu)].map(m=>m[1]).filter(Boolean)
+  )];
+  const parseTags=text=>[...new Set(
+    (String(text||'').match(/#([가-힣\w-]+)/g)||[]).map(x=>x.slice(1))
+  )];
+  const cleanBody=text=>{
+    const lines=String(text||'').replace(/\r/g,'').split('\n');
+    return lines.slice(1).join(' ')
+      .replace(/(^|\s)[#@][^\s#@]+/g,' ')
+      .replace(/\s+/g,' ').trim();
+  };
+  const titleOf=item=>{
+    const first=(String(item?.content||'').replace(/\r/g,'').split('\n')[0]||'').trim();
+    return first||((item?.tasks||[]).find(t=>!t.deletedAt&&t.text)?.text||'제목 없는 메모');
+  };
+  const liveTasks=item=>(item?.tasks||[]).filter(t=>t&&!t.deletedAt);
+  const activeEntries=itemId=>(core?.getCalendarEntries?.()||[])
+    .filter(e=>e.itemId===itemId&&e.status!=='deleted'&&e.status!=='obsolete');
+  const isInboxItem=item=>item&&item.status!=='archive'&&item.status!=='deleted'&&activeEntries(item.id).length===0;
+
+  const setHeader=(title,sub)=>{
+    const titleEl=$('#rtMobileTitle');
+    const subEl=$('#rtMobileSub');
+    if(titleEl)titleEl.textContent=title;
+    if(subEl)subEl.textContent=sub;
+  };
+
+  const installShell=()=>{
+    if($('#rtMobileTop'))return;
+
+    const main=$('.main');
+    const wrap=$('.main>.wrap');
+    if(!main||!wrap)return;
+
+    const top=document.createElement('section');
+    top.id='rtMobileTop';
+    top.className='rt-mobile-top rt-r33-only';
+    top.innerHTML=`
+      <header class="rt-mobile-header">
+        <div class="rt-mobile-header-copy">
+          <div id="rtMobileSub" class="sub">오늘도 하나씩 정리해봐요</div>
+          <div id="rtMobileTitle" class="title">Inbox</div>
+        </div>
+        <div class="rt-mobile-header-actions">
+          <button type="button" class="rt-round-button" id="rtMobileSync" aria-label="동기화">${icons.bell}</button>
+          <div class="rt-avatar" aria-label="프로필">R</div>
+        </div>
+      </header>
+      <div id="rtInboxControls" class="rt-inbox-controls">
+        <div class="rt-stats">
+          <div class="rt-stat"><span class="rt-stat-label">미정리</span><b id="rtStatInbox" class="rt-stat-value">0</b></div>
+          <div class="rt-stat"><span class="rt-stat-label">업무</span><b id="rtStatWork" class="rt-stat-value">0</b></div>
+          <div class="rt-stat"><span class="rt-stat-label">개인</span><b id="rtStatPersonal" class="rt-stat-value">0</b></div>
+        </div>
+        <div class="rt-filter-scroll">
+          <button class="rt-filter-pill active" data-rt-filter="all">전체</button>
+          <button class="rt-filter-pill" data-rt-filter="personal">개인</button>
+          <button class="rt-filter-pill" data-rt-filter="work">업무</button>
+          <button class="rt-filter-pill" data-rt-filter="project">프로젝트</button>
+          <button class="rt-filter-pill" data-rt-filter="tag">태그</button>
+        </div>
+        <div class="rt-inbox-toolbar">
+          <span id="rtInboxCount" class="rt-inbox-count">0개의 항목</span>
+          <div class="rt-segmented" aria-label="보기 방식">
+            <button type="button" class="active" data-rt-view="list">☷ 리스트</button>
+            <button type="button" data-rt-view="card">▦ 카드</button>
+          </div>
+        </div>
+      </div>`;
+
+    main.insertBefore(top,wrap);
+
+    const projects=document.createElement('section');
+    projects.id='rtProjectsPage';
+    projects.className='rt-projects-page rt-r33-only';
+    wrap.appendChild(projects);
+
+    document.body.insertAdjacentHTML('beforeend',`
+      <button type="button" id="rtGlobalPlus" class="rt-global-plus rt-r33-only" aria-label="새 메모">＋</button>
+
+      <nav id="rtBottomNav" class="rt-bottom-nav rt-r33-only" aria-label="주요 화면">
+        <button type="button" class="active" data-rt-screen="inbox">${icons.inbox}<span>Inbox</span></button>
+        <button type="button" data-rt-screen="month">${icons.month}<span>Month</span></button>
+        <button type="button" data-rt-screen="week">${icons.week}<span>Week</span></button>
+        <button type="button" data-rt-screen="day">${icons.day}<span>Day</span></button>
+        <button type="button" data-rt-screen="project">${icons.project}<span>Project</span></button>
+      </nav>
+
+      <section id="rtInboxEditor" class="rt-sheet rt-r33-only hidden" aria-modal="true">
+        <div class="rt-sheet-inner">
+          <div class="rt-editor-head">
+            <button type="button" data-rt-editor-close>‹ 닫기</button>
+            <button type="button" data-rt-editor-save>저장</button>
+          </div>
+          <input id="rtEditorTitle" class="rt-editor-title" maxlength="300" placeholder="메모 제목">
+          <div class="rt-editor-card">
+            <textarea id="rtEditorBody" class="rt-editor-body" placeholder="메모, 생각, 참고 내용을 자유롭게 적으세요."></textarea>
+          </div>
+
+          <span class="rt-editor-label">개인 / 업무</span>
+          <div class="rt-editor-type">
+            <button type="button" class="active" data-rt-work="personal">개인</button>
+            <button type="button" data-rt-work="work">업무</button>
+          </div>
+
+          <span class="rt-editor-label">프로젝트</span>
+          <input id="rtEditorProject" class="rt-editor-field" placeholder="예: MDP">
+
+          <span class="rt-editor-label">태그</span>
+          <input id="rtEditorTags" class="rt-editor-field" placeholder="예: 자료, 아이디어">
+
+          <span class="rt-editor-label">체크리스트</span>
+          <div id="rtEditorChecks" class="rt-editor-checks"></div>
+          <button type="button" id="rtEditorAddCheck" class="rt-editor-add-check">＋ 체크리스트 추가</button>
+        </div>
+      </section>
+
+      <section id="rtCalendarSendSheet" class="rt-calendar-sheet rt-r33-only hidden" aria-modal="true">
+        <div class="rt-calendar-sheet-card">
+          <h3>Calendar로 보내기</h3>
+          <p>날짜만 정하면 해당 날짜의 Brain Dump로 이동합니다.</p>
+          <div class="rt-date-shortcuts">
+            <button type="button" data-rt-date-offset="0">오늘</button>
+            <button type="button" data-rt-date-offset="1">내일</button>
+          </div>
+          <input id="rtCalendarDate" class="rt-calendar-date" type="date">
+          <div class="rt-sheet-actions">
+            <button type="button" class="cancel" data-rt-calendar-cancel>취소</button>
+            <button type="button" class="primary" data-rt-calendar-confirm>보내기</button>
+          </div>
+        </div>
+      </section>
+    `);
+
+    bindShell();
+  };
+
+  const bindShell=()=>{
+    $('#rtMobileSync')?.addEventListener('click',()=>core?.sync?.());
+
+    $$('[data-rt-filter]').forEach(btn=>btn.addEventListener('click',()=>{
+      const type=btn.dataset.rtFilter;
+      if(type==='project'){
+        $('#mobileProjectOpen')?.click()||$('#projectSidebarOpen')?.click();
+        return;
+      }
+      if(type==='tag'){
+        $('#tagPicker')?.click();
+        return;
+      }
+      inboxFilter=type;
+      $$('[data-rt-filter]').forEach(x=>x.classList.toggle('active',x===btn));
+      enhanceInbox()
+    }));
+
+    $$('[data-rt-view]').forEach(btn=>btn.addEventListener('click',()=>{
+      inboxView=btn.dataset.rtView;
+      document.body.classList.toggle('rt-inbox-card-view',inboxView==='card');
+      $$('[data-rt-view]').forEach(x=>x.classList.toggle('active',x===btn))
+    }));
+
+    $('#rtGlobalPlus')?.addEventListener('click',()=>openEditor(null));
+
+    $$('[data-rt-screen]').forEach(btn=>btn.addEventListener('click',()=>{
+      switchScreen(btn.dataset.rtScreen)
+    }));
+
+    $('[data-rt-editor-close]')?.addEventListener('click',closeEditor);
+    $('[data-rt-editor-save]')?.addEventListener('click',saveEditor);
+    $$('[data-rt-work]').forEach(btn=>btn.addEventListener('click',()=>{
+      editorWork=btn.dataset.rtWork==='work';
+      $$('[data-rt-work]').forEach(x=>x.classList.toggle('active',x===btn))
+    }));
+    $('#rtEditorAddCheck')?.addEventListener('click',()=>{
+      editorChecks.push({text:'',done:false});
+      renderEditorChecks(editorChecks.length-1)
+    });
+
+    $('[data-rt-calendar-cancel]')?.addEventListener('click',closeCalendarSheet);
+    $('[data-rt-calendar-confirm]')?.addEventListener('click',confirmCalendarSend);
+    $$('[data-rt-date-offset]').forEach(btn=>btn.addEventListener('click',()=>{
+      const d=new Date();
+      d.setDate(d.getDate()+Number(btn.dataset.rtDateOffset||0));
+      $('#rtCalendarDate').value=localDate(d)
+    }));
+
+    document.addEventListener('keydown',e=>{
+      if(!mq.matches)return;
+      if(e.key==='Escape'){
+        if(!$('#rtInboxEditor')?.classList.contains('hidden')){closeEditor();return}
+        if(!$('#rtCalendarSendSheet')?.classList.contains('hidden')){closeCalendarSheet();return}
+      }
+      if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&currentScreen==='inbox'){
+        const active=document.activeElement;
+        if(active?.matches?.('input,textarea,[contenteditable]'))return;
+        e.preventDefault();
+        openEditor(null)
+      }
+    });
+
+    /* Override the old immediate Calendar button on mobile: choose a date first. */
+    document.addEventListener('click',e=>{
+      if(!mq.matches)return;
+      const calendarButton=e.target.closest?.('.go-timetable');
+      if(calendarButton){
+        const card=calendarButton.closest('.card');
+        if(!card)return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        openCalendarSheet(card.dataset.id);
+        return
+      }
+
+      const more=e.target.closest?.('.rt-card-more');
+      if(more){
+        e.preventDefault();e.stopPropagation();
+        const card=more.closest('.card');
+        $$('.rt-card-menu').forEach(menu=>{
+          if(menu!==card.querySelector('.rt-card-menu'))menu.classList.add('hidden')
+        });
+        card.querySelector('.rt-card-menu')?.classList.toggle('hidden');
+        return
+      }
+
+      const menuAction=e.target.closest?.('[data-rt-card-action]');
+      if(menuAction){
+        e.preventDefault();e.stopPropagation();
+        const card=menuAction.closest('.card');
+        const item=core?.getItem?.(card?.dataset.id);
+        if(!item)return;
+        if(menuAction.dataset.rtCardAction==='archive'){
+          core.updateItem(item.id,{status:'archive'})
+        }else if(menuAction.dataset.rtCardAction==='delete'){
+          if(confirm('이 메모를 휴지통으로 보낼까요?')){
+            core.updateItem(item.id,{status:'deleted'})
+          }
+        }
+        card.querySelector('.rt-card-menu')?.classList.add('hidden');
+        setTimeout(enhanceInbox,0);
+        return
+      }
+
+      const cardContent=e.target.closest?.('.rt-inbox-card-content');
+      if(cardContent&&!e.target.closest('button,input')){
+        const card=cardContent.closest('.card');
+        if(card)openEditor(card.dataset.id)
+      }
+    },true);
+  };
+
+  const localDate=(d=new Date())=>{
+    const y=d.getFullYear();
+    const m=String(d.getMonth()+1).padStart(2,'0');
+    const day=String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`
+  };
+
+  const openCalendarSheet=itemId=>{
+    pendingCalendarItemId=itemId;
+    $('#rtCalendarDate').value=localDate();
+    $('#rtCalendarSendSheet')?.classList.remove('hidden')
+  };
+  const closeCalendarSheet=()=>{
+    pendingCalendarItemId=null;
+    $('#rtCalendarSendSheet')?.classList.add('hidden')
+  };
+  const confirmCalendarSend=()=>{
+    const date=$('#rtCalendarDate')?.value||localDate();
+    if(!pendingCalendarItemId)return;
+    try{
+      window.RTCalendar?.planItem?.(pendingCalendarItemId,date);
+      closeCalendarSheet();
+      switchScreen('day',date);
+      setTimeout(enhanceInbox,0)
+    }catch(err){
+      alert(err?.message||'Calendar로 보내지 못했습니다.')
+    }
+  };
+
+  const renderEditorChecks=focusIndex=>{
+    const root=$('#rtEditorChecks');
+    if(!root)return;
+    root.innerHTML=editorChecks.map((row,i)=>`
+      <div class="rt-editor-check-row" data-check-index="${i}">
+        <input type="checkbox" ${row.done?'checked':''}>
+        <input type="text" value="${esc(row.text||'')}" placeholder="체크리스트">
+        <button type="button" aria-label="삭제">×</button>
+      </div>`).join('');
+
+    $$('.rt-editor-check-row',root).forEach(row=>{
+      const i=Number(row.dataset.checkIndex);
+      const checkbox=$('input[type=checkbox]',row);
+      const input=$('input[type=text]',row);
+      const del=$('button',row);
+      checkbox.onchange=()=>editorChecks[i].done=checkbox.checked;
+      input.oninput=()=>editorChecks[i].text=input.value;
+      input.onkeydown=e=>{
+        if(e.key==='Enter'){
+          e.preventDefault();
+          editorChecks.splice(i+1,0,{text:'',done:false});
+          renderEditorChecks(i+1)
+        }
+      };
+      del.onclick=()=>{
+        editorChecks.splice(i,1);
+        renderEditorChecks()
+      }
+    });
+    if(Number.isFinite(focusIndex)){
+      setTimeout(()=>$$('.rt-editor-check-row input[type=text]',root)[focusIndex]?.focus(),0)
+    }
+  };
+
+  const openEditor=itemId=>{
+    editorItemId=itemId||null;
+    const item=itemId?core?.getItem?.(itemId):null;
+    const raw=String(item?.content||'').replace(/\r/g,'');
+    const lines=raw.split('\n');
+    $('#rtEditorTitle').value=item?titleOf(item):'';
+    $('#rtEditorBody').value=item?lines.slice(1).join('\n').replace(/(^|\s)[#@][^\s#@]+/g,' ').trim():'';
+    const projects=item?parseProjects(item.content):[];
+    const tags=item?parseTags(item.content):[];
+    $('#rtEditorProject').value=projects.join(', ');
+    $('#rtEditorTags').value=tags.join(', ');
+    editorWork=!!item?.work;
+    $$('[data-rt-work]').forEach(btn=>
+      btn.classList.toggle('active',(btn.dataset.rtWork==='work')===editorWork)
+    );
+    editorChecks=liveTasks(item).map(t=>({id:t.id,text:t.text,done:!!t.done}));
+    renderEditorChecks();
+    $('#rtInboxEditor')?.classList.remove('hidden');
+    setTimeout(()=>$('#rtEditorTitle')?.focus(),30)
+  };
+
+  const closeEditor=()=>{
+    editorItemId=null;
+    editorChecks=[];
+    $('#rtInboxEditor')?.classList.add('hidden')
+  };
+
+  const saveEditor=()=>{
+    const title=String($('#rtEditorTitle')?.value||'').trim();
+    const body=String($('#rtEditorBody')?.value||'').trim();
+    const projects=String($('#rtEditorProject')?.value||'')
+      .split(',').map(x=>x.trim().replace(/^@/,'')).filter(Boolean);
+    const tags=String($('#rtEditorTags')?.value||'')
+      .split(',').map(x=>x.trim().replace(/^#/,'')).filter(Boolean);
+
+    const tokens=[
+      ...projects.map(x=>'@'+x.replace(/\s+/g,'_')),
+      ...tags.map(x=>'#'+x.replace(/\s+/g,'_'))
+    ].join(' ');
+
+    const content=[title,body,tokens].filter(Boolean).join('\n').trim();
+    const checks=editorChecks.filter(x=>String(x.text||'').trim());
+
+    try{
+      if(editorItemId){
+        const old=core.getItem(editorItemId);
+        core.updateItem(editorItemId,{content,work:editorWork});
+        const oldTasks=liveTasks(old);
+        oldTasks.forEach(task=>{
+          const row=checks.find(x=>x.id===task.id);
+          if(!row)core.removeChecklistItem(editorItemId,task.id);
+          else core.updateChecklistItem(editorItemId,task.id,{text:row.text,done:row.done})
+        });
+        checks.filter(x=>!x.id).forEach(row=>core.addChecklistItem(editorItemId,row.text))
+      }else{
+        core.createItem({content,work:editorWork,checklist:checks})
+      }
+      closeEditor();
+      setTimeout(enhanceInbox,0)
+    }catch(err){
+      alert(err?.message||'저장하지 못했습니다.')
+    }
+  };
+
+  const enhanceInbox=()=>{
+    if(!mq.matches||!core)return;
+    const items=core.getItems?.()||[];
+    const itemMap=new Map(items.map(x=>[x.id,x]));
+    const inboxItems=items.filter(isInboxItem);
+    const work=inboxItems.filter(x=>x.work).length;
+    const personal=inboxItems.filter(x=>!x.work).length;
+
+    if($('#rtStatInbox'))$('#rtStatInbox').textContent=inboxItems.length;
+    if($('#rtStatWork'))$('#rtStatWork').textContent=work;
+    if($('#rtStatPersonal'))$('#rtStatPersonal').textContent=personal;
+
+    let visibleCount=0;
+
+    $$('#list .card').forEach(card=>{
+      const item=itemMap.get(card.dataset.id);
+      if(!item)return;
+
+      const scheduled=activeEntries(item.id).length>0;
+      const filterMismatch=
+        inboxFilter==='work'? !item.work :
+        inboxFilter==='personal'? !!item.work :
+        false;
+
+      card.classList.toggle('rt-inbox-hidden',scheduled||filterMismatch);
+      if(scheduled||filterMismatch)return;
+      visibleCount++;
+
+      const left=card.querySelector('.left');
+      if(!left)return;
+
+      let content=left.querySelector('.rt-inbox-card-content');
+      if(!content){
+        content=document.createElement('div');
+        content.className='rt-inbox-card-content';
+        left.insertBefore(content,left.firstChild)
+      }
+
+      const body=cleanBody(item.content);
+      const tasks=liveTasks(item);
+      const done=tasks.filter(t=>t.done).length;
+      const projects=parseProjects(item.content);
+      const tags=parseTags(item.content);
+
+      content.innerHTML=`
+        <h3 class="rt-inbox-card-title">${esc(titleOf(item))}</h3>
+        ${body?`<p class="rt-inbox-card-preview">${esc(body)}</p>`:''}
+        ${tasks.length?`<div class="rt-check-preview">
+          ${tasks.slice(0,3).map(t=>`<div class="rt-check-preview-row ${t.done?'done':''}">
+            <i></i><span>${esc(t.text)}</span>
+          </div>`).join('')}
+        </div>`:''}
+        <div class="rt-card-meta">
+          <span class="rt-meta-chip ${item.work?'':'subtle'}">${item.work?'업무':'개인'}</span>
+          ${projects.slice(0,2).map(p=>`<span class="rt-meta-chip project">@${esc(p)}</span>`).join('')}
+          ${tags.slice(0,2).map(t=>`<span class="rt-meta-chip subtle">#${esc(t)}</span>`).join('')}
+          ${tasks.length?`<span class="rt-meta-chip count">${done}/${tasks.length}</span>`:''}
+        </div>`;
+
+      const tools=card.querySelector('.card-tools');
+      if(tools&&!tools.querySelector('.rt-card-more')){
+        const more=document.createElement('button');
+        more.type='button';
+        more.className='rt-card-more';
+        more.setAttribute('aria-label','더보기');
+        more.textContent='⋮';
+        tools.appendChild(more)
+      }
+      if(!card.querySelector('.rt-card-menu')){
+        card.insertAdjacentHTML('beforeend',`
+          <div class="rt-card-menu hidden">
+            <button type="button" data-rt-card-action="archive">보관함으로 이동</button>
+            <button type="button" data-rt-card-action="delete">휴지통으로 이동</button>
+          </div>`)
+      }
+    });
+
+    if($('#rtInboxCount'))$('#rtInboxCount').textContent=`${visibleCount}개의 항목`;
+  };
+
+  const renderProjects=()=>{
+    if(!core)return;
+    const root=$('#rtProjectsPage');
+    if(!root)return;
+    const items=(core.getItems?.()||[]).filter(x=>x.status!=='deleted');
+    const entries=core.getCalendarEntries?.()||[];
+    const projects=new Map();
+
+    items.forEach(item=>{
+      parseProjects(item.content).forEach(name=>{
+        if(!projects.has(name))projects.set(name,{name,items:new Set(),entries:[],minutes:0});
+        projects.get(name).items.add(item.id)
+      })
+    });
+    entries.forEach(entry=>{
+      const item=items.find(x=>x.id===entry.itemId);
+      if(!item)return;
+      parseProjects(item.content).forEach(name=>{
+        if(!projects.has(name))projects.set(name,{name,items:new Set(),entries:[],minutes:0});
+        const p=projects.get(name);
+        p.items.add(item.id);
+        p.entries.push(entry);
+        p.minutes+=Number(entry.plannedDurationMinutes)||0
+      })
+    });
+
+    const list=[...projects.values()].sort((a,b)=>b.entries.length-a.entries.length||a.name.localeCompare(b.name,'ko'));
+    root.innerHTML=`
+      <div class="rt-project-intro">
+        <h2>Projects</h2>
+        <p>현재 @프로젝트와 Calendar 실행 기록을 가볍게 모아봅니다. 정식 프로젝트 대시보드는 다음 단계에서 확장합니다.</p>
+      </div>
+      <div class="rt-project-list">
+        ${list.length?list.map(p=>`
+          <article class="rt-project-card">
+            <div class="rt-project-card-top">
+              <h3>@${esc(p.name)}</h3>
+              <span class="count">${p.entries.length} 일정</span>
+            </div>
+            <div class="rt-project-metrics">
+              <div class="rt-project-metric"><b>${p.items.size}</b><span>관련 Item</span></div>
+              <div class="rt-project-metric"><b>${p.entries.length}</b><span>Calendar</span></div>
+              <div class="rt-project-metric"><b>${(p.minutes/60).toFixed(p.minutes%60?1:0)}h</b><span>계획 시간</span></div>
+            </div>
+          </article>`).join(''):'<div class="rt-project-card">아직 @프로젝트가 없습니다.</div>'}
+      </div>`
+  };
+
+  const switchScreen=(screen,date)=>{
+    currentScreen=screen;
+    document.body.classList.remove(
+      'rt-screen-inbox','rt-screen-calendar','rt-screen-project'
+    );
+
+    $$('#rtBottomNav [data-rt-screen]').forEach(btn=>
+      btn.classList.toggle('active',btn.dataset.rtScreen===screen)
+    );
+
+    if(screen==='inbox'){
+      document.body.classList.add('rt-screen-inbox');
+      setHeader('Inbox','오늘도 하나씩 정리해봐요');
+      core?.setMode?.('memo');
+      setTimeout(enhanceInbox,0);
+      return
+    }
+
+    if(screen==='project'){
+      document.body.classList.add('rt-screen-project');
+      setHeader('Projects','큰 흐름과 실행 기록을 모아봐요');
+      renderProjects();
+      return
+    }
+
+    document.body.classList.add('rt-screen-calendar');
+    const labels={month:['Month','먼 일정을 한눈에 살펴봐요'],week:['Week','이번 주의 시간을 가볍게 나눠봐요'],day:['Day','오늘 해야 할 일에 집중해요']};
+    setHeader(...labels[screen]);
+    core?.setMode?.('calendar');
+    setTimeout(()=>window.RTCalendar?.setView?.(screen,date),0)
+  };
+
+  const observe=()=>{
+    const root=$('#list');
+    if(!root)return;
+    let queued=false;
+    new MutationObserver(()=>{
+      if(queued)return;
+      queued=true;
+      requestAnimationFrame(()=>{
+        queued=false;
+        if(currentScreen==='inbox')enhanceInbox()
+      })
+    }).observe(root,{childList:true,subtree:true});
+  };
+
+  const boot=()=>{
+    core=window.RTCore||null;
+    if(!core)return false;
+    installShell();
+    observe();
+    document.body.classList.add('rt-screen-inbox');
+    setHeader('Inbox','오늘도 하나씩 정리해봐요');
+    enhanceInbox();
+    return true
+  };
+
+  window.addEventListener('rtcore:ready',()=>boot(),{once:true});
+  window.addEventListener('rtcore:itemschanged',()=>{
+    if(currentScreen==='inbox')setTimeout(enhanceInbox,0);
+    if(currentScreen==='project')setTimeout(renderProjects,0)
+  });
+
+  if(!boot()){
+    let count=0;
+    const timer=setInterval(()=>{
+      count++;
+      if(boot()||count>100)clearInterval(timer)
+    },50)
+  }
+})();
+</script>
+
+</body></html>
